@@ -3,11 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Button from "./components/Button";
+import ShareButton from "./components/ShareButton";
+import PopUp from "./components/PopUp";
+import MainObj from "./components/MainObj";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Button />
+    <MainObj />
   </React.StrictMode>,
   document.getElementById("root")
 );
