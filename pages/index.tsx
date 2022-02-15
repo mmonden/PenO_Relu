@@ -1,5 +1,6 @@
-import AnnotationBar from '../components/annotionbar'
+import AnnotationBar from '../components/annotationbar'
 import { ICard } from '../types'
+import { getAnnotations, writeAnnotation } from '../lib/annotations'
 
 export default function Home() {
 
@@ -10,4 +11,14 @@ export default function Home() {
       <AnnotationBar cards={testData}/>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+
+  const annotations = await getAnnotations();
+
+
+  return {
+    props: {annotations}, // will be passed to the page component as props
+  }
 }
