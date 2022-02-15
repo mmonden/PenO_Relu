@@ -4,7 +4,7 @@ const Button = () => {
   return (
     <div>
       <button className="bg-blue-700 text-3xl fond-bold underline">
-        Hallo wereld
+        Hallowereld
       </button>
     </div>
   );
