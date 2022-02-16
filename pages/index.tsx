@@ -1,19 +1,17 @@
 import AnnotationBar from '../components/annotationbar'
-import { ICard } from '../types'
 import { getAnnotations, writeAnnotation } from '../lib/annotations'
+import { GetServerSideProps } from 'next';
 
-export default function Home() {
-
-  let testData: ICard[] = Array(5).fill({title:'Teveel aan fluorose', text: 'Dirk heeft te veel fluorose, we zullen een facing process moeten beginnen.'})
+export default function Home({annotations}) {
 
   return (
     <div className="min-h-screen min-w-screen">
-      <AnnotationBar cards={testData}/>
+      <AnnotationBar cards={annotations}/>
     </div>
   )
 }
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const annotations = await getAnnotations();
 

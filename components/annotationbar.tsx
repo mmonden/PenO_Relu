@@ -5,6 +5,7 @@ import { INSPECT_MAX_BYTES } from "buffer";
 type AnnotationBarProps = {
 	cards: ICard[]
 }
+
 export default function AnnotationBar({ cards }: AnnotationBarProps) {
 	
 	return (
@@ -13,7 +14,7 @@ export default function AnnotationBar({ cards }: AnnotationBarProps) {
 				Annotaties
 			</div>
 
-			<div className="divide-y-2">
+			<div className="divide-y-2 ">
 				{cards.map((item, index) =>{
 					return <AnnotationCard key={index} card={item}/>
 				})}
