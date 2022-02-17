@@ -1,20 +1,21 @@
 import { ICard } from "../types"
-import { AiOutlineEdit, AiOutlineSave } from "react-icons/ai"
+import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai"
 import { useState } from "react"
 import { writeAnnotation } from '../lib/annotations'
 
 type AnnotationCardProps = {
-	card: ICard
+	card: ICard,
+	deleteCard: Function
 }
 
-export default function AnnotationCard({card}: AnnotationCardProps) {
+export default function AnnotationCard({card, deleteCard}: AnnotationCardProps) {
 
 	const [editing, setEdit] = useState(false)
 	const [title, setTitle] = useState(card.title)
 	const [text, setText] = useState(card.text)
 
-	const toggleEdit = async () => {
-		if (editing) {
+	const toggleEdit = () => {
+		if (editing && (title != card.title || text != card.text)) {
 			card.title = title
 			card.text = text
 
@@ -27,6 +28,18 @@ export default function AnnotationCard({card}: AnnotationCardProps) {
 			})
 		}
 		setEdit(editing ? false : true)
+	}
+
+	const onDelete = () => {
+		deleteCard(card._id)
+
+		fetch('/api/delete_anno',{
+			method: 'POST',
+			body: JSON.stringify({card}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
 	}
 	
 
@@ -47,7 +60,8 @@ export default function AnnotationCard({card}: AnnotationCardProps) {
 				</div>
 			</form>
 			<div className="text-gray-700 text-2xl">
-				<button onClick={toggleEdit}>{editing ? <AiOutlineSave/> : <AiOutlineEdit/>}</button>
+				<button className="m-2" onClick={toggleEdit}>{editing ? <AiOutlineSave/> : <AiOutlineEdit/>}</button>
+				<button className="m-2" onClick={onDelete}><AiOutlineDelete/></button>
 			</div>
 		</div>
 	)

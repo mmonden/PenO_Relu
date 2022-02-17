@@ -1,12 +1,15 @@
 import AnnotationCard from "./annotationcard";
 import { ICard } from "../types";
-import { INSPECT_MAX_BYTES } from "buffer";
 
 type AnnotationBarProps = {
 	cards: ICard[]
 }
 
 export default function AnnotationBar({ cards }: AnnotationBarProps) {
+
+	const deleteCard = (cardID) => {
+		cards = cards.filter((card) => card._id != cardID)
+	}
 	
 	return (
 		<div className="w-1/4 min-h-screen border-black border rounded-r-[5rem] flex flex-col items-center ">
@@ -16,7 +19,7 @@ export default function AnnotationBar({ cards }: AnnotationBarProps) {
 
 			<div className="divide-y-2 ">
 				{cards.map((item, index) =>{
-					return <AnnotationCard key={index} card={item}/>
+					return <AnnotationCard key={index} card={item} deleteCard={deleteCard}/>
 				})}
 			</div>
 		</div>
