@@ -1,9 +1,7 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Tanden from '../src/layout/Tanden.jsx'
+import Anatomy from '../src/layout/Anatomy.jsx'
 
 export default function Home() {
 	return (
-		<Tanden />
+		<Anatomy />
 	)
 }
