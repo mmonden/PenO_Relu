@@ -115,6 +115,48 @@
   }
 }
 
+.BackIcon {
+  display: block;
+
+  grid-area: sidebar-back;
+  z-index: 1;
+}
+
 .Sidebar {
-  background-color: rgb(133, 133, 133);
+  display: grid;
+  grid-template-columns: 75%;
+  grid-template-rows: 30px 50% 2px 85%;
+  grid-template-areas: 
+    "main sidebar-back"
+    "main sidebar-anatomy"
+    "main sidebar-line"
+    "main sidebar-display";
+}
+
+.Sidebar_Back {
+  border: 2px solid rgb(130, 133, 139);
+  background-color: rgb(130, 133, 139);
+
+  grid-area: sidebar-back;
+  z-index: 0;
+}
+
+.Sidebar_Line {
+  border-top: 2px solid rgb(130, 133, 139);
+
+  grid-area: sidebar-line;
+}
+
+.Sidebar_Anatomy {
+  background-color: rgb(251, 251, 251);
+  color: rgb(20, 38, 83);
+
+  grid-area: sidebar-anatomy;
+}
+
+.Sidebar_Display {
+  background-color: rgb(251, 251, 251);
+  color: rgb(20, 38, 83);
+
+  grid-area: sidebar-display;
 }

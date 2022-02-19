@@ -1,7 +1,34 @@
-var Sidebar = () =>
+import styles from '../../styles/Home.module.css';
+
+/**grid from: https://css-tricks.com/snippets/css/complete-guide-grid/ */
+
+function SidebarOption({ text }) 
+{
+	return (
+		<div>
+			<h1>{text}</h1>
+		</div>
+	);
+}
+
+const Sidebar = () =>
 {
 	return(
-		null
+		<div id="sidebar" className={styles.Sidebar}>
+			<main id="line" className={styles.Sidebar_Back}>
+				{/* <img id="icon" src="https://w7.pngwing.com/pngs/748/184/png-transparent-computer-icons-arrow-arrow-angle-triangle-human-back-thumbnail.png" width="500" height="600"/> */}
+			</main>
+
+			<main id="anatomy" className={styles.Sidebar_Anatomy}>
+				<SidebarOption text="Anatomy Selector"/>
+			</main>
+
+			<main id="line" className={styles.Sidebar_Line}/>
+
+			<main id="display" className={styles.Sidebar_Display}>
+				<SidebarOption text="Display"/>
+			</main>
+		</div>
 	);
 }
 

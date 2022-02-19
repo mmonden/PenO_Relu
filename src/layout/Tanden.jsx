@@ -1,6 +1,6 @@
 import styles from '../../styles/Home.module.css';
 
-var Tanden = () => 
+const Tanden = () => 
 {
 	return (
 		<div className={styles.container}>
