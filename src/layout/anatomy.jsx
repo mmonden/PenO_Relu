@@ -4,9 +4,8 @@ import Sidebar from './Sidebar.jsx'
 
 const Anatomy = () => {
 	return(
-		<React.Fragment >
+		<React.Fragment>
 			<Sidebar />
-			<Tanden />
 		</React.Fragment>
 	)
 }
