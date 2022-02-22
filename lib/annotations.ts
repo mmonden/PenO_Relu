@@ -9,6 +9,7 @@ export async function getAnnotations() {
 
 export async function writeAnnotation(annotation: ICard) {
 	const { db } = await connectToDatabase();
+	delete annotation.new;
 
 	const opts = {upsert: true}
 	await db.collection("annotations").updateOne({"_id": annotation._id}, {$set: annotation}, opts)

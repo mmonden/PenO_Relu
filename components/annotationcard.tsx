@@ -1,7 +1,6 @@
 import { ICard } from "../types"
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai"
 import { useState } from "react"
-import { writeAnnotation } from '../lib/annotations'
 
 type AnnotationCardProps = {
 	card: ICard,
@@ -10,7 +9,7 @@ type AnnotationCardProps = {
 
 export default function AnnotationCard({card, deleteCard}: AnnotationCardProps) {
 
-	const [editing, setEdit] = useState(false)
+	const [editing, setEdit] = useState(card.new)
 	const [title, setTitle] = useState(card.title)
 	const [text, setText] = useState(card.text)
 

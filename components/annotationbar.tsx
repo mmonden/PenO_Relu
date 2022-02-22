@@ -2,6 +2,7 @@ import AnnotationCard from "./annotationcard";
 import { ICard } from "../types";
 import { GrAdd } from "react-icons/gr"
 import { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 type AnnotationBarProps = {
 	cardsInput: ICard[]
@@ -14,6 +15,13 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
 	}
 
 	const newCard = () => {
+		const new_card: ICard = {
+			"_id": uuidv4(),
+			"title": "",
+			"text": "",
+			"new": true
+		}
+		setCards([...cards, new_card]);
 		
 	}
 	
