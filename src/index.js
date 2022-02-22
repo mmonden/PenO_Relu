@@ -9,7 +9,7 @@ import MainObj from "./components/MainObj";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ShareButton />
+    <PopUp />
   </React.StrictMode>,
   document.getElementById("root")
 );
