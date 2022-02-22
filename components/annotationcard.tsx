@@ -7,7 +7,7 @@ type AnnotationCardProps = {
 	deleteCard: Function
 }
 
-export default function AnnotationCard({card, deleteCard}: AnnotationCardProps) {
+export default function AnnotationCard({ card, deleteCard }: AnnotationCardProps) {
 
 	const [editing, setEdit] = useState(card.new)
 	const [title, setTitle] = useState(card.title)
@@ -18,9 +18,9 @@ export default function AnnotationCard({card, deleteCard}: AnnotationCardProps) 
 			card.title = title
 			card.text = text
 
-			fetch('/api/write_anno',{
+			fetch('/api/write_anno', {
 				method: 'POST',
-				body: JSON.stringify({card}),
+				body: JSON.stringify({ card }),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -32,35 +32,35 @@ export default function AnnotationCard({card, deleteCard}: AnnotationCardProps) 
 	const onDelete = () => {
 		deleteCard(card._id)
 
-		fetch('/api/delete_anno',{
+		fetch('/api/delete_anno', {
 			method: 'POST',
-			body: JSON.stringify({card}),
+			body: JSON.stringify({ card }),
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
 	}
-	
+
 
 	return (
 		<div className="flex items-center">
 			<form className="w-80 text-gray-700 p-5">
 				<div className="text-2xl mb-2">
-					{ editing ?
-						<input className="border-2" type="text" value={title} onChange={(e) => setTitle(e.target.value)}/> :
+					{editing ?
+						<input className="border-2" type="text" value={title} onChange={(e) => setTitle(e.target.value)} /> :
 						title
 					}
 				</div>
 				<div>
-					{ editing ?
-					<textarea className="w-full border-2" value={text} onChange={(e) => setText(e.target.value)}/> :
-					text
-				}
+					{editing ?
+						<textarea className="w-full border-2" value={text} onChange={(e) => setText(e.target.value)} /> :
+						text
+					}
 				</div>
 			</form>
 			<div className="text-gray-700 text-2xl">
-				<button className="m-2" onClick={toggleEdit}>{editing ? <AiOutlineSave/> : <AiOutlineEdit/>}</button>
-				<button className="m-2" onClick={onDelete}><AiOutlineDelete/></button>
+				<button className="m-2" onClick={toggleEdit}>{editing ? <AiOutlineSave /> : <AiOutlineEdit />}</button>
+				<button className="m-2" onClick={onDelete}><AiOutlineDelete /></button>
 			</div>
 		</div>
 	)
