@@ -1,7 +1,7 @@
-import Anatomy from '../src/layout/Anatomy.jsx'
+import Sidebar from '../components/layout/Sidebar'
 
 export default function Home() {
 	return (
-		<Anatomy />
+		<Sidebar />
 	)
 }

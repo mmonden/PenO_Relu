@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/layout/Anatomy.jsx", "components/layout/Back.jsx", "components/layout/Display.jsx", "components/layout/Line.jsx", "components/layout/Sidebar.jsx", "components/layout/Tanden.jsx"  ],
   "exclude": [
     "node_modules"
   ]
