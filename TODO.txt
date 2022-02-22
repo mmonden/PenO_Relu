@@ -1,0 +1,1 @@
+1. email fixen door .env bestand aan te passen
