@@ -26,7 +26,7 @@ export interface user {
     name: string,
     role: string, //user of dentist
     email: string,
-    password: string, //ehhh nothing to see here, is voor beveiliging en niet het echte w8woord
+    password: string, //ehhh kijkuit hiermee
     created_at: Timestamp,
     updated_at: Timestamp,
     new?: boolean
