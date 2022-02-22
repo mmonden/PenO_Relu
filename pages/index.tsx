@@ -6,7 +6,7 @@ export default function Home({annotations}) {
 
   return (
     <div className="min-h-screen min-w-screen">
-      <AnnotationBar cards={annotations}/>
+      <AnnotationBar cardsInput={annotations}/>
     </div>
   )
 }
