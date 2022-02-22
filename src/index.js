@@ -1,11 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ShareButton from "./components/ShareButton";
 import PopUp from "./components/PopUp";
-import MainObj from "./components/MainObj";
 
 ReactDOM.render(
   <React.StrictMode>
