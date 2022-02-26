@@ -27,11 +27,13 @@ export default function Stlviewer() {
       0.1,
       1000
     );
-    camera.position.z = 3;
 
+    camera.position.set(0,-3,3); // Set position like this
+    camera.lookAt(new THREE.Vector3(0,-3,3)); // Set look at coordinate like this
+    
     const renderer = new THREE.WebGLRenderer();
     renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth*(2/3), window.innerHeight*(2/3));
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
