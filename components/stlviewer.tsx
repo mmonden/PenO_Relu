@@ -8,13 +8,18 @@ export default function Stlviewer() {
   const threeContainerRef = useRef(null);
   useEffect(() => {
 
-
     const scene = new THREE.Scene();
-    const light = new THREE.SpotLight()
+
     scene.background = new THREE.Color( 0x52586E );
 
-    light.position.set(20, 20, 20)
-    scene.add(light)
+    let followLight = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+    followLight.position.set(20, 100, 10);
+    followLight.target.position.set(0, 0, 0);
+    followLight.castShadow = true;
+    scene.add(followLight);
+
+    let light = new THREE.AmbientLight(0xffffff, 0.3);
+    scene.add(light);
 
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -32,31 +37,21 @@ export default function Stlviewer() {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    const envTexture = new THREE.CubeTextureLoader().load([
-      "img/px_50.png",
-      "img/nx_50.png",
-      "img/py_50.png",
-      "img/ny_50.png",
-      "img/pz_50.png",
-      "img/nz_50.png",
-    ]);
-    envTexture.mapping = THREE.CubeReflectionMapping;
-
-    const material = new THREE.MeshPhysicalMaterial({
+    const material = new THREE.MeshPhongMaterial({
       color: 0xffffff,
-      envMap: envTexture,
-      metalness: 0,
-      roughness: 0,
+      metalness: 0.25,
+      roughness: 0.1,
       opacity: 1.0,
-      transparent: false,
-      transmission: 1,
-      clearcoat: 1,
-      clearcoatRoughness: 0.25,
-    });
+      transparent: true,
+      transmission: 0.99,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.25
+  })
+  
 
     const loader = new STLLoader();
     loader.load(
-      "http://localhost:3000/Mandible.stl",
+      "http://localhost:3000/Skull.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
@@ -87,6 +82,7 @@ export default function Stlviewer() {
     }
 
     function render() {
+      followLight.position.copy(camera.position );
       renderer.render(scene, camera);
     }
 
