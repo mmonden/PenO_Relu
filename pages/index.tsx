@@ -1,16 +1,16 @@
 import AnnotationBar from '../components/annotationbar'
-import { getAnnotations, writeAnnotation } from '../lib/annotations'
+import { getAnnotations, writeAnnotation, getFiles} from '../lib/annotations'
 import { GetServerSideProps } from 'next';
 import Stlviewer from '../components/stlviewer';
-import PopUp from '../components/PopUp';
+import PopUp from '../components/PopUp'
 
-export default function Home({annotations}) {
+export default function Home({annotations, files}) {
 
   return (
     <div className="min-h-screen min-w-screen">
       <AnnotationBar cardsInput={annotations}/>
       <div className="flex justify-end items-end absolute inset-0 z-10">
-      <PopUp />
+      <PopUp file={files[0]} />
       </div>
       <div>
       <Stlviewer />
@@ -21,11 +21,12 @@ export default function Home({annotations}) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
-  const annotations = await getAnnotations();
   const files = await getFiles();
+  const annotations = await getAnnotations(files[0]);
 
 
   return {
-    props: {annotations}, // will be passed to the page component as props
+    props: {annotations, files},
+     // will be passed to the page component as props
   }
 }
