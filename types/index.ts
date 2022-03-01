@@ -4,3 +4,10 @@ export interface ICard {
 	text: string,
 	new?: boolean
 }
+
+export interface IFile {
+	_id: number,
+	title: string,
+	card_ids: number[],
+	cards?: ICard[]
+}

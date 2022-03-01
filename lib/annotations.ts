@@ -1,9 +1,15 @@
 import { connectToDatabase } from "./mongodb";
-import { ICard } from "../types";
+import { ICard, IFile } from "../types";
 
-export async function getAnnotations() {
+export async function getFiles() {
 	const { db } = await connectToDatabase();
-	const annotations = await db.collection("annotations").find().toArray();
+	const files = await db.collection("files").find().toArray();
+	return files
+}
+
+export async function getAnnotations(file: IFile) {
+	const { db } = await connectToDatabase();
+	const annotations = await db.collection("annotations").find({ _id: { $in: file.card_ids}}).toArray();
 	return annotations;
 }
 
