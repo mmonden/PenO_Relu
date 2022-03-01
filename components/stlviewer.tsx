@@ -40,7 +40,7 @@ export default function Stlviewer() {
 
     const renderer = new THREE.WebGLRenderer();
     renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.setSize(window.innerWidth * (2 / 3), window.innerHeight * (2 / 3));
+    renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
