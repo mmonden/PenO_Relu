@@ -3,7 +3,8 @@ import AnnotationBar from '../components/annotationbar'
 import { getAnnotations, writeAnnotation } from '../lib/annotations'
 import { GetServerSideProps } from 'next';
 import PopUp from '../components/PopUp';
-;
+import Sidebar from '../components/layout/Sidebar';
+
 
 export default function Home({annotations}) {
 
@@ -11,8 +12,9 @@ export default function Home({annotations}) {
     <div className="min-h-screen min-w-screen">
       <AnnotationBar cardsInput={annotations}/>
       <div className="flex justify-end items-end absolute inset-0 z-10">
-      <PopUp />
+        <PopUp />
       </div>
+      <Sidebar />
     </div>
   )
 }
