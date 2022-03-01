@@ -17,8 +17,8 @@
 >>>>>>> Stashed changes
     "mongodb": "^4.3.1",
     "next": "^12.1.0",
-    "react": "^18.0.0-rc.0",
-    "react-dom": "^18.0.0-rc.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "reactjs-popup": "^2.0.5",
     "three": "^0.137.5",
