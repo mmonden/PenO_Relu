@@ -2,8 +2,23 @@ import Popup from "reactjs-popup";
 import ShareButton from "./ShareButton";
 import { TextField } from "@mui/material";
 import React from "react";
+import { IFile } from "../types";
+
+
+type FileCardProps = {
+  file: IFile;
+};
+
+//Hoe lees ik mijn files in en hoe weet ik welke file ik uit mijn database? --> toch een contradictie want
+// ik moet mijn id daar uit halen maar ik heb mijn id daar al voor nodig.
+function GetURL({ file }: FileCardProps) {
+  const id = file._id
+  let url = "http://localhost:3000/" + id.toString()
+  return url
+  }
 
 const PopUp = () => {
+  const url = "www.test.be"
   return (
     <Popup trigger={ShareButton} modal>
       {(close) => (
@@ -45,7 +60,7 @@ const PopUp = () => {
               id="filled-hidden-label-small"
               disabled
               label="Link"
-              defaultValue="www.google.com"
+              defaultValue= {url} //Hier kan je ook gewoon function call doen
               variant="filled"
             ></TextField>
           </div>

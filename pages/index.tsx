@@ -12,7 +12,7 @@ export default function Home({annotations}) {
       <div className="flex justify-end items-end absolute inset-0 z-10">
       <PopUp />
       </div>
-      <div className="flex items-centre absolute inset-0 z-1000">
+      <div>
       <Stlviewer />
       </div>
     </div>
@@ -22,6 +22,7 @@ export default function Home({annotations}) {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const annotations = await getAnnotations();
+  const files = await getFiles();
 
 
   return {
