@@ -1,5 +1,5 @@
 import AnnotationBar from '../components/annotationbar'
-import { getAnnotations, writeAnnotation } from '../lib/annotations'
+import { getAnnotations, getFiles } from '../lib/annotations'
 import { GetServerSideProps } from 'next';
 
 export default function Home({annotations}) {
@@ -13,7 +13,9 @@ export default function Home({annotations}) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
-  const annotations = await getAnnotations();
+  // TODO: Now just loads random file
+  const files = await getFiles()
+  const annotations = await getAnnotations(files[0]);
 
 
   return {

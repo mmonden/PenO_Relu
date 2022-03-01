@@ -9,6 +9,7 @@ type FileCardProps = {
 export default function FileCard({ file }: FileCardProps) {
     return (
         <Link href="/">
+			<a>
             <div className="flex items-center">
                 <AiOutlineFile className="text-5xl" />
                 <div className="w-80 text-gray-700 p-5">
@@ -16,6 +17,7 @@ export default function FileCard({ file }: FileCardProps) {
                     <div></div>
                 </div>
             </div>
+			</a>
         </Link>
     );
 }
