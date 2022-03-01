@@ -12,7 +12,7 @@ export default function Home({annotations}) {
       <div className="flex justify-end items-end absolute inset-0 z-10">
       <PopUp />
       </div>
-      <div className="...">
+      <div className="flex items-centre absolute inset-0 z-1000">
       <Stlviewer />
       </div>
     </div>
