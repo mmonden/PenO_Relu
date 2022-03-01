@@ -1,10 +1,8 @@
-import type { NextPage } from 'next'
 import AnnotationBar from '../components/annotationbar'
 import { getAnnotations, writeAnnotation } from '../lib/annotations'
 import { GetServerSideProps } from 'next';
-import PopUp from '../components/PopUp';
-;
 import Stlviewer from '../components/stlviewer';
+import PopUp from '../components/PopUp';
 
 export default function Home({annotations}) {
 
@@ -14,14 +12,10 @@ export default function Home({annotations}) {
       <div className="flex justify-end items-end absolute inset-0 z-10">
       <PopUp />
       </div>
-      <Stlviewer></Stlviewer>
+      <div className="...">
+      <Stlviewer />
+      </div>
     </div>
-  )
-}
-
-export const Home1: NextPage = () => {
-  return (
-    <PopUp />
   )
 }
 
