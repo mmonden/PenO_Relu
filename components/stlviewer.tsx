@@ -45,11 +45,19 @@ export default function Stlviewer() {
     camera.position.set(0, -3, 3); // Set position like this
     camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
 
-    //RENDERER
+    //RENDERER AND ADD TO PAGE
     const renderer = new THREE.WebGLRenderer();
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
+
+    window.addEventListener("resize", onWindowResize, false);
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      render();
+    }
 
     //CONTROLS
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -126,13 +134,7 @@ export default function Stlviewer() {
       }
     );
 
-    window.addEventListener("resize", onWindowResize, false);
-    function onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      render();
-    }
+    //kijkt als er veranderingen zijn met muis? Scroll
 
     function animate() {
       requestAnimationFrame(animate);
