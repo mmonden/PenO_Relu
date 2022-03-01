@@ -65,7 +65,7 @@ export default function Stlviewer() {
       //clearcoatRoughness: 0.25,
     });
 
-    //start of code for lines
+    //start of code for lines  #thomas zijn lijn op stl
 
     const points = [];
     const startingpoint = [25, -10, -40]; //eventually to be done by clicking the screen
@@ -110,6 +110,7 @@ export default function Stlviewer() {
     // object.add(label);
     //end of code for text
 
+    //STL file loading 
     const loader = new STLLoader();
     loader.load(
       "http://localhost:3000/Mandible.stl",
@@ -135,9 +136,7 @@ export default function Stlviewer() {
 
     function animate() {
       requestAnimationFrame(animate);
-
       controls.update();
-
       render();
     }
 
