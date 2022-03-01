@@ -9,5 +9,6 @@ export interface IFile {
 	_id: number,
 	title: string,
 	card_ids: number[],
+	name: string,
 	cards?: ICard[]
 }
