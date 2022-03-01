@@ -26,7 +26,14 @@ export default NextAuth({
             pass: process.env.EMAIL_SERVER_PASSWORD
           }
         },
-        from: process.env.EMAIL_FROM
+        from: process.env.EMAIL_FROM,
+        sendVerificationRequest({
+          identifier: email,
+          url,
+          provider: { server, from },
+        }) {
+          /* your function */
+        },
       }),
     // ...add more providers here
   ],
