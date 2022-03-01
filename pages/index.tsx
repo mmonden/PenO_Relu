@@ -2,13 +2,19 @@ import AnnotationBar from '../components/annotationbar'
 import { getAnnotations, writeAnnotation } from '../lib/annotations'
 import { GetServerSideProps } from 'next';
 import Stlviewer from '../components/stlviewer';
+import PopUp from '../components/PopUp';
 
 export default function Home({annotations}) {
 
   return (
     <div className="min-h-screen min-w-screen">
       <AnnotationBar cardsInput={annotations}/>
-      <Stlviewer></Stlviewer>
+      <div className="flex justify-end items-end absolute inset-0 z-10">
+      <PopUp />
+      </div>
+      <div className="...">
+      <Stlviewer />
+      </div>
     </div>
   )
 }
