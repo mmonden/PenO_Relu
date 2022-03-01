@@ -17,6 +17,10 @@
     "react-dom": "^18.0.0-rc.0",
     "react-icons": "^4.3.1",
     "reactjs-popup": "^2.0.5",
+    "three": "^0.137.5",
+    "three-css2drender": "^1.0.0",
+    "three-text2d": "^0.6.0",
+    "three.meshline": "^1.4.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

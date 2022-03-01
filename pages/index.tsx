@@ -4,6 +4,7 @@ import { getAnnotations, writeAnnotation } from '../lib/annotations'
 import { GetServerSideProps } from 'next';
 import PopUp from '../components/PopUp';
 ;
+import Stlviewer from '../components/stlviewer';
 
 export default function Home({annotations}) {
 
@@ -13,6 +14,7 @@ export default function Home({annotations}) {
       <div className="flex justify-end items-end absolute inset-0 z-10">
       <PopUp />
       </div>
+      <Stlviewer></Stlviewer>
     </div>
   )
 }
