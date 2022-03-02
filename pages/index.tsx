@@ -12,7 +12,7 @@ export default function Home({annotations, files}) {
     <div className="min-h-screen min-w-screen">
       <AnnotationBar cardsInput={annotations}/>
       <div className="flex justify-end items-end absolute inset-0 z-10">
-        <PopUp />
+        <PopUp file={files[0]}/>
       </div>
       <Sidebar />
     </div>
