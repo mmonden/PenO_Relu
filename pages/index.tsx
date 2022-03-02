@@ -6,6 +6,7 @@ import Sidebar from "../components/layout/Sidebar";
 
 import Stlviewer from "../components/stlviewer";
 
+<<<<<<< HEAD
 export default function Home({ annotations, files }) {
   return (
     <div
@@ -19,6 +20,15 @@ export default function Home({ annotations, files }) {
       <div className="absolute right-0 flex flex-row">
         <PopUp file={files[0]} />
         <Sidebar />
+=======
+export default function Home({annotations, files}) {
+  
+  return (
+    <div className="min-h-screen min-w-screen">
+      <AnnotationBar cardsInput={annotations}/>
+      <div className="flex justify-end items-end absolute inset-0 z-10">
+        <PopUp file={files[0]}/>
+>>>>>>> master
       </div>
     </div>
   );
