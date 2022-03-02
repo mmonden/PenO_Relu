@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
+//T: import * as dat from 'dat.gui'
 //npm i three.meshline
 
 //npm i --save three-css2drender
@@ -17,9 +18,9 @@ export default function Stlviewer() {
   useEffect(() => {
     //creating scene
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x52586e);
 
-    scene.background = new THREE.Color(0xffffff);
-
+    //light
     let followLight = new THREE.DirectionalLight(0xffffff, 1.0);
     followLight.position.set(20, 100, 10);
     followLight.target.position.set(0, 0, 0);
@@ -29,6 +30,15 @@ export default function Stlviewer() {
     let light = new THREE.AmbientLight(0x404040);
     scene.add(light);
 
+    //T: const pointLight2 = new THREE.PointLight(0xff0000, 0.1)
+    //T:  pointLight2.position.set(1,1,1)
+    //T: pointLight2.intensity = 1
+    //T:  scene.add(pointLight2)
+
+    //T: const gui = new dat.GUI()
+    //T: gui.add(pointLight2.position,'y')
+
+    //CAMERA
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -39,13 +49,14 @@ export default function Stlviewer() {
     camera.position.set(0, -3, 3); // Set position like this
     camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
 
-    var renderer = new THREE.WebGLRenderer();
+    //RENDERER
+    const renderer = new THREE.WebGLRenderer();
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setSize(window.innerWidth, window.innerHeight);
-    threeContainerRef.current.appendChild(renderer.domElement);
+    document.body.appendChild(renderer.domElement);
 
+    //CONTROLS
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
 
     const material = new THREE.MeshPhongMaterial({
       color: 0xecb7bf,
