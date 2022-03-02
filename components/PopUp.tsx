@@ -31,7 +31,7 @@ const PopUp = ({ file }: FileCardProps) => {
               Link sharing
             </div>
             <div className="flex items-start justify-end ">
-              <button className="flex justify-end items-start " onClick={close}>
+              <button className="flex justify-end items-start" onClick={close}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"

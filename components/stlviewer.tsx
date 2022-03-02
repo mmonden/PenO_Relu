@@ -18,7 +18,7 @@ export default function Stlviewer() {
   useEffect(() => {
     //creating scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x52586e);
+    scene.background = new THREE.Color(0xffffff);
 
     //light
     let followLight = new THREE.DirectionalLight(0xffffff, 1.0);
@@ -53,7 +53,7 @@ export default function Stlviewer() {
     const renderer = new THREE.WebGLRenderer();
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    threeContainerRef.current.appendChild(renderer.domElement);
 
     //CONTROLS
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -154,5 +154,5 @@ export default function Stlviewer() {
     animate();
   }, []);
 
-  return <div className="..." ref={threeContainerRef} />;
+  return <div ref={threeContainerRef} />;
 }
