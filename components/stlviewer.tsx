@@ -15,9 +15,10 @@ import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
 export default function Stlviewer() {
   const threeContainerRef = useRef(null);
   useEffect(() => {
+    //creating scene
     const scene = new THREE.Scene();
 
-    scene.background = new THREE.Color(0x52586e);
+    scene.background = new THREE.Color(0xffffff);
 
     let followLight = new THREE.DirectionalLight(0xffffff, 1.0);
     followLight.position.set(20, 100, 10);
@@ -25,7 +26,7 @@ export default function Stlviewer() {
     followLight.castShadow = true;
     scene.add(followLight);
 
-    let light = new THREE.AmbientLight(0xffffff, 0.3);
+    let light = new THREE.AmbientLight(0x404040);
     scene.add(light);
 
     const camera = new THREE.PerspectiveCamera(
@@ -38,16 +39,16 @@ export default function Stlviewer() {
     camera.position.set(0, -3, 3); // Set position like this
     camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
 
-    const renderer = new THREE.WebGLRenderer();
+    var renderer = new THREE.WebGLRenderer();
     renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.setSize(window.innerWidth * (2 / 3), window.innerHeight * (2 / 3));
-    document.body.appendChild(renderer.domElement);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    threeContainerRef.current.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
     const material = new THREE.MeshPhongMaterial({
-      color: 0xffffff,
+      color: 0xecb7bf,
       //metalness: 0.25,  //gives errors and works without
       //roughness: 0.1,
       opacity: 1.0,
@@ -117,13 +118,14 @@ export default function Stlviewer() {
       }
     );
 
-    window.addEventListener("resize", onWindowResize, false);
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
       render();
     }
+
+    window.addEventListener("resize", onWindowResize, false);
 
     function animate() {
       requestAnimationFrame(animate);
@@ -139,11 +141,7 @@ export default function Stlviewer() {
     }
 
     animate();
-  }, [threeContainerRef]);
+  }, []);
 
-  return (
-    <div>
-      <div ref={threeContainerRef} />
-    </div>
-  );
+  return <div className="..." ref={threeContainerRef} />;
 }

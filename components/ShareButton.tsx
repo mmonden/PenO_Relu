@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 const ShareButton = () => {
   return (
+    <div className="flex justify-end items-end">
       <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +20,7 @@ const ShareButton = () => {
         </svg>
         Share
       </button>
+    </div>
   );
 };
 
