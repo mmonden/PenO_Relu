@@ -1,30 +1,35 @@
-import AnnotationBar from '../components/annotationbar'
-import { getAnnotations, writeAnnotation } from '../lib/annotations'
-import { GetServerSideProps } from 'next';
-import Stlviewer from '../components/stlviewer';
-import PopUp from '../components/PopUp';
+import AnnotationBar from "../components/annotationbar";
+import { getAnnotations, writeAnnotation, getFiles } from "../lib/annotations";
+import { GetServerSideProps } from "next";
+import PopUp from "../components/PopUp";
+import Sidebar from "../components/layout/Sidebar";
 
-export default function Home({annotations}) {
+import Stlviewer from "../components/stlviewer";
 
+export default function Home({ annotations, files }) {
   return (
-    <div className="min-h-screen min-w-screen">
-      <AnnotationBar cardsInput={annotations}/>
-      <div className="flex justify-end items-end absolute inset-0 z-10">
-      <PopUp />
+    <div
+      id="main_container"
+      className="min-h-screen min-w-screen flex flex-row "
+    >
+      <div className="absolute left-0">
+        <AnnotationBar cardsInput={annotations} />
       </div>
-      <div className="...">
       <Stlviewer />
+      <div className="absolute right-0 flex flex-row">
+        <PopUp file={files[0]} />
+        <Sidebar />
       </div>
     </div>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-
-  const annotations = await getAnnotations();
-
+  // TODO: Now just loads random file
+  const files = await getFiles();
+  const annotations = await getAnnotations(files[0]);
 
   return {
-    props: {annotations}, // will be passed to the page component as props
-  }
-}
+    props: { annotations, files }, // will be passed to the page component as props
+  };
+};
