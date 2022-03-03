@@ -58,7 +58,7 @@ export default function Stlviewer() {
       renderer.setSize(window.innerWidth, window.innerHeight);
       render();
     }
-
+    
     //CONTROLS
     const controls = new OrbitControls(camera, renderer.domElement);
 
