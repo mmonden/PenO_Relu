@@ -24,20 +24,20 @@ const PopUp = ({ file }: FileCardProps) => {
   return (
     <Popup trigger={ShareButton} modal>
       {(close) => (
-        <div className="border-solid rounded-lg bg-gray-200 border-2 border-gray-500">
-          <div className="flex items-center space-x-4 border-b- border-b-red-200 ...">
-            <div className="header font-semibold text-xl tracking-tight">
+        <div className="relative border-solid rounded-lg bg-gray-200 border-2 border-gray-500">
+          <div className=" border-b-red-200">
+            <div className="flex items-center min-h-full min-w-full header font-semibold text-xl">
               {" "}
               Link sharing
             </div>
-            <div className="flex items-start justify-end ">
-              <button className="flex justify-end items-start" onClick={close}>
+            <div className="flex absolute h-6 w-6 -right-3 -top-3">
+              <button className="" onClick={close}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
-                  fill="none"
+                  fill="#FF0000"
                   viewBox="0 0 24 24"
-                  stroke="#FF0000"
+                  stroke="#000000"
                 >
                   <path
                     strokeLinecap="round"
@@ -58,6 +58,22 @@ const PopUp = ({ file }: FileCardProps) => {
             ></TextField>
           </div>
           <div className="flex item">
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                />
+              </svg>
+            </button>
             <TextField
               id="filled-hidden-label-small"
               disabled

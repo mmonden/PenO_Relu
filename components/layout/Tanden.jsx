@@ -35,7 +35,7 @@ const Tanden = () => {
         <h2>L</h2>
       </div>
 
-      <div className="flex place-content-center border rounded-full border-2 w-fit text-xs">
+      <div className="flex place-content-center border rounded-full w-fit text-xs">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-4 w-4"

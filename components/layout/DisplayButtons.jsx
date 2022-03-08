@@ -2,7 +2,7 @@ const DisplayButtons = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-row pb-3">
-        <button className="flex flex-row border rounded border-2 w-fit text-xs">
+        <button className="flex flex-row border rounded w-fit text-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"
@@ -20,7 +20,7 @@ const DisplayButtons = () => {
           <p>Full 3D View</p>
         </button>
 
-        <button className="flex flex-row border rounded border-2 w-fit text-xs">
+        <button className="flex flex-row border rounded w-fit text-xs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"
@@ -41,7 +41,7 @@ const DisplayButtons = () => {
 
       <div className="flex flex-row">
         <div className="px-1">
-          <button className="border rounded border-2 w-fit text-xs">
+          <button className="border rounded w-fit text-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12"
@@ -60,7 +60,7 @@ const DisplayButtons = () => {
         </div>
 
         <div className="px-1">
-          <button className="border rounded border-2 w-fit text-xs">
+          <button className="border rounded w-fit text-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12"
@@ -79,7 +79,7 @@ const DisplayButtons = () => {
         </div>
 
         <div className="px-1">
-          <button className="border rounded border-2 w-fit text-xs">
+          <button className="border rounded w-fit text-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12"
@@ -98,7 +98,7 @@ const DisplayButtons = () => {
         </div>
 
         <div className="px-1">
-          <button className="border rounded border-2 w-fit text-xs">
+          <button className="border rounded w-fit text-xs">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12"
