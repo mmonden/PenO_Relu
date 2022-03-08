@@ -20,7 +20,7 @@ export default function Home({ annotations, file }) {
         <AnnotationBar cardsInput={annotations} />
       </div>
       <Stlviewer />
-      <div className="absolute right-0 flex flex-row">
+      <div className="absolute right-0">
         <div className="absolute right-0 bottom-0">
           <PopUp file={file} />
         </div>
