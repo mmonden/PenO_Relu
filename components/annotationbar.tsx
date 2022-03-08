@@ -38,7 +38,7 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
   return (
     <div className="flex items-center">
       {!swiped ? (
-        <div className="min-h-screen border-black bg-gray-500 border rounded-r-[5rem] flex flex-col items-center ">
+        <div className="min-h-screen border-black bg-gray-100 border flex flex-col items-center ">
           <div id="header_annobar" className="flex justify-center items-center">
             <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4 w-80">
               Annotaties

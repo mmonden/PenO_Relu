@@ -17,7 +17,9 @@ export default function Home({ annotations, files }) {
       </div>
       <Stlviewer />
       <div className="absolute right-0 flex flex-row">
-        <PopUp file={files[0]} />
+        <div className="absolute h-10 w-30 bottom-0 right-0">
+          <PopUp file={files[0]} />
+        </div>
         <Sidebar />
       </div>
     </div>

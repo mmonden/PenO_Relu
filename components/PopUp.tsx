@@ -3,6 +3,11 @@ import ShareButton from "./ShareButton";
 import { TextField } from "@mui/material";
 import React from "react";
 import { IFile } from "../types";
+import {
+  ClipboardCopyIcon,
+  MailOpenIcon,
+  XCircleIcon,
+} from "@heroicons/react/outline";
 
 type FileCardProps = {
   file: IFile;
@@ -19,7 +24,7 @@ const PopUp = ({ file }: FileCardProps) => {
   return (
     <Popup trigger={ShareButton} modal>
       {(close) => (
-        <div className="relative border-solid rounded-lg bg-gray-200 border-2 border-gray-500">
+        <div className="relative border-solid rounded-lg bg-gray-300 border-2 border-gray-500">
           <div className=" border-b-red-200">
             <div className="flex items-center min-h-full min-w-full header font-semibold text-xl">
               {" "}
@@ -27,55 +32,35 @@ const PopUp = ({ file }: FileCardProps) => {
             </div>
             <div className="flex absolute h-6 w-6 -right-3 -top-3">
               <button className="" onClick={close}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="#FF0000"
-                  viewBox="0 0 24 24"
-                  stroke="#000000"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+                <XCircleIcon className="w-6 h-6 fill-red-500" />
               </button>
             </div>
           </div>
-          <div>
-            <TextField
-              id="filled-hidden-label-small"
-              label="email"
-              defaultValue="toprednax@yahoo.com"
-              variant="filled"
-            ></TextField>
-          </div>
-          <div className="flex item">
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
-                />
-              </svg>
-            </button>
+          <div className="flex row">
             <TextField
               id="filled-hidden-label-small"
               disabled
               label="Link"
-              defaultValue={GetURL({ file })} //Hier kan je ook gewoon function call doen
+              defaultValue={GetURL({ file })}
               variant="filled"
             ></TextField>
+            <div className="absolute right-0">
+              <button
+                onClick={() => navigator.clipboard.writeText(GetURL({ file }))}
+              >
+                <ClipboardCopyIcon className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() =>
+                  window.open(
+                    "mailto:? &subject=Relu 3D image with annotations &body=Beste collega \n hierbij de link van patient x: " +
+                      GetURL({ file })
+                  )
+                }
+              >
+                <MailOpenIcon className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       )}
