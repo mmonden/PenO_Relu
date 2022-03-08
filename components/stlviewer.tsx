@@ -87,6 +87,23 @@ function Stlviewer() {
     transparent: true,
   });
 
+  //start code sprite
+  var spriteMaterial = new THREE.SpriteMaterial ({
+    color: 0x1f2528,
+    opacity: 0.9
+  })
+
+
+  var sprite = new THREE.Sprite(spriteMaterial);
+  var pos_sprite_X = 0 //hier variabele voor plaatsen van sprite aan te passen
+  var pos_sprite_Y = 0
+  var pos_sprite_Z = 2
+  sprite.position.set(pos_sprite_X,pos_sprite_Y,pos_sprite_Z); //Define sprite's anchor point
+  sprite.scale.set(20,10,10); //set size
+  scene.add(sprite);
+
+  //end code sprite
+
   //STL file loading
   const loader = new STLLoader();
   loader.load(
