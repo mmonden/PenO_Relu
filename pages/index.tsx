@@ -6,7 +6,7 @@ import FileList from '../components/file_overview';
 export default function Overview({files}) {
 	return (
 		<div className='min-h-screen min-w-screen'>
-			<FileList files={files}/>
+			<FileList files_input={files}/>
 		</div>
 	)
 }
