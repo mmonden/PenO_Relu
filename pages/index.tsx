@@ -2,11 +2,11 @@ import AnnotationBar from '../components/annotationbar'
 import { getAnnotations, getFiles } from '../lib/annotations'
 import { GetServerSideProps } from 'next';
 
-export default function Home({annotations}) {
+export default function Home({ annotations, files }) {
 
   return (
     <div className="min-h-screen min-w-screen">
-      <AnnotationBar cardsInput={annotations}/>
+      <AnnotationBar cardsInput={annotations} />
     </div>
   )
 }
@@ -19,6 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 
   return {
-    props: {annotations}, // will be passed to the page component as props
+    props: { annotations }, // will be passed to the page component as props
   }
 }

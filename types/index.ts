@@ -7,8 +7,9 @@ export interface ICard {
 
 export interface IFile {
 	_id: number,
+	save_time: number,
 	title: string,
+	patient: string,
 	card_ids: number[],
-	name: string,
 	cards?: ICard[]
 }
