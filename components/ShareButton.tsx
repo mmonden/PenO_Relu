@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BeakerIcon } from '@heroicons/react/solid'
 
 const ShareButton = () => {
   return (
