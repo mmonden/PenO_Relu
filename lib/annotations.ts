@@ -1,5 +1,6 @@
 import { connectToDatabase } from "./mongodb";
 import { ICard, IFile } from "../types";
+import { resourceLimits } from "worker_threads";
 
 export async function getFiles() {
 	const { db } = await connectToDatabase();
@@ -19,6 +20,13 @@ export async function getAnnotations(file: IFile) {
 	const { db } = await connectToDatabase();
 	const annotations = await db.collection("annotations").find({ _id: { $in: file.card_ids}}).toArray();
 	return annotations;
+}
+
+export async function deleteFile(file: IFile) {
+	const { db } = await connectToDatabase();
+
+	const result = await db.collection("files").deleteOne({"_id":file._id})
+	return result 
 }
 
 export async function writeAnnotation(annotation: ICard) {
