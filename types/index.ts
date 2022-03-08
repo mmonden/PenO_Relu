@@ -6,7 +6,7 @@ export interface ICard {
 }
 
 export interface IFile {
-  _id: number;
+  _id: String;
   title: string;
   card_ids: number[];
   cards?: ICard[];

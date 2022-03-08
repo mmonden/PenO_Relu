@@ -11,7 +11,6 @@ export default function FileList({ files }: FileListProps) {
 
     const deleteFile = (fileID) => {
         setCards(newFiles.filter((file) => file._id != fileID));
-
     }
 
     return (

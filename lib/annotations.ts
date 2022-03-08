@@ -7,6 +7,14 @@ export async function getFiles() {
 	return files
 }
 
+export async function getFile(id: number){
+	console.log(id)
+	const { db } = await connectToDatabase();
+	const file = await db.collection("files").findOne({ _id: id});
+	console.log(file)
+	return file
+}
+
 export async function getAnnotations(file: IFile) {
 	const { db } = await connectToDatabase();
 	const annotations = await db.collection("annotations").find({ _id: { $in: file.card_ids}}).toArray();
