@@ -3,15 +3,18 @@ import { IFile } from "../types";
 import { useState } from "react";
 
 type FileListProps = {
-  files: IFile[];
+  files_input: IFile[];
 };
 
-export default function FileList({ files }: FileListProps) {
-    const [newFiles, setCards] = useState(files);
+export default function FileList({ files_input }: FileListProps) {
+    console.log(files_input)
+
+    const [files, setCards] = useState(files_input);
+    console.log(files)
 
     const deleteFile = (fileID) => {
-        setCards(newFiles.filter((file) => file._id != fileID));
-    }
+        setCards(files.filter((file) => file._id != fileID));
+    };
 
     return (
         <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
