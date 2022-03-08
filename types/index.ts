@@ -3,6 +3,7 @@ export interface ICard {
   title: string;
   text: string;
   new?: boolean;
+  ready_in_stl: boolean;
 }
 
 export interface IFile {

@@ -27,6 +27,7 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
       title: "",
       text: "",
       new: true,
+      ready_in_stl: false,
     };
     setCards([...cards, new_card]);
   };
