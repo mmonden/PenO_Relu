@@ -10,7 +10,7 @@ type FileCardProps = {
 export default function FileCard({ file, deleteFile }: FileCardProps) {
 
     const onDelete = () => {
-        /*
+        
         deleteFile(file._id)
 
         fetch('/api/delete_file', {
@@ -20,7 +20,7 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
                 'Content-Type': 'application/json'
             }
         })
-        */
+        
         console.log("test")
     }
 
