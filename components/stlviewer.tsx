@@ -190,16 +190,24 @@ function makeTextSprite( message, parameters )
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
         context.font = "Bold " + fontsize + "px " + fontface;
+       
+        // get size data (height depends only on font size)
         var metrics = context.measureText( message );
         var textWidth = metrics.width;
 
+        // background color
         context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+        
+        // border color
         context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
 
         context.lineWidth = borderThickness;
         roundRect(context, borderThickness/2, borderThickness/2, (textWidth + borderThickness) * 1.1, fontsize * 1.4 + borderThickness, 8);
+        // 1.4 is extra height factor for text below baseline: g,j,p,q.
 
+        // text color
         context.fillStyle = "rgba("+textColor.r+", "+textColor.g+", "+textColor.b+", 1.0)";
+        
         context.fillText( message, borderThickness, fontsize + borderThickness);
 
         var texture = new THREE.Texture(canvas) 
@@ -207,6 +215,8 @@ function makeTextSprite( message, parameters )
 
         var spriteMaterial = new THREE.SpriteMaterial( { map: texture } );
         var sprite = new THREE.Sprite( spriteMaterial );
+
+        //dimensions sprite
         sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
         return sprite;  
     }
