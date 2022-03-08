@@ -54,7 +54,6 @@ export default function Stlviewer() {
       color: 0xecb7bf,
       opacity: 1.0,
       transparent: true,
-
     });
 
     //start of code for lines  #thomas zijn lijn op stl
@@ -97,24 +96,27 @@ export default function Stlviewer() {
       }
     );
 
-    /// Begin click vs drag
-    // let moved
-    // document.addEventListener('mousedown', function downListener() {
-    //   moved = false
-    // });
+    /// Begin click vs drag v2
+    const delta = 2;
+    let startX;
+    let startY;
 
-    // document.addEventListener('mousemove', function moveListener() {
-    //   moved = true
-    // });
+    document.addEventListener('mousedown', function (event) {
+      startX = event.pageX;
+      startY = event.pageY;
+    });
 
-    // document.addEventListener('mouseup', function upListener() {
-    //   if (moved) {
-    //     console.log('drag')
-    //   } else {
-    //     console.log('click')
-    //   }
-    // });
-    /// End click vs drag
+    document.addEventListener('mouseup', function (event) {
+      const diffX = Math.abs(event.pageX - startX);
+      const diffY = Math.abs(event.pageY - startY);
+
+      if (diffX < delta && diffY < delta) {
+        console.log("click!")
+      } else {
+        console.log("drag")
+      }
+    });
+    /// End end vs drag v2
 
     // Begin code mouseclick
     const mouse = new THREE.Vector2();
@@ -138,11 +140,13 @@ export default function Stlviewer() {
           intersects[i].object.material.color.set(0xff0000);
           console.log(intersects[i].point)
 
-          const geometry = new THREE.SphereGeometry( 15, 32, 16 );
-          const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-          const sphere = new THREE.Mesh( geometry, material );
-          sphere.position.set(intersects[i].point.x, intersects[i].point.y, intersects[i].point.z);
-          scene.add( sphere);
+          /// Begin add sphere on click
+          // const geometry = new THREE.SphereGeometry( 15, 32, 16 );
+          // const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+          // const sphere = new THREE.Mesh( geometry, material );
+          // sphere.position.set(intersects[i].point.x, intersects[i].point.y, intersects[i].point.z);
+          // scene.add( sphere);
+          /// End add sphere on click
       }
       // End raycaster
     }
