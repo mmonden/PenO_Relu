@@ -1,17 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
-//T: import * as dat from 'dat.gui'
-//npm i three.meshline
-
-//npm i --save three-css2drender
-//import { CSS2DRenderer, CSS2DObject } from "three-css2drender";
-
-//import { MeshText2D, textAlign } from "three-text2d";
-//npm i three-text2d
+import { MeshLine, MeshLineMaterial } from "three.meshline";
 
 export default function Stlviewer() {
   const threeContainerRef = useRef(null);
@@ -29,14 +21,6 @@ export default function Stlviewer() {
 
     let light = new THREE.AmbientLight(0x404040);
     scene.add(light);
-
-    //T: const pointLight2 = new THREE.PointLight(0xff0000, 0.1)
-    //T:  pointLight2.position.set(1,1,1)
-    //T: pointLight2.intensity = 1
-    //T:  scene.add(pointLight2)
-
-    //T: const gui = new dat.GUI()
-    //T: gui.add(pointLight2.position,'y')
 
     //CAMERA
     const camera = new THREE.PerspectiveCamera(
@@ -68,13 +52,9 @@ export default function Stlviewer() {
 
     const material = new THREE.MeshPhongMaterial({
       color: 0xecb7bf,
-      //metalness: 0.25,  //gives errors and works without
-      //roughness: 0.1,
       opacity: 1.0,
       transparent: true,
-      //transmission: 0.99,
-      //clearcoat: 1.0,
-      //clearcoatRoughness: 0.25,
+
     });
 
     //start of code for lines  #thomas zijn lijn op stl
@@ -93,7 +73,6 @@ export default function Stlviewer() {
 
     const line = new MeshLine();
     line.setPoints(points.flat());
-    //console.log(points.flat());
     const linematerial = new MeshLineMaterial({
       color: new THREE.Color(0x000000),
       lineWidth: 0.3,
@@ -101,26 +80,6 @@ export default function Stlviewer() {
     const mesh = new THREE.Mesh(line, linematerial);
     scene.add(mesh);
     //end of code for lines
-
-    //begin of code for text
-
-    // init CSS2DRenderer
-    // const labelRenderer = new CSS2DRenderer();
-    // labelRenderer.setSize(window.innerWidth, window.innerHeight);
-    // labelRenderer.domElement.style.position = "absolute";
-    // labelRenderer.domElement.style.top = "0";
-    // labelRenderer.domElement.style.pointerEvents = "none";
-    // document.getElementById("container").appendChild(labelRenderer.domElement);
-
-    // add label object
-    // var text = document.createElement("div");
-    // text.className = "label";
-    // text.textContent = "Test";
-
-    // var label = new CSS2DObject(text);
-    // label.position.copy();
-    // object.add(label);
-    //end of code for text
 
     //STL file loading 
     const loader = new STLLoader();
@@ -138,7 +97,59 @@ export default function Stlviewer() {
       }
     );
 
+    /// Begin click vs drag
+    // let moved
+    // document.addEventListener('mousedown', function downListener() {
+    //   moved = false
+    // });
+
+    // document.addEventListener('mousemove', function moveListener() {
+    //   moved = true
+    // });
+
+    // document.addEventListener('mouseup', function upListener() {
+    //   if (moved) {
+    //     console.log('drag')
+    //   } else {
+    //     console.log('click')
+    //   }
+    // });
+    /// End click vs drag
+
+    // Begin code mouseclick
+    const mouse = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+  
+    document.addEventListener("mousedown", onMouseMove, false);
+
+    function onMouseMove(event) {
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Begin raycaster
+      raycaster.setFromCamera(mouse, camera);
+      if (scene.children[3] instanceof THREE.Mesh)
+        scene.children[3].material.color.set(0x1313);
+      var intersects = raycaster.intersectObjects(scene.children);
+      for (var i = 0; i < intersects.length; i++) {
+        if (intersects[i].object instanceof THREE.Mesh)
+          //@ts-ignore
+          intersects[i].object.material.color.set(0xff0000);
+          console.log(intersects[i].point)
+
+          const geometry = new THREE.SphereGeometry( 15, 32, 16 );
+          const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+          const sphere = new THREE.Mesh( geometry, material );
+          sphere.position.set(intersects[i].point.x, intersects[i].point.y, intersects[i].point.z);
+          scene.add( sphere);
+      }
+      // End raycaster
+    }
+    // End code mouseclick
+
     function animate() {
+
       requestAnimationFrame(animate);
       controls.update();
       render();
