@@ -10,4 +10,5 @@ export interface IFile {
   title: string;
   card_ids: number[];
   cards?: ICard[];
+  new?: boolean;
 }

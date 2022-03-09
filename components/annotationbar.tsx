@@ -3,8 +3,6 @@ import { ICard } from "../types";
 import { GrAdd } from "react-icons/gr";
 import { useState } from "react";
 import {
-  AiOutlineDoubleLeft,
-  AiOutlineDoubleRight,
   AiOutlineRightCircle,
   AiOutlineLeftCircle,
 } from "react-icons/ai";
