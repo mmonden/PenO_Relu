@@ -20,8 +20,6 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
                 'Content-Type': 'application/json'
             }
         })
-        
-        console.log("test")
     }
 
 

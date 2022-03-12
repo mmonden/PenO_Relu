@@ -1,4 +1,4 @@
-import { ICard } from "../types"
+import { ICard, IFile } from "../types"
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai"
 import { useState } from "react"
 

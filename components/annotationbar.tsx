@@ -1,5 +1,5 @@
 import AnnotationCard from "./annotationcard";
-import { ICard } from "../types";
+import { ICard, IFile } from "../types";
 import { GrAdd } from "react-icons/gr";
 import { useState } from "react";
 import {
@@ -11,14 +11,28 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 type AnnotationBarProps = {
-  cardsInput: ICard[];
+  file: IFile;
+  cardsInput: ICard[]
 };
 
-export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
+export default function AnnotationBar({ file, cardsInput }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState(false);
-  const [cards, setCards] = useState(cardsInput);
+  const fileCardInput = cardsInput.filter((card) => file.card_ids.includes(card._id));
+  const [cards, setCards] = useState(fileCardInput);
+  const inputIDs = file.card_ids;
+
   const deleteCard = (cardID) => {
     setCards(cards.filter((card) => card._id != cardID));
+    file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
+
+    fetch('/api/update_file', {
+      method: 'POST',
+      body: JSON.stringify({ file }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
   };
 
   const newCard = () => {
@@ -28,6 +42,15 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
       text: "",
       new: true,
     };
+
+    file.card_ids.push(new_card._id);
+    fetch('/api/update_file', {
+      method: 'POST',
+      body: JSON.stringify({ file }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     setCards([...cards, new_card]);
   };
 

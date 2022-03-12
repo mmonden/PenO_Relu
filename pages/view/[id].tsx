@@ -17,7 +17,7 @@ export default function Home({ annotations, file }) {
       className="min-h-screen min-w-screen flex flex-row "
     >
       <div className="absolute left-0">
-        <AnnotationBar cardsInput={annotations} />
+        <AnnotationBar file={file} cardsInput={annotations}/>
       </div>
       <Stlviewer />
       <div className="absolute right-0">
