@@ -10,10 +10,8 @@ export async function getFiles() {
 }
 
 export async function getFile(id: number) {
-	console.log(id)
 	const { db } = await connectToDatabase();
 	const file = await db.collection("files").findOne({ _id: id });
-	console.log(file)
 	return file
 }
 
@@ -46,7 +44,6 @@ export async function writeAnnotation(annotation: ICard) {
 export async function deleteAnnotation(annotation: ICard) {
 	const { db } = await connectToDatabase();
 	const result = await db.collection("annotations").deleteOne({ "_id": annotation._id })
-	console.log(result)
 }
 
 

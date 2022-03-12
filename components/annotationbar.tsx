@@ -12,19 +12,16 @@ import { v4 as uuidv4 } from "uuid";
 
 type AnnotationBarProps = {
   file: IFile;
-  cardsInput: ICard[]
 };
 
-export default function AnnotationBar({ file, cardsInput }: AnnotationBarProps) {
+export default function AnnotationBar({ file }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState(false);
-  const fileCardInput = cardsInput.filter((card) => file.card_ids.includes(card._id));
-  const [cards, setCards] = useState(fileCardInput);
-  const inputIDs = file.card_ids;
+  const [cards, setCards] = useState(file.cards);
 
-  const deleteCard = (cardID) => {
+  const deleteCard = (cardID: number) => {
     setCards(cards.filter((card) => card._id != cardID));
+    
     file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
-
     fetch('/api/update_file', {
       method: 'POST',
       body: JSON.stringify({ file }),
@@ -71,11 +68,11 @@ export default function AnnotationBar({ file, cardsInput }: AnnotationBarProps) 
             </button>
           </div>
           <div className="divide-y-2 ">
-            {cards.map((item, index) => {
+            {cards.map((card, index) => {
               return (
                 <AnnotationCard
-                  key={index}
-                  card={item}
+                  key={card._id}
+                  card={card}
                   deleteCard={deleteCard}
                 />
               );
