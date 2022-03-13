@@ -1,3 +1,5 @@
+//import { Timestamp } from "mongodb";
+
 export interface ICard {
   _id: number;
   title: string;
@@ -8,6 +10,7 @@ export interface ICard {
 export interface IFile {
   _id: String;
   title: string;
+  time: string;
   card_ids: number[];
   cards?: ICard[];
 }

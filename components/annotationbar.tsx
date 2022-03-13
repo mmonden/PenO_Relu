@@ -9,6 +9,7 @@ import {
   AiOutlineLeftCircle,
 } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
+import { time } from "console";
 
 type AnnotationBarProps = {
   file: IFile;
@@ -20,8 +21,10 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
 
   const deleteCard = (cardID: number) => {
     setCards(cards.filter((card) => card._id != cardID));
-    
+
     file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
+    file.time = new Date().toLocaleString();
+    console.log(file.time)
     fetch('/api/update_file', {
       method: 'POST',
       body: JSON.stringify({ file }),
@@ -39,7 +42,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       text: "",
       new: true,
     };
-
+    file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     fetch('/api/update_file', {
       method: 'POST',
@@ -74,6 +77,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
                   key={card._id}
                   card={card}
                   deleteCard={deleteCard}
+                  file={file}
                 />
               );
             })}

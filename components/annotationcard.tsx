@@ -4,10 +4,11 @@ import { useState } from "react"
 
 type AnnotationCardProps = {
 	card: ICard,
-	deleteCard: Function
+	deleteCard: Function,
+	file: IFile
 }
 
-export default function AnnotationCard({ card, deleteCard }: AnnotationCardProps) {
+export default function AnnotationCard({ card, deleteCard, file }: AnnotationCardProps) {
 
 	const [editing, setEdit] = useState(card.new)
 	const [title, setTitle] = useState(card.title)
@@ -26,6 +27,14 @@ export default function AnnotationCard({ card, deleteCard }: AnnotationCardProps
 				}
 			})
 		}
+		file.time = new Date().toLocaleString();
+		fetch('/api/update_file', {
+			method: 'POST',
+			body: JSON.stringify({ file }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
 		setEdit(editing ? false : true)
 	}
 
