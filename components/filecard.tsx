@@ -30,6 +30,8 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
 
     const toggleEdit = () => {
         setEdit(!editing);
+
+        //Hier moet dan nog die extra code komen voor de database
     };
 
     return (
@@ -41,7 +43,7 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
             </div>
             <div className="">
                 <div className="flex items-center">
-                    <Link href={`/view/${file._id}`}>
+                    <Link href= {editing ? "javascript: void(0)" : `/view/${file._id}` }>
                         <a>
                             <div className="flex items-center">
                                 <AiOutlineFile className="text-5xl" />
