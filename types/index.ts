@@ -31,3 +31,16 @@ export interface user {
     updated_at: Timestamp,
     new?: boolean
 }
+export interface ICard {
+  _id: number;
+  title: string;
+  text: string;
+  new?: boolean;
+}
+
+export interface IFile {
+  _id: String;
+  title: string;
+  card_ids: number[];
+  cards?: ICard[];
+}
