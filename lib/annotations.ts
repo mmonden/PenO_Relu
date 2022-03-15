@@ -29,6 +29,14 @@ export async function deleteFile(file: IFile) {
 	return result 
 }
 
+export async function updateFile(file: IFile) {
+	const { db } = await connectToDatabase();
+
+	const opts = {upsert: true}
+	const result =  db.collection("annotations").updateOne({"_id": file._id}, {$set: file}, opts)
+	console.log(result) //Dit komt nog niet echt door denk ik --> of print toch geen resultaat af!
+}
+
 export async function writeAnnotation(annotation: ICard) {
 	const { db } = await connectToDatabase();
 	delete annotation.new;

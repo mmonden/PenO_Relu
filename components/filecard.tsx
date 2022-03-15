@@ -29,9 +29,23 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
     };
 
     const toggleEdit = () => {
+
+        if (title != file.title) {
+			file.title = title
+
+			fetch('/api/update_file', {
+				method: 'POST',
+				body: JSON.stringify({ file }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+		}
+
         setEdit(!editing);
 
-        //Hier moet dan nog die extra code komen voor de database
+        //Hier moet dan nog die extra code komen voor de database (zie bij annatations)
+        //Api voor gebruiken? --> zoek eens op --> niet helemaal zeker van
     };
 
     return (
