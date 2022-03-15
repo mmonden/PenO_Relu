@@ -14,7 +14,7 @@ export default function AnnotationCard({ card, deleteCard, file }: AnnotationCar
 	const [editing, setEdit] = useState(card.new)
 	const [title, setTitle] = useState(card.title)
 	const [text, setText] = useState(card.text)
-	const [selected, setSelected] = useState(file.selected);
+	
 
 	const toggleEdit = () => {
 		if (editing && (title != card.title || text != card.text)) {
@@ -64,7 +64,6 @@ export default function AnnotationCard({ card, deleteCard, file }: AnnotationCar
 					'Content-Type': 'application/json'
 				}
 			})
-			setSelected(card);
 		}
 	}
 

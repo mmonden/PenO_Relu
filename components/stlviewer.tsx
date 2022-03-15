@@ -7,7 +7,7 @@ import { MeshLine, MeshLineMaterial } from "three.meshline";
 
 import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
-
+import { Sprite } from "three";
 
 type FileCardProps = {
   file: IFile;
@@ -16,17 +16,15 @@ type FileCardProps = {
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
-
   useEffect(() => {
-    const title = file.selected.title;
-    const text = file.selected.text;
-    console.log(title);
-    console.log(text);
+    var title = file.selected.title;
+    var text = file.selected.text;
+    //console.log(title);
+    //console.log(text);
 
     //creating scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
-
 
     //light
     let followLight = new THREE.DirectionalLight(0xffffff, 1.0);
@@ -97,13 +95,16 @@ export default function Stlviewer({ file }: FileCardProps) {
     //end of code for lines
 
     //start code for textlabel
-    var tekstlabel = makeTextSprite(title,
-      { fontsize: 50, borderColor: { r: 0, g: 0, b: 0, a: 1.0 }, backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 } });
+    var tekstlabel = makeTextSprite(title, {
+      fontsize: 50,
+      borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
+      backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+    });
     tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
     scene.add(tekstlabel);
     //end code for text label
 
-    //STL file loading 
+    //STL file loading
     const loader = new STLLoader();
     loader.load(
       "http://localhost:3000/Mandible.stl",
@@ -124,19 +125,37 @@ export default function Stlviewer({ file }: FileCardProps) {
     let startX;
     let startY;
 
-    document.addEventListener('mousedown', function (event) {
+    document.addEventListener("dblclick", function (event) {
+      title = file.selected.title;
+      text = file.selected.text;
+      scene.children = scene.children.filter(
+        (child) => !(child instanceof Sprite)
+      );
+
+      //start code for textlabel
+      var tekstlabel = makeTextSprite(title, {
+        fontsize: 50,
+        borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
+        backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+      });
+      tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
+      scene.add(tekstlabel);
+      //end code for text label
+    });
+
+    document.addEventListener("mousedown", function (event) {
       startX = event.pageX;
       startY = event.pageY;
     });
 
-    document.addEventListener('mouseup', function (event) {
+    document.addEventListener("mouseup", function (event) {
       const diffX = Math.abs(event.pageX - startX);
       const diffY = Math.abs(event.pageY - startY);
 
       if (diffX < delta && diffY < delta) {
-        console.log("click!")
+        console.log("click!");
       } else {
-        console.log("drag")
+        console.log("drag");
       }
     });
     /// End end vs drag v2
@@ -148,7 +167,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     document.addEventListener("mousedown", onMouseMove, false);
 
     function onMouseMove(event) {
-
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -161,7 +179,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         if (intersects[i].object instanceof THREE.Mesh)
           //@ts-ignore
           intersects[i].object.material.color.set(0xff0000);
-        console.log(intersects[i].point)
+        console.log(intersects[i].point);
 
         /// Begin add sphere on click
         // const geometry = new THREE.SphereGeometry( 15, 32, 16 );
@@ -176,7 +194,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     // End code mouseclick
 
     function animate() {
-
       requestAnimationFrame(animate);
       controls.update();
       render();
@@ -188,22 +205,34 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     animate();
-  }, [file.selected]);
+  });
 
   return <div ref={threeContainerRef} />;
 }
 
 function makeTextSprite(message, parameters) {
   if (parameters === undefined) parameters = {};
-  var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
-  var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 18;
-  var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
-  var borderColor = parameters.hasOwnProperty("borderColor") ? parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
-  var backgroundColor = parameters.hasOwnProperty("backgroundColor") ? parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
-  var textColor = parameters.hasOwnProperty("textColor") ? parameters["textColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
+  var fontface = parameters.hasOwnProperty("fontface")
+    ? parameters["fontface"]
+    : "Arial";
+  var fontsize = parameters.hasOwnProperty("fontsize")
+    ? parameters["fontsize"]
+    : 18;
+  var borderThickness = parameters.hasOwnProperty("borderThickness")
+    ? parameters["borderThickness"]
+    : 4;
+  var borderColor = parameters.hasOwnProperty("borderColor")
+    ? parameters["borderColor"]
+    : { r: 0, g: 0, b: 0, a: 1.0 };
+  var backgroundColor = parameters.hasOwnProperty("backgroundColor")
+    ? parameters["backgroundColor"]
+    : { r: 255, g: 255, b: 255, a: 1.0 };
+  var textColor = parameters.hasOwnProperty("textColor")
+    ? parameters["textColor"]
+    : { r: 0, g: 0, b: 0, a: 1.0 };
 
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext('2d');
+  var canvas = document.createElement("canvas");
+  var context = canvas.getContext("2d");
   context.font = "Bold " + fontsize + "px " + fontface;
 
   // get size data (height depends only on font size)
@@ -211,21 +240,47 @@ function makeTextSprite(message, parameters) {
   var textWidth = metrics.width;
 
   // background color
-  context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+  context.fillStyle =
+    "rgba(" +
+    backgroundColor.r +
+    "," +
+    backgroundColor.g +
+    "," +
+    backgroundColor.b +
+    "," +
+    backgroundColor.a +
+    ")";
 
   // border color
-  context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+  context.strokeStyle =
+    "rgba(" +
+    borderColor.r +
+    "," +
+    borderColor.g +
+    "," +
+    borderColor.b +
+    "," +
+    borderColor.a +
+    ")";
 
   context.lineWidth = borderThickness;
-  roundRect(context, borderThickness / 2, borderThickness / 2, (textWidth + borderThickness) * 1.1, fontsize * 1.4 + borderThickness, 8);
+  roundRect(
+    context,
+    borderThickness / 2,
+    borderThickness / 2,
+    (textWidth + borderThickness) * 1.1,
+    fontsize * 1.4 + borderThickness,
+    8
+  );
   // 1.4 is extra height factor for text below baseline: g,j,p,q.
 
   // text color
-  context.fillStyle = "rgba(" + textColor.r + ", " + textColor.g + ", " + textColor.b + ", 1.0)";
+  context.fillStyle =
+    "rgba(" + textColor.r + ", " + textColor.g + ", " + textColor.b + ", 1.0)";
 
   context.fillText(message, borderThickness, fontsize + borderThickness);
 
-  var texture = new THREE.Texture(canvas)
+  var texture = new THREE.Texture(canvas);
   texture.needsUpdate = true;
 
   var spriteMaterial = new THREE.SpriteMaterial({ map: texture });
@@ -235,7 +290,6 @@ function makeTextSprite(message, parameters) {
   sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
   return sprite;
 }
-
 
 // function for drawing rounded rectangles
 function roundRect(ctx, x, y, w, h, r) {

@@ -42,7 +42,7 @@ export interface IFile {
   _id: String;
   title: string;
   time?: string;
-  selected: ICard;
+  selected?: ICard;
   card_ids: number[];
   cards?: ICard[];
   new?: boolean;
