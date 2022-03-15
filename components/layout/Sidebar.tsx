@@ -4,11 +4,11 @@ import Display from "./Display";
 import { useState } from "react";
 
 const Sidebar = () => {
-  const [swiped, setSwipe] = useState(false);
+	const [swiped, setSwipe] = useState(false);
 
-  const onSwipe = () => {
-    setSwipe(!swiped);
-  };
+	const onSwipe = () => {
+		setSwipe(!swiped);
+	};
 
   return (
     <div className="flex items-center">

@@ -15,7 +15,6 @@ type FileCardProps = {
 
 function GetURL({ file }: FileCardProps) {
   const id = file._id;
-  console.log(id);
   let url = "http://localhost:3000/view/" + id.toString();
   return url;
 }

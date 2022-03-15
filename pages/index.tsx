@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { getFiles } from "../lib/annotations";
 import { IFile } from "../types";
 import FileList from "../components/file_overview";
+<<<<<<< HEAD
 
 export default function Overview({ files }) {
   return (
@@ -17,4 +18,31 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: { files },
   };
+=======
+import { getSession } from "next-auth/react";
+
+export default function Overview({ files }) {
+    return (
+        <div className="min-h-screen min-w-screen">
+            <FileList files_input={files} />
+        </div>
+    );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const files: IFile[] = await getFiles();
+    const session = await getSession(ctx);
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/api/auth/signin",
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: { files },
+    };
+>>>>>>> 7a6d15be6d915c5f8e0302c26a9eb28f60600410
 };
