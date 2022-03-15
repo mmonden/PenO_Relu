@@ -1,17 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
-//T: import * as dat from 'dat.gui'
-//npm i three.meshline
-
-//npm i --save three-css2drender
-//import { CSS2DRenderer, CSS2DObject } from "three-css2drender";
-
-//import { MeshText2D, textAlign } from "three-text2d";
-//npm i three-text2d
+import { MeshLine, MeshLineMaterial } from "three.meshline";
 
 export default function Stlviewer() {
   const threeContainerRef = useRef(null);
@@ -29,14 +21,6 @@ export default function Stlviewer() {
 
     let light = new THREE.AmbientLight(0x404040);
     scene.add(light);
-
-    //T: const pointLight2 = new THREE.PointLight(0xff0000, 0.1)
-    //T:  pointLight2.position.set(1,1,1)
-    //T: pointLight2.intensity = 1
-    //T:  scene.add(pointLight2)
-
-    //T: const gui = new dat.GUI()
-    //T: gui.add(pointLight2.position,'y')
 
     //CAMERA
     const camera = new THREE.PerspectiveCamera(
@@ -68,13 +52,8 @@ export default function Stlviewer() {
 
     const material = new THREE.MeshPhongMaterial({
       color: 0xecb7bf,
-      //metalness: 0.25,  //gives errors and works without
-      //roughness: 0.1,
       opacity: 1.0,
       transparent: true,
-      //transmission: 0.99,
-      //clearcoat: 1.0,
-      //clearcoatRoughness: 0.25,
     });
 
     //start of code for lines  #thomas zijn lijn op stl
@@ -93,7 +72,6 @@ export default function Stlviewer() {
 
     const line = new MeshLine();
     line.setPoints(points.flat());
-    //console.log(points.flat());
     const linematerial = new MeshLineMaterial({
       color: new THREE.Color(0x000000),
       lineWidth: 0.3,
@@ -102,25 +80,12 @@ export default function Stlviewer() {
     scene.add(mesh);
     //end of code for lines
 
-    //begin of code for text
-
-    // init CSS2DRenderer
-    // const labelRenderer = new CSS2DRenderer();
-    // labelRenderer.setSize(window.innerWidth, window.innerHeight);
-    // labelRenderer.domElement.style.position = "absolute";
-    // labelRenderer.domElement.style.top = "0";
-    // labelRenderer.domElement.style.pointerEvents = "none";
-    // document.getElementById("container").appendChild(labelRenderer.domElement);
-
-    // add label object
-    // var text = document.createElement("div");
-    // text.className = "label";
-    // text.textContent = "Test";
-
-    // var label = new CSS2DObject(text);
-    // label.position.copy();
-    // object.add(label);
-    //end of code for text
+     //start code for textlabel
+     var tekstlabel = makeTextSprite( " Magic", 
+     { fontsize: 50, borderColor: {r:0, g:0, b:0, a:1.0}, backgroundColor: {r:0, g:0, b:150, a:0.8} } );
+     tekstlabel.position.set(endpoint[0]+5,endpoint[1],endpoint[2]); //Define sprite's anchor point
+     scene.add(tekstlabel);
+     //end code for text label
 
     //STL file loading 
     const loader = new STLLoader();
@@ -138,7 +103,64 @@ export default function Stlviewer() {
       }
     );
 
+    /// Begin click vs drag v2
+    const delta = 2;
+    let startX;
+    let startY;
+
+    document.addEventListener('mousedown', function (event) {
+      startX = event.pageX;
+      startY = event.pageY;
+    });
+
+    document.addEventListener('mouseup', function (event) {
+      const diffX = Math.abs(event.pageX - startX);
+      const diffY = Math.abs(event.pageY - startY);
+
+      if (diffX < delta && diffY < delta) {
+        console.log("click!")
+      } else {
+        console.log("drag")
+      }
+    });
+    /// End end vs drag v2
+
+    // Begin code mouseclick
+    const mouse = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+  
+    document.addEventListener("mousedown", onMouseMove, false);
+
+    function onMouseMove(event) {
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Begin raycaster
+      raycaster.setFromCamera(mouse, camera);
+      if (scene.children[3] instanceof THREE.Mesh)
+        scene.children[3].material.color.set(0x1313);
+      var intersects = raycaster.intersectObjects(scene.children);
+      for (var i = 0; i < intersects.length; i++) {
+        if (intersects[i].object instanceof THREE.Mesh)
+          //@ts-ignore
+          intersects[i].object.material.color.set(0xff0000);
+          console.log(intersects[i].point)
+
+          /// Begin add sphere on click
+          // const geometry = new THREE.SphereGeometry( 15, 32, 16 );
+          // const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+          // const sphere = new THREE.Mesh( geometry, material );
+          // sphere.position.set(intersects[i].point.x, intersects[i].point.y, intersects[i].point.z);
+          // scene.add( sphere);
+          /// End add sphere on click
+      }
+      // End raycaster
+    }
+    // End code mouseclick
+
     function animate() {
+
       requestAnimationFrame(animate);
       controls.update();
       render();
@@ -153,4 +175,67 @@ export default function Stlviewer() {
   }, []);
 
   return <div ref={threeContainerRef} />;
+}
+
+function makeTextSprite( message, parameters )
+    {
+        if ( parameters === undefined ) parameters = {};
+        var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+        var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 18;
+        var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
+        var borderColor = parameters.hasOwnProperty("borderColor") ?parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+        var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
+        var textColor = parameters.hasOwnProperty("textColor") ?parameters["textColor"] : { r:0, g:0, b:0, a:1.0 };
+
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        context.font = "Bold " + fontsize + "px " + fontface;
+       
+        // get size data (height depends only on font size)
+        var metrics = context.measureText( message );
+        var textWidth = metrics.width;
+
+        // background color
+        context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+        
+        // border color
+        context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+
+        context.lineWidth = borderThickness;
+        roundRect(context, borderThickness/2, borderThickness/2, (textWidth + borderThickness) * 1.1, fontsize * 1.4 + borderThickness, 8);
+        // 1.4 is extra height factor for text below baseline: g,j,p,q.
+
+        // text color
+        context.fillStyle = "rgba("+textColor.r+", "+textColor.g+", "+textColor.b+", 1.0)";
+        
+        context.fillText( message, borderThickness, fontsize + borderThickness);
+
+        var texture = new THREE.Texture(canvas) 
+        texture.needsUpdate = true;
+
+        var spriteMaterial = new THREE.SpriteMaterial( { map: texture } );
+        var sprite = new THREE.Sprite( spriteMaterial );
+
+        //dimensions sprite
+        sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
+        return sprite;  
+    }
+
+
+// function for drawing rounded rectangles
+function roundRect(ctx, x, y, w, h, r) 
+{
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.lineTo(x+w-r, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+    ctx.lineTo(x+w, y+h-r);
+    ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    ctx.lineTo(x+r, y+h);
+    ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+    ctx.lineTo(x, y+r);
+    ctx.quadraticCurveTo(x, y, x+r, y);
+    ctx.closePath();
+    ctx.fill();
+	ctx.stroke();   
 }
