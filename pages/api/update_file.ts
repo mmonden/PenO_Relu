@@ -4,6 +4,7 @@ export default async function handler(req, res) {
   if (req.method == 'POST') {
     try{
       await updateFile(req.body.file)
+      console.log('api call')
       console.log(req.body.file) //Dit is oke
       res.status(200).end()
     }
