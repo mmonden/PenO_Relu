@@ -1,30 +1,21 @@
 import DisplayButtons from "./DisplayButtons.jsx";
 
+import Image from "next/image";
+
 const Display = () => {
-  return (
-    <div className="flex flex-col">
-      <div className="flex flex-row">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-          />
-        </svg>
+	return (
+		<div className="flex flex-col">
+			<div className="flex flex-row">
+				<div className="pr-1">
+					<Image src={require("../textures/squares.png")} height={17} width={17}  />
+				</div>
 
-        <h1>Display</h1>
-      </div>
+				<h1>Display</h1>
+			</div>
 
-      <DisplayButtons />
-    </div>
-  );
+			<DisplayButtons />
+		</div>
+	);
 };
 
 export default Display;
