@@ -18,13 +18,14 @@ type AnnotationBarProps = {
 export default function AnnotationBar({ file }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState(false);
   const [cards, setCards] = useState(file.cards);
+  console.log(file.cards);
+  const [selected, setSelected] = useState(file.selected);
 
   const deleteCard = (cardID: number) => {
     setCards(cards.filter((card) => card._id != cardID));
-
+    //file.cards = cards.filter((card) => card._id != cardID);
     file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
     file.time = new Date().toLocaleString();
-    console.log(file.time)
     fetch('/api/update_file', {
       method: 'POST',
       body: JSON.stringify({ file }),
@@ -32,7 +33,6 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
         'Content-Type': 'application/json'
       }
     })
-
   };
 
   const newCard = () => {
@@ -44,6 +44,8 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     };
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
+    setCards([...cards, new_card]);
+    //file.cards.push(new_card);
     fetch('/api/update_file', {
       method: 'POST',
       body: JSON.stringify({ file }),
@@ -51,12 +53,15 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
         'Content-Type': 'application/json'
       }
     })
-    setCards([...cards, new_card]);
   };
 
   const onSwipe = () => {
     setSwipe(!swiped);
   };
+
+ 
+
+
 
   return (
     <div className="flex items-center">
@@ -73,12 +78,12 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
           <div className="divide-y-2 ">
             {cards.map((card, index) => {
               return (
-                <AnnotationCard
-                  key={card._id}
-                  card={card}
-                  deleteCard={deleteCard}
-                  file={file}
-                />
+                  <AnnotationCard
+                    key={card._id}
+                    card={card}
+                    deleteCard={deleteCard}
+                    file={file}
+                  />
               );
             })}
           </div>

@@ -19,7 +19,7 @@ export default function Home({ file }) {
       <div className="absolute left-0">
         <AnnotationBar file={file}/>
       </div>
-      <Stlviewer />
+      <Stlviewer file={file} />
       <div className="absolute right-0">
         <div className="absolute right-0 bottom-0">
           <PopUp file={file} />

@@ -7,7 +7,7 @@ type FileListProps = {
 };
 
 export default function FileList({ files_input }: FileListProps) {
-    console.log(files_input)
+    //console.log(files_input)
 
     const [files, setCards] = useState(files_input);
 
