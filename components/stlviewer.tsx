@@ -15,13 +15,11 @@ type FileCardProps = {
 
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
-  const [selected, setSelected] = useState(file.selected)
 
-  
 
   useEffect(() => {
-    const title = selected.title;
-    const text = selected.text;
+    const title = file.selected.title;
+    const text = file.selected.text;
     console.log(title);
     console.log(text);
 
@@ -99,7 +97,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     //end of code for lines
 
     //start code for textlabel
-    var tekstlabel = makeTextSprite(" Magic",
+    var tekstlabel = makeTextSprite(title,
       { fontsize: 50, borderColor: { r: 0, g: 0, b: 0, a: 1.0 }, backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 } });
     tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
     scene.add(tekstlabel);
@@ -190,7 +188,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     animate();
-  }, [selected]);
+  }, [file.selected]);
 
   return <div ref={threeContainerRef} />;
 }
