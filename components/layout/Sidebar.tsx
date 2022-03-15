@@ -11,13 +11,17 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="min-w-screen min-h-screen flex justify-end">
+    <div className="flex items-center">
       {!swiped ? (
-        <div id="main sidebar" className="flex flex-row">
+        <div
+          id="main sidebar"
+          className="flex flex-row"
+          style={{ height: "calc(100vh - 48px)" }}
+        >
           <button onClick={onSwipe}>
             <Back value={swiped} />
           </button>
-          <div className="h-screen divide-y-2 divide-gray-400 overflow-hidden">
+          <div className="divide-y-2 divide-gray-400 overflow-hidden">
             <div className="bg-gray-400"></div>
 
             <div className="h-1/2 bg-gray-100">
@@ -29,7 +33,7 @@ const Sidebar = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-row">
+        <div className="flex flex-row" style={{ height: "calc(100vh - 48px)" }}>
           <button onClick={onSwipe}>
             <Back value={swiped} />
           </button>

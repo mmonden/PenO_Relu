@@ -9,6 +9,7 @@ import {
   AiOutlineLeftCircle,
 } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
+import { calculateObjectSize } from "bson";
 
 type AnnotationBarProps = {
   cardsInput: ICard[];
@@ -38,7 +39,10 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
   return (
     <div className="flex items-center">
       {!swiped ? (
-        <div className="min-h-screen border-black bg-gray-100 border flex flex-col items-center ">
+        <div
+          className="border-black bg-gray-100 border flex flex-col items-center"
+          style={{ height: "calc(100vh - 48px)" }}
+        >
           <div id="header_annobar" className="flex justify-center items-center">
             <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4 w-80">
               Annotaties
@@ -60,7 +64,10 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
           </div>
         </div>
       ) : (
-        <div className="w-1/8 min-h-screen border-black border rounded-r-[5rem] flex flex-col items-center "></div>
+        <div
+          className="w-1/8 border-black border rounded-r-[5rem] flex flex-col items-center "
+          style={{ height: "calc(100vh - 48px)" }}
+        ></div>
       )}
       <button className="flex items-center text-4xl" onClick={onSwipe}>
         {!swiped ? <AiOutlineLeftCircle /> : <AiOutlineRightCircle />}
