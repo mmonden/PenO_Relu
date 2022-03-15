@@ -9,6 +9,7 @@ import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 export default function Home({ file }) {
   return (
@@ -31,7 +32,15 @@ export default function Home({ file }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // TODO: Now just loads random file
+    const session = await getSession(ctx);
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/api/auth/signin",
+                permanent: false,
+            },
+        };
+    }
   const { id } = ctx.query;
   const file_id = parseInt(id[0]);
   const file = await getFile(file_id);
