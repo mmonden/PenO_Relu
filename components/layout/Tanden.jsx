@@ -3,6 +3,8 @@ import Tanden_2x from "./Tanden_2x";
 import Tanden_3x from "./Tanden_3x";
 import Tanden_4x from "./Tanden_4x";
 
+import Image from "next/image";
+
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData";
 import {
 	MANDIBLE,
@@ -31,36 +33,11 @@ const Tanden = () => {
 				<Tanden_3x />
 			</div>
 
-			<div className="flex place-content-center">
+			<div className="flex flex-row">
 				<h2>R</h2>
-				<div>
-					<svg
-						className="w-full h-full z-0"
-						fill="none"
-						viewBox={SVG_STRING_PER_STRUCTURE[MANDIBLE].viewBox}
-						stroke="currentColor"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-							d={SVG_STRING_PER_STRUCTURE[MANDIBLE].path[0]}
-						/>
-					</svg>
 
-					<svg
-						className="w-full h-full z-10"
-						fill="none"
-						viewBox={SVG_STRING_PER_STRUCTURE[MANDIBLE].viewBox}
-						stroke="currentColor"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-							d={SVG_STRING_PER_STRUCTURE[MAXILLA].path[0]}
-						/>
-					</svg>
+				<div className="items-center place-content-center">
+					<Image src={require("../textures/relugebit.png")} height={150} width={150} />
 				</div>
 				<h2>L</h2>
 			</div>
