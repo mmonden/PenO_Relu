@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { MeshLine, MeshLineMaterial } from "three.meshline";
+import { InstancedInterleavedBuffer } from "three";
 
 export default function Stlviewer() {
   const threeContainerRef = useRef(null);
@@ -24,14 +25,19 @@ export default function Stlviewer() {
 
     //CAMERA
     const camera = new THREE.PerspectiveCamera(
-      75,
+      90, //field of view, number of vertical degrees it is seen --> lower : objects are closer <-> higher : objects are farther
       window.innerWidth / window.innerHeight,
-      0.1,
-      1000
+      0.1, //distance from camera object starts to appear
+      1000 //distance from camera objects stops appearing
     );
 
+    //camera.position.set(-1.2, -33.8, -57.33); // Set position like this
+    //camera.lookAt(new THREE.Vector3(-1.2, -33.8, -57.33))
     camera.position.set(0, -3, 3); // Set position like this
-    camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
+    //camera.rotation.set(0, 100, 0);
+    camera.lookAt(new THREE.Vector3(-1.2, -33.8, -57.33));
+    camera.updateProjectionMatrix();
+    //camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
 
     //RENDERER AND ADD TO PAGE
     const renderer = new THREE.WebGLRenderer();
@@ -46,6 +52,14 @@ export default function Stlviewer() {
       renderer.setSize(window.innerWidth, window.innerHeight);
       render();
     }
+
+    //FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
+    function ChangePerspective(x,y,z) {
+      camera.position.set(x, y, z); 
+      camera.updateProjectionMatrix();
+      render() //moet dit erbij?
+    }
+
     
     //CONTROLS
     const controls = new OrbitControls(camera, renderer.domElement);

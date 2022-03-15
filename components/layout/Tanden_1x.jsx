@@ -1,9 +1,10 @@
 // import SVG_STRING_PER_STRUCTURE from "../textures/AnatomySvgData.js"
+import { ChangePerspective } from " ../stlviewer"; //weet ik nog niet hoe je dit import, later vragen aan thomas als hij al gevonden heeft
 
 const Tanden = () => {
   return (
     <div>
-      <button>
+      <button onClick={() => ChangePerspective(0,0,0)}>  
         <div className="flex flex-col">
           <svg
             xmlns="http://www.w3.org/2000/svg"
