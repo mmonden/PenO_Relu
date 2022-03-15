@@ -42,6 +42,7 @@ export interface IFile {
   _id: String;
   title: string;
   time?: string;
+  selected?: ICard;
   card_ids: number[];
   cards?: ICard[];
   new?: boolean;

@@ -1,6 +1,7 @@
 import { ICard, IFile } from "../types"
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Stlviewer from "./stlviewer";
 
 type AnnotationCardProps = {
 	card: ICard,
@@ -13,6 +14,7 @@ export default function AnnotationCard({ card, deleteCard, file }: AnnotationCar
 	const [editing, setEdit] = useState(card.new)
 	const [title, setTitle] = useState(card.title)
 	const [text, setText] = useState(card.text)
+	
 
 	const toggleEdit = () => {
 		if (editing && (title != card.title || text != card.text)) {
@@ -50,10 +52,24 @@ export default function AnnotationCard({ card, deleteCard, file }: AnnotationCar
 		})
 	}
 
+	const onAnnotation = () => {
+		if (!editing) {
+			console.log("oude selected", file.selected)
+			file.selected = card;
+			console.log("nieuwe selected", file.selected)
+			fetch('/api/update_file', {
+				method: 'POST',
+				body: JSON.stringify({ file }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+		}
+	}
 
 	return (
 		<div className="flex items-center">
-			<form className="w-80 text-gray-700 p-5">
+			<form className="w-80 text-gray-700 p-5" onClick={onAnnotation}>
 				<div className="text-2xl mb-2">
 					{editing ?
 						<input className="border-2" type="text" value={title} onChange={(e) => setTitle(e.target.value)} /> :
