@@ -10,14 +10,14 @@ import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
 import { useRouter } from "next/router";
 
-export default function Home({ annotations, file }) {
+export default function Home({ file }) {
   return (
     <div
       id="main_container"
       className="min-h-screen min-w-screen flex flex-row "
     >
       <div className="absolute left-0">
-        <AnnotationBar cardsInput={annotations} />
+        <AnnotationBar file={file}/>
       </div>
       <Stlviewer />
       <div className="absolute right-0">
@@ -35,9 +35,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
   const file_id = parseInt(id[0]);
   const file = await getFile(file_id);
-  const annotations = await getAnnotations(file);
+  file.cards = await getAnnotations(file);
 
   return {
-    props: { annotations, file }, // will be passed to the page component as props
+    props: { file }, // will be passed to the page component as props
   };
 };
