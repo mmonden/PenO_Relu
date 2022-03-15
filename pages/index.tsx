@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { getFiles } from "../lib/annotations";
 import { IFile } from "../types";
 import FileList from "../components/file_overview";
-import { getSession } from "./node_modules/next-auth/react";
+import { getSession } from "next-auth/react";
 
 export default function Overview({ files }) {
   return (

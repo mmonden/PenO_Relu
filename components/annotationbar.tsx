@@ -7,11 +7,8 @@ import {
   AiOutlineLeftCircle,
 } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-<<<<<<< HEAD
 import { calculateObjectSize } from "bson";
-=======
 import { time } from "console";
->>>>>>> 7a6d15be6d915c5f8e0302c26a9eb28f60600410
 
 type AnnotationBarProps = {
   file: IFile;

@@ -1,51 +1,4 @@
 import { IFile } from "../types";
-<<<<<<< HEAD
-import { AiOutlineFile, AiOutlineDelete } from "react-icons/ai";
-import Link from "next/link";
-
-type FileCardProps = {
-  file: IFile;
-  deleteFile: Function;
-};
-
-export default function FileCard({ file, deleteFile }: FileCardProps) {
-  const onDelete = () => {
-    deleteFile(file._id);
-
-    fetch("/api/delete_file", {
-      method: "POST",
-      body: JSON.stringify({ file }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    console.log("test");
-  };
-
-  return (
-    <div className="relative text-gray-700 text-2xl">
-      <div className="absolute top-6 -right-10">
-        <button onClick={onDelete}>
-          <AiOutlineDelete className="w-7 h-7" />
-        </button>
-      </div>
-      <div className="">
-        <Link href={`/view/${file._id}`}>
-          <a>
-            <div className="flex items-center">
-              <AiOutlineFile className="text-5xl" />
-              <div className="w-80 text-gray-700 p-5">
-                <div className="text-2xl mb-2">{file.title}</div>
-                <div></div>
-              </div>
-            </div>
-          </a>
-        </Link>
-      </div>
-    </div>
-  );
-=======
 import {
     AiOutlineFile,
     AiOutlineDelete,
@@ -138,5 +91,4 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
             </div>
         </div>
     );
->>>>>>> 7a6d15be6d915c5f8e0302c26a9eb28f60600410
 }
