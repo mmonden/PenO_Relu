@@ -1,40 +1,46 @@
 import NextAuth from "next-auth"
-import FacebookProvider from "next-auth/providers/facebook";
-import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "/lib/mongodb"
+import { verifyUser } from "../../../lib/users"
+
 
 export default NextAuth({
-    adapter: MongoDBAdapter(clientPromise),
-  // Configure one or more authentication providers
+  // adapter: MongoDBAdapter(clientPromise),
   providers: [
-    FacebookProvider({
-        clientId: process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET
-      }),
-    GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET
-      }),
-    EmailProvider({
-        server: {
-          host: process.env.EMAIL_SERVER_HOST,
-          port: process.env.EMAIL_SERVER_PORT,
-          auth: {
-            user: process.env.EMAIL_SERVER_USER,
-            pass: process.env.EMAIL_SERVER_PASSWORD
-          }
-        },
-        from: process.env.EMAIL_FROM,
-        sendVerificationRequest({
-          identifier: email,
-          url,
-          provider: { server, from },
-        }) {
-          /* your function */
-        },
-      }),
-    // ...add more providers here
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: {label: "Email", type: "text", placeholder: "j.smith@email.com"},
+        password: { label: "Password", type: "password"}
+      },
+      async authorize(credentials, req) {
+        const {authenticated, user} = await verifyUser(credentials);
+        if (user) {
+          return user
+        } else {
+          return null
+        }
+      }
+    })
+    // EmailProvider({
+    //     server: {
+    //       host: process.env.EMAIL_SERVER_HOST,
+    //       port: process.env.EMAIL_SERVER_PORT,
+    //       auth: {
+    //         user: process.env.EMAIL_SERVER_USER,
+    //         pass: process.env.EMAIL_SERVER_PASSWORD
+    //       }
+    //     },
+    //     from: process.env.EMAIL_FROM,
+    //     sendVerificationRequest({
+    //       identifier: email,
+    //       url,
+    //       provider: { server, from },
+    //     }) {
+    //       /* your function */
+    //     },
+    //   }),
+    // // ...add more providers here
   ],
+  secret: "m9UgdB9MZDBY91YZmqklmFEaJhAjHqiVah/AcDeDPmY=",
 })
