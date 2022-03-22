@@ -2,29 +2,47 @@
 	// See https://go.microsoft.com/fwlink/?LinkId=733558
 	// for the documentation about the tasks.json format
 	"version": "2.0.0",
+
 	"tasks": [
 		{
-			"label": "build",
+			"label": "git_push",
 			"type": "shell",
-			"command": "msbuild",
-			"args": [
-				"/property:GenerateFullPaths=true",
-				"/t:build",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"group": "build",
-			"presentation": {
-				"reveal": "silent"
-			},
-			"problemMatcher": "$msCompile"
+			"command": "git push origin ${input:branch}",
+			"problemMatcher": []
 		},
 		{
-			"type": "npm",
-			"script": "build",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: build",
-			"detail": "next build"
-		}
-	]
+			"label": "git_pull",
+			"type": "shell",
+			"command": "git pull origin ${input:branch}",
+			"problemMatcher": []
+		},
+		{
+			"label": "git_commit",
+			"type": "shell",
+			"command": "git add . && git commit -m \"${input:commitmess}\"",
+			"problemMatcher": []
+		},
+	],
+
+	"inputs": [
+        {
+            "id": "commitmess",
+            "description": "Param1:",
+            "default": "commit",
+            "type": "promptString"
+        },
+		{
+            "id": "branch",
+            "description": "Param2:",
+            "default": "master",
+            "type": "promptString"
+        }
+    ],
+
+	"presentation": {
+		"reveal": "silent",
+		"clear": true,
+		"revealProblems": "onProblem",
+      	"close": true
+	}
 }
