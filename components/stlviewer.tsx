@@ -270,7 +270,7 @@ function init(){
 
   camera.position.set(0, -3, 3); // Set position like this
   //camera.rotation.set(0, 100, 0);
-  //camera.lookAt(new THREE.Vector3(5, 100, -57.33));
+  camera.lookAt(new THREE.Vector3(5, 100, -57.33));
   camera.updateProjectionMatrix();
 
   //RENDERER
@@ -280,13 +280,6 @@ function init(){
 
   //CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
-  //controls = new FlyControls( camera, renderer.domElement );
-  //controls = new TrackballControls( camera, renderer.domElement );
- //controls = new PointerLockControls( camera, renderer.domElement );
-  // controls.movementSpeed = 100;
-  // controls.rollSpeed = Math.PI / 24;
-  // controls.autoForward = false;
-  // controls.dragToLook = true;
 }
 
 function animate() {
