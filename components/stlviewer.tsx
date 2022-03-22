@@ -67,11 +67,11 @@ export default function Stlviewer({ file }: FileCardProps) {
     const controls = new TrackballControls(camera, renderer.domElement);
 
     // Skull material
-    const materialSkull = new THREE.MeshPhongMaterial({
-      color: 0xd3d3d3,
-      opacity: 1.0,
-      transparent: true,
-    });
+    // const materialSkull = new THREE.MeshPhongMaterial({
+    //   color: 0xd3d3d3,
+    //   opacity: 1.0,
+    //   transparent: true,
+    // });
 
     // Mandible material
     const materialMandible = new THREE.MeshPhongMaterial({
@@ -132,10 +132,17 @@ export default function Stlviewer({ file }: FileCardProps) {
     for (var x = 1; x < 5; x++) {
       for (var y = 1; y < 7; y++) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString())
+
         loader.load(
           "http://localhost:3000/"+filename+".stl",
           function (geometry) {
-            const mesh = new THREE.Mesh(geometry, materials[(y-1)*6+(x-1)]);
+            
+            let toothNr = parseInt(filename.split('_').pop())
+            let a = Math.floor(toothNr / 10)
+            let b = toothNr % 10
+            console.log(a, b)
+
+            const mesh = new THREE.Mesh(geometry, materials[(a-1)*6+(b-1)]);
             scene.add(mesh);
           },
           (xhr) => {
@@ -162,7 +169,6 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     );
 
-<<<<<<< Updated upstream
     /// Begin click vs drag v2
     const delta = 2;
     let startX;
@@ -201,20 +207,19 @@ export default function Stlviewer({ file }: FileCardProps) {
         console.log("drag");
       }
     });
-=======
-    loader.load(
-      "http://localhost:3000/Skull.stl",
-      function (geometry) {
-        const mesh = new THREE.Mesh(geometry, materialSkull);
-        scene.add(mesh);
-      },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // loader.load(
+    //   "http://localhost:3000/Skull.stl",
+    //   function (geometry) {
+    //     const mesh = new THREE.Mesh(geometry, materialSkull);
+    //     scene.add(mesh);
+    //   },
+    //   (xhr) => {
+    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
     console.log(scene.children)
 
@@ -238,7 +243,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     //     console.log("drag")
     //   }
     // });
->>>>>>> Stashed changes
     /// End end vs drag v2
 
     // Begin code mouseclick
@@ -255,7 +259,6 @@ export default function Stlviewer({ file }: FileCardProps) {
 
       raycaster.setFromCamera(mouse, camera);
       var intersects = raycaster.intersectObjects(scene.children);
-<<<<<<< Updated upstream
       for (var i = 0; i < intersects.length; i++) {
         if (intersects[i].object instanceof THREE.Mesh)
           //@ts-ignore
@@ -270,7 +273,6 @@ export default function Stlviewer({ file }: FileCardProps) {
         // scene.add( sphere);
         /// End add sphere on click
       }
-=======
 
       for (var i = 0; i < scene.children.length; i++) {
         if (scene.children[i] instanceof THREE.Mesh) {
@@ -300,7 +302,6 @@ export default function Stlviewer({ file }: FileCardProps) {
           // scene.add( sphere);
           /// End add sphere on click
       // }
->>>>>>> Stashed changes
       // End raycaster
     }
     // End code mouseclick
