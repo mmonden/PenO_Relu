@@ -16,7 +16,7 @@ import { getSession } from "next-auth/react";
 export default function Home({ file }) {
   return (
     <div className="flex relative w-screen h-screen">
-      <Stlviewer file={file}/>
+      <Stlviewer file={file} />
       <div className="absolute w-full">
         <Navbar />
       </div>

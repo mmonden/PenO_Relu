@@ -1,19 +1,22 @@
 import { GetServerSideProps } from "next";
-import { getPatients } from "../lib/annotations";
-import { IPatient } from "../types";
-import HomePage from "../components/patient_overview";
+import { getFiles, getPatients } from "../lib/annotations";
+import { IPatient, IFile } from "../types";
+import HomePage from "../components/homepage";
 import { getSession } from "next-auth/react";
 
-export default function Overview({ patients }) {
+export default function Overview({ patients, files }) {
+  console.log("patients: ", patients)
+  console.log("files: ", files)
   return (
     <div className="min-h-screen min-w-screen">
-      <HomePage patients_input={patients} />
+      <HomePage patients_input={patients} files_input={files} />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const patients: IPatient = await getPatients();
+  const files: IFile = await getFiles();
   const session = await getSession(ctx);
   if (!session) {
     return {
@@ -25,6 +28,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: { patients },
+    props: { patients, files },
   };
 };

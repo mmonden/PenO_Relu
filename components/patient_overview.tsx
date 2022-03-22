@@ -7,11 +7,11 @@ import { useSession } from "next-auth/react"
 
 type PatientListProps = {
     patients_input: IPatient[];
-  };
+};
 
 //Patient_uinput
 
-export default function HomePage({ patients_input }: PatientListProps) {
+export default function PatientList({ patients_input }: PatientListProps) {
 
     const [patients, setPatient] = useState(patients_input);
     const session = useSession()
@@ -37,10 +37,10 @@ export default function HomePage({ patients_input }: PatientListProps) {
 
     const newPatient = () => {
         const new_patient: IPatient = {
-        _id: uuidv4(),
-        name: "",
-        user_id: "",
-        new: true,
+            _id: uuidv4(),
+            name: "",
+            user_id: "",
+            new: true,
         };
         setPatient([...patients, new_patient]);
     };
@@ -53,7 +53,7 @@ export default function HomePage({ patients_input }: PatientListProps) {
                 <div className="flex justify-center items-center text-6xl my-4 border-b-2 border-black h-fit pb-4">
                     Patiënten
                     <button onClick={newPatient}>
-                        <GrAdd className="text-3xl m-5"/>
+                        <GrAdd className="text-3xl m-5" />
                     </button>
                 </div>
             </div>
@@ -63,5 +63,5 @@ export default function HomePage({ patients_input }: PatientListProps) {
                 })}
             </div>
         </div>
-  );
+    );
 }
