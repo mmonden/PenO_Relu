@@ -41,7 +41,7 @@ export async function updateFile(file: IFile) {
 
 	const opts = { upsert: true }
 	const result = db.collection("files").updateOne({ "_id": file._id }, { $set: file }, opts)
-	console.log(result) //Dit komt nog niet echt door denk ik --> of print toch geen resultaat af!
+	console.log(result)
 }
 
 export async function writeAnnotation(annotation: ICard) {
@@ -60,4 +60,14 @@ export async function deleteAnnotation(annotation: ICard) {
 export async function deletePatient(patient: IPatient) {
 	const { db } = await connectToDatabase();
 	const result = await db.collection("patients").deleteOne({ "_id": patient._id })
+}
+
+export async function updatePatient(patient: IPatient) {
+	const { db } = await connectToDatabase();
+	console.log(patient)
+	delete patient.new;
+
+	const opts = { upsert: true }
+	const result = db.collection("files").updateOne({ "_id": patient._id }, { $set: patient }, opts)
+	console.log(result)
 }

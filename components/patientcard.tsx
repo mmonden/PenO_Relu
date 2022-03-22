@@ -57,7 +57,7 @@ export default function PatientCard({patient}: PatientCardProps) {
             </div>
             <div className="">
                 <div className="flex items-center">
-                    <Link href= {editing ? "javascript: void(0)" : `/view/${file._id}` }>
+                    <Link href= {editing ? "javascript: void(0)" : `/view/${patient._id}` }>
                         <a>
                             <div className="flex items-center">
                                 <AiOutlineFile className="text-5xl" />
