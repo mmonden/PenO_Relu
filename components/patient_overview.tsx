@@ -7,11 +7,12 @@ import { useSession } from "next-auth/react"
 
 type PatientListProps = {
     patients_input: IPatient[];
+    patientFunc : any;
 };
 
 //Patient_uinput
 
-export default function PatientList({ patients_input }: PatientListProps) {
+export default function PatientList({ patients_input, patientFunc }: PatientListProps ) {
 
     const [patients, setPatient] = useState(patients_input);
     const session = useSession()
@@ -59,7 +60,7 @@ export default function PatientList({ patients_input }: PatientListProps) {
             </div>
             <div className="divide-y-2 ">
                 {patients.map((item, index) => {
-                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} />;
+                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} patientFunc = {patientFunc} />;
                 })}
             </div>
         </div>

@@ -6,16 +6,16 @@ import {
     AiOutlineSave,
     AiOutlineArrowRight
 } from "react-icons/ai";
-import Link from "next/link";
 import { useState } from "react";
 
 
 type PatientCardProps = {
     patient: IPatient;
     deletePatient: Function;
+    patientFunc : any;
 };
 
-export default function PatientCard({ patient, deletePatient }: PatientCardProps) {
+export default function PatientCard({ patient, deletePatient, patientFunc }: PatientCardProps) {
     const [editing, setEdit] = useState(patient.new);
     const [name, setName] = useState(patient.name);
 
@@ -52,8 +52,8 @@ export default function PatientCard({ patient, deletePatient }: PatientCardProps
     return (
         <div className="relative text-gray-700 text-2xl">
             <div className="absolute top-6 -right-10">
-                <button onClick={onDelete}>
-                    <BsArrowReturnRight className="w-7 h-7" />
+                <button onClick={patientFunc("1")}>
+                    <AiOutlineArrowRight className="w-7 h-7" />
                 </button>
             </div>
             <div className="absolute top-6 -right-4">
