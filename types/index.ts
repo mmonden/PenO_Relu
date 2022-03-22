@@ -53,6 +53,6 @@ export interface IPatient {
   _id: String;
   name: string;
   user_id: string;
-  file_ids?: number[];
+  file_ids?: String[];
   new?: boolean;
 }
