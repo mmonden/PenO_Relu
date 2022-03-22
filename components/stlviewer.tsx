@@ -17,7 +17,7 @@ type FileCardProps = {
 };
 
 
-let camera, scene, canvas, controls, renderer, followLight, light
+let camera, scene, controls, renderer, followLight, light
 
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
@@ -304,5 +304,5 @@ function render() {
  function ChangePerspective(x,y,z) {
   camera.position.set(x, y, z); 
   camera.updateProjectionMatrix();
-  //render() //moet dit erbij?
+  render() //moet dit erbij?
 } 
