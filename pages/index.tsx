@@ -1,19 +1,19 @@
 import { GetServerSideProps } from "next";
-import { getFiles } from "../lib/annotations";
-import { IFile } from "../types";
+import { getPatients } from "../lib/annotations";
+import { IPatient } from "../types";
 import FileList from "../components/file_overview";
 import { getSession } from "next-auth/react";
 
-export default function Overview({ files }) {
+export default function Overview({ patients }) {
   return (
     <div className="min-h-screen min-w-screen">
-      <FileList files_input={files} />
+      <FileList patients_input={patients} />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const files: IFile[] = await getFiles();
+  const patients: IPatient = await getPatients();
   const session = await getSession(ctx);
   if (!session) {
     return {
@@ -25,6 +25,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: { files },
+    props: { patients },
   };
 };
