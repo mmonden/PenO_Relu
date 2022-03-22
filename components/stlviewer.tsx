@@ -16,46 +16,20 @@ type FileCardProps = {
   file: IFile;
 };
 
+
+let camera, scene, canvas, controls, renderer, followLight, light
+
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
   useEffect(() => {
-    //creating scene
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
 
-    //light
-    let followLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    followLight.position.set(20, 100, 10);
-    followLight.target.position.set(0, 0, 0);
-    followLight.castShadow = true;
-    scene.add(followLight);
+    init()
 
-    let light = new THREE.AmbientLight(0x404040);
-    scene.add(light);
-
-    //CAMERA
-    const camera = new THREE.PerspectiveCamera(
-      90, //field of view, number of vertical degrees it is seen --> lower : objects are closer <-> higher : objects are farther
-      window.innerWidth / window.innerHeight,
-      0.1, //distance from camera object starts to appear
-      1000 //distance from camera objects stops appearing
-    );
-
-    //camera.position.set(-1.2, -33.8, -57.33); // Set position like this
-    //camera.lookAt(new THREE.Vector3(-1.2, -33.8, -57.33))
-    camera.position.set(0, -3, 3); // Set position like this
-    //camera.rotation.set(0, 100, 0);
-    camera.lookAt(scene.position);
-    camera.updateProjectionMatrix();
-    //camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
-
-    //RENDERER AND ADD TO PAGE
-    const renderer = new THREE.WebGLRenderer();
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
 
+    //dunno what this do @aline @thomas
     window.addEventListener("resize", onWindowResize, false);
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -63,17 +37,6 @@ export default function Stlviewer({ file }: FileCardProps) {
       renderer.setSize(window.innerWidth, window.innerHeight);
       render();
     }
-
-    //FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-    function ChangePerspective(x, y, z) {
-      camera.position.set(x, y, z);
-      camera.updateProjectionMatrix();
-      render() //moet dit erbij?
-    }
-
-    //CONTROLS
-    // const controls = new OrbitControls(camera, renderer.domElement);
-    const controls = new TrackballControls(camera, renderer.domElement);
 
     // Skull material
     const materialSkull = new THREE.MeshPhongMaterial({
@@ -277,20 +240,69 @@ export default function Stlviewer({ file }: FileCardProps) {
     //   }
     // });
     /// End end vs drag v2
-
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      render();
-    }
-
-    function render() {
-      followLight.position.copy(camera.position);
-      renderer.render(scene, camera);
-    }
-
     animate();
   });
 
   return <div ref={threeContainerRef} />;
 }
+
+function init(){
+  //creating scene
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xffffff);
+  //light
+  followLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  followLight.position.set(20, 100, 10);
+  followLight.target.position.set(0, 0, 0);
+  followLight.castShadow = true;
+  scene.add(followLight);
+
+  light = new THREE.AmbientLight(0x404040);
+  scene.add(light);
+
+  //CAMERA
+  camera = new THREE.PerspectiveCamera(
+    90, //field of view, number of vertical degrees it is seen --> lower : objects are closer <-> higher : objects are farther
+    window.innerWidth / window.innerHeight,
+    0.1, //distance from camera object starts to appear
+    1000 //distance from camera objects stops appearing
+  );
+
+  camera.position.set(0, -3, 3); // Set position like this
+  //camera.rotation.set(0, 100, 0);
+  //camera.lookAt(new THREE.Vector3(5, 100, -57.33));
+  camera.updateProjectionMatrix();
+
+  //RENDERER
+  renderer = new THREE.WebGLRenderer();
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  //CONTROLS
+  controls = new OrbitControls(camera, renderer.domElement);
+  //controls = new FlyControls( camera, renderer.domElement );
+  //controls = new TrackballControls( camera, renderer.domElement );
+ //controls = new PointerLockControls( camera, renderer.domElement );
+  // controls.movementSpeed = 100;
+  // controls.rollSpeed = Math.PI / 24;
+  // controls.autoForward = false;
+  // controls.dragToLook = true;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  render();
+}
+
+function render() {
+  followLight.position.copy(camera.position);
+  renderer.render(scene, camera);
+}
+
+ //FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
+ function ChangePerspective(x,y,z) {
+  camera.position.set(x, y, z); 
+  camera.updateProjectionMatrix();
+  //render() //moet dit erbij?
+} 
