@@ -36,6 +36,7 @@ export async function deleteFile(file: IFile) {
 export async function updateFile(file: IFile) {
 	const { db } = await connectToDatabase();
 	console.log(file)
+	delete file.cards;
 
 	const opts = {upsert: true}
 	const result =  db.collection("files").updateOne({"_id": file._id}, {$set: file}, opts)
