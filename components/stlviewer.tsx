@@ -5,10 +5,12 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { MeshLine, MeshLineMaterial } from "three.meshline";
+import { InstancedInterleavedBuffer } from "three";
 
 import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
 import { Sprite } from "three";
+import { makeTextSprite } from "./makeTextSprite";
 
 type FileCardProps = {
   file: IFile;
@@ -34,14 +36,19 @@ export default function Stlviewer({ file }: FileCardProps) {
 
     //CAMERA
     const camera = new THREE.PerspectiveCamera(
-      75,
+      90, //field of view, number of vertical degrees it is seen --> lower : objects are closer <-> higher : objects are farther
       window.innerWidth / window.innerHeight,
-      0.1,
-      1000
+      0.1, //distance from camera object starts to appear
+      1000 //distance from camera objects stops appearing
     );
 
+    //camera.position.set(-1.2, -33.8, -57.33); // Set position like this
+    //camera.lookAt(new THREE.Vector3(-1.2, -33.8, -57.33))
     camera.position.set(0, -3, 3); // Set position like this
-    camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
+    //camera.rotation.set(0, 100, 0);
+    camera.lookAt(scene.position);
+    camera.updateProjectionMatrix();
+    //camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
 
     //RENDERER AND ADD TO PAGE
     const renderer = new THREE.WebGLRenderer();
@@ -57,6 +64,13 @@ export default function Stlviewer({ file }: FileCardProps) {
       render();
     }
 
+    //FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
+    function ChangePerspective(x,y,z) {
+      camera.position.set(x, y, z); 
+      camera.updateProjectionMatrix();
+      render() //moet dit erbij?
+    } 
+          
     //CONTROLS
     // const controls = new OrbitControls(camera, renderer.domElement);
     const controls = new TrackballControls(camera, renderer.domElement);
@@ -267,102 +281,4 @@ export default function Stlviewer({ file }: FileCardProps) {
   });
 
   return <div ref={threeContainerRef} />;
-}
-
-function makeTextSprite(message, parameters) {
-  if (parameters === undefined) parameters = {};
-  var fontface = parameters.hasOwnProperty("fontface")
-    ? parameters["fontface"]
-    : "Arial";
-  var fontsize = parameters.hasOwnProperty("fontsize")
-    ? parameters["fontsize"]
-    : 18;
-  var borderThickness = parameters.hasOwnProperty("borderThickness")
-    ? parameters["borderThickness"]
-    : 4;
-  var borderColor = parameters.hasOwnProperty("borderColor")
-    ? parameters["borderColor"]
-    : { r: 0, g: 0, b: 0, a: 1.0 };
-  var backgroundColor = parameters.hasOwnProperty("backgroundColor")
-    ? parameters["backgroundColor"]
-    : { r: 255, g: 255, b: 255, a: 1.0 };
-  var textColor = parameters.hasOwnProperty("textColor")
-    ? parameters["textColor"]
-    : { r: 0, g: 0, b: 0, a: 1.0 };
-
-  var canvas = document.createElement("canvas");
-  var context = canvas.getContext("2d");
-  context.font = "Bold " + fontsize + "px " + fontface;
-
-  // get size data (height depends only on font size)
-  var metrics = context.measureText(message);
-  var textWidth = metrics.width;
-
-  // background color
-  context.fillStyle =
-    "rgba(" +
-    backgroundColor.r +
-    "," +
-    backgroundColor.g +
-    "," +
-    backgroundColor.b +
-    "," +
-    backgroundColor.a +
-    ")";
-
-  // border color
-  context.strokeStyle =
-    "rgba(" +
-    borderColor.r +
-    "," +
-    borderColor.g +
-    "," +
-    borderColor.b +
-    "," +
-    borderColor.a +
-    ")";
-
-  context.lineWidth = borderThickness;
-  roundRect(
-    context,
-    borderThickness / 2,
-    borderThickness / 2,
-    (textWidth + borderThickness) * 1.1,
-    fontsize * 1.4 + borderThickness,
-    8
-  );
-  // 1.4 is extra height factor for text below baseline: g,j,p,q.
-
-  // text color
-  context.fillStyle =
-    "rgba(" + textColor.r + ", " + textColor.g + ", " + textColor.b + ", 1.0)";
-
-  context.fillText(message, borderThickness, fontsize + borderThickness);
-
-  var texture = new THREE.Texture(canvas);
-  texture.needsUpdate = true;
-
-  var spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-  var sprite = new THREE.Sprite(spriteMaterial);
-
-  //dimensions sprite
-  sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
-  return sprite;
-}
-
-// function for drawing rounded rectangles
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
 }
