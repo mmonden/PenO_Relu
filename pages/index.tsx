@@ -1,13 +1,13 @@
 import { GetServerSideProps } from "next";
 import { getPatients } from "../lib/annotations";
 import { IPatient } from "../types";
-import FileList from "../components/file_overview";
+import HomePage from "../components/patient_overview";
 import { getSession } from "next-auth/react";
 
 export default function Overview({ patients }) {
   return (
     <div className="min-h-screen min-w-screen">
-      <FileList patients_input={patients} />
+      <HomePage patients_input={patients} />
     </div>
   );
 }
