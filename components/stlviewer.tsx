@@ -65,22 +65,22 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     //FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-    function ChangePerspective(x,y,z) {
-      camera.position.set(x, y, z); 
+    function ChangePerspective(x, y, z) {
+      camera.position.set(x, y, z);
       camera.updateProjectionMatrix();
       render() //moet dit erbij?
-    } 
-          
+    }
+
     //CONTROLS
     // const controls = new OrbitControls(camera, renderer.domElement);
     const controls = new TrackballControls(camera, renderer.domElement);
 
     // Skull material
-    // const materialSkull = new THREE.MeshPhongMaterial({
-    //   color: 0xd3d3d3,
-    //   opacity: 1.0,
-    //   transparent: true,
-    // });
+    const materialSkull = new THREE.MeshPhongMaterial({
+      color: 0xd3d3d3,
+      opacity: 1.0,
+      transparent: true,
+    });
 
     // Mandible material
     const materialMandible = new THREE.MeshPhongMaterial({
@@ -114,7 +114,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 
     //STL file loading
     const loader = new STLLoader();
-    
+
     var materials = new Array();
     for (var x = 1; x < 7; x++) {
       for (var y = 1; y < 7; y++) {
@@ -132,15 +132,15 @@ export default function Stlviewer({ file }: FileCardProps) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString())
 
         loader.load(
-          "http://localhost:3000/"+filename+".stl",
+          "http://localhost:3000/" + filename + ".stl",
           function (geometry) {
-            
+
             let toothNr = parseInt(filename.split('_').pop())
             let a = Math.floor(toothNr / 10)
             let b = toothNr % 10
             console.log(a, b)
 
-            const mesh = new THREE.Mesh(geometry, materials[(a-1)*6+(b-1)]);
+            const mesh = new THREE.Mesh(geometry, materials[(a - 1) * 6 + (b - 1)]);
             scene.add(mesh);
           },
           (xhr) => {
@@ -212,8 +212,6 @@ export default function Stlviewer({ file }: FileCardProps) {
         // Begin raycaster
         if (file.selected && !file.selected.clicked) {
           raycaster.setFromCamera(mouse, camera);
-          if (scene.children[3] instanceof THREE.Mesh)
-            scene.children[3].material.color.set(0x1313);
           var intersects = raycaster.intersectObjects(scene.children);
           for (var i = 0; i < intersects.length; i++) {
             if (intersects[i].object instanceof THREE.Mesh)
@@ -223,24 +221,38 @@ export default function Stlviewer({ file }: FileCardProps) {
             file.selected.position = intersects[i].point;
             file.selected.clicked = true;
           }
+
+          for (var i = 0; i < scene.children.length; i++) {
+            if (scene.children[i] instanceof THREE.Mesh) {
+              // console.log("Child", i, scene.children[i])
+              // console.log("Intersect", j, intersects[j].object)
+              if (typeof intersects[0] !== 'undefined' && scene.children[i] == intersects[0].object) {
+                // @ts-ignore
+                (scene.children[i] as THREE.Mesh).material.color.set(0x00ff00)
+              } else {
+                // @ts-ignore
+                (scene.children[i] as THREE.Mesh).material.color.set(0xd3d3d3)
+              }
+            }
+          }
         }
         // End raycaster
       }
       // End code mouseclick
     });
-    // loader.load(
-    //   "http://localhost:3000/Skull.stl",
-    //   function (geometry) {
-    //     const mesh = new THREE.Mesh(geometry, materialSkull);
-    //     scene.add(mesh);
-    //   },
-    //   (xhr) => {
-    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    loader.load(
+      "http://localhost:3000/Skull.stl",
+      function (geometry) {
+        const mesh = new THREE.Mesh(geometry, materialSkull);
+        scene.add(mesh);
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
     console.log(scene.children)
 
