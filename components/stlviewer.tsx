@@ -19,11 +19,6 @@ export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
   useEffect(() => {
-    var title = file.selected.title;
-    var text = file.selected.text;
-    //console.log(title);
-    //console.log(text);
-
     //creating scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
@@ -85,7 +80,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     });
 
     //start of code for lines  #thomas zijn lijn op stl
-
     const points = [];
     const startingpoint = [25, -10, -40]; //eventually to be done by clicking the screen
     const endpoint = [60, 0, 10]; //idem
@@ -107,16 +101,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     const mesh = new THREE.Mesh(line, linematerial);
     scene.add(mesh);
     //end of code for lines
-
-    //start code for textlabel
-    var tekstlabel = makeTextSprite(title, {
-      fontsize: 50,
-      borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-      backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
-    });
-    tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
-    scene.add(tekstlabel);
-    //end code for text label
 
     //STL file loading
     const loader = new STLLoader();
@@ -140,21 +124,23 @@ export default function Stlviewer({ file }: FileCardProps) {
     let startY;
 
     document.addEventListener("dblclick", function (event) {
-      title = file.selected.title;
-      text = file.selected.text;
-      scene.children = scene.children.filter(
-        (child) => !(child instanceof Sprite)
-      );
+      if (file.selected) {
+        var title = file.selected.title;
+        var text = file.selected.text;
+        scene.children = scene.children.filter(
+          (child) => !(child instanceof Sprite)
+        );
 
-      //start code for textlabel
-      var tekstlabel = makeTextSprite(title, {
-        fontsize: 50,
-        borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-        backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
-      });
-      tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
-      scene.add(tekstlabel);
-      //end code for text label
+        //start code for textlabel
+        var tekstlabel = makeTextSprite(title, {
+          fontsize: 50,
+          borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
+          backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+        });
+        tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
+        scene.add(tekstlabel);
+        //end code for text label
+      }
     });
 
     document.addEventListener("mousedown", function (event) {
@@ -162,50 +148,38 @@ export default function Stlviewer({ file }: FileCardProps) {
       startY = event.pageY;
     });
 
+    // Begin code mouseclick
+    const mouse = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+
     document.addEventListener("mouseup", function (event) {
       const diffX = Math.abs(event.pageX - startX);
       const diffY = Math.abs(event.pageY - startY);
 
       if (diffX < delta && diffY < delta) {
-        console.log("click!");
-      } else {
-        console.log("drag");
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Begin raycaster
+        if (file.selected && !file.selected.clicked) {
+          raycaster.setFromCamera(mouse, camera);
+          if (scene.children[3] instanceof THREE.Mesh)
+            scene.children[3].material.color.set(0x1313);
+          var intersects = raycaster.intersectObjects(scene.children);
+          for (var i = 0; i < intersects.length; i++) {
+            if (intersects[i].object instanceof THREE.Mesh)
+              //@ts-ignore
+              intersects[i].object.material.color.set(0xff0000);
+            console.log(intersects[i].point);
+            file.selected.position = intersects[i].point;
+            file.selected.clicked = true;
+          }
+        }
+        // End raycaster
       }
+      // End code mouseclick
     });
     /// End end vs drag v2
-
-    // Begin code mouseclick
-    const mouse = new THREE.Vector2();
-    var raycaster = new THREE.Raycaster();
-
-    document.addEventListener("mousedown", onMouseMove, false);
-
-    function onMouseMove(event) {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-      // Begin raycaster
-      raycaster.setFromCamera(mouse, camera);
-      if (scene.children[3] instanceof THREE.Mesh)
-        scene.children[3].material.color.set(0x1313);
-      var intersects = raycaster.intersectObjects(scene.children);
-      for (var i = 0; i < intersects.length; i++) {
-        if (intersects[i].object instanceof THREE.Mesh)
-          //@ts-ignore
-          intersects[i].object.material.color.set(0xff0000);
-        console.log(intersects[i].point);
-
-        /// Begin add sphere on click
-        // const geometry = new THREE.SphereGeometry( 15, 32, 16 );
-        // const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-        // const sphere = new THREE.Mesh( geometry, material );
-        // sphere.position.set(intersects[i].point.x, intersects[i].point.y, intersects[i].point.z);
-        // scene.add( sphere);
-        /// End add sphere on click
-      }
-      // End raycaster
-    }
-    // End code mouseclick
 
     function animate() {
       requestAnimationFrame(animate);
