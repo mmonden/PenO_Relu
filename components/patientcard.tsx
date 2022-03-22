@@ -11,9 +11,10 @@ import { useState } from "react";
 
 type PatientCardProps = {
     patient: IPatient;
+    deletePatient: Function;
 };
 
-export default function PatientCard({patient}: PatientCardProps) {
+export default function PatientCard({ patient, deletePatient }: PatientCardProps) {
     const [editing, setEdit] = useState(patient.new);
     const [name, setName] = useState(patient.name);
 
@@ -31,21 +32,18 @@ export default function PatientCard({patient}: PatientCardProps) {
     const toggleEdit = () => {
 
         if (name != patient.name) {
-			file.title = title
+            patient.name = name;
 
-			fetch('/api/update_file', {
-				method: 'POST',
-				body: JSON.stringify({ file }),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
-		}
+            fetch('/api/update_file', {
+                method: 'POST',
+                body: JSON.stringify({ patient }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        }
 
         setEdit(!editing);
-
-        //Hier moet dan nog die extra code komen voor de database (zie bij annatations)
-        //Api voor gebruiken? --> zoek eens op --> niet helemaal zeker van
     };
 
 
@@ -59,7 +57,7 @@ export default function PatientCard({patient}: PatientCardProps) {
             </div>
             <div className="">
                 <div className="flex items-center">
-                    <Link href= {editing ? "javascript: void(0)" : `/view/${patient._id}` }>
+                    <Link href={editing ? "javascript: void(0)" : `/view/${patient._id}`}>
                         <a>
                             <div className="flex items-center">
                                 <AiOutlineFile className="text-5xl" />
@@ -71,11 +69,11 @@ export default function PatientCard({patient}: PatientCardProps) {
                                                 type="text"
                                                 value={name}
                                                 onChange={(e) =>
-                                                    setTitle(e.target.value)
+                                                    setName(e.target.value)
                                                 }
                                             />
                                         ) : (
-                                            title
+                                            name
                                         )}
                                     </div>
                                 </div>

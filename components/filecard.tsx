@@ -43,9 +43,6 @@ export default function FileCard({ file, deleteFile }: FileCardProps) {
 		}
 
         setEdit(!editing);
-
-        //Hier moet dan nog die extra code komen voor de database (zie bij annatations)
-        //Api voor gebruiken? --> zoek eens op --> niet helemaal zeker van
     };
 
     return (
