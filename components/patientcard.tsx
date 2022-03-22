@@ -14,6 +14,8 @@ type PatientCardProps = {
 };
 
 export default function PatientCard({patient}: PatientCardProps) {
+    const [editing, setEdit] = useState(patient.new);
+    const [name, setName] = useState(patient.name);
 
     const onDelete = () => {
         deletePatient(patient._id);
@@ -28,7 +30,7 @@ export default function PatientCard({patient}: PatientCardProps) {
 
     const toggleEdit = () => {
 
-        if (title != file.title) {
+        if (name != patient.name) {
 			file.title = title
 
 			fetch('/api/update_file', {
@@ -67,7 +69,7 @@ export default function PatientCard({patient}: PatientCardProps) {
                                             <input
                                                 className="border-2"
                                                 type="text"
-                                                value={title}
+                                                value={name}
                                                 onChange={(e) =>
                                                     setTitle(e.target.value)
                                                 }

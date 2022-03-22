@@ -22,6 +22,18 @@ export async function getAnnotations(file: IFile) {
 	return annotations;
 }
 
+export async function getPatients() {
+	const { db } = await connectToDatabase();
+	const patients = await db.collection("patients").find().toArray();
+	return patients
+}
+
+export async function getPatient(id: number) {
+	const { db } = await connectToDatabase();
+	const patient = await db.collection("patients").findOne({ _id: id });
+	return patient
+}
+
 export async function deleteFile(file: IFile) {
 	const { db } = await connectToDatabase();
 
