@@ -5,8 +5,6 @@ import HomePage from "../components/homepage";
 import { getSession } from "next-auth/react";
 
 export default function Overview({ patients, files }) {
-  console.log("patients: ", patients)
-  console.log("files: ", files)
   return (
     <div className="min-h-screen min-w-screen">
       <HomePage patients_input={patients} files_input={files} />

@@ -1,5 +1,5 @@
-import { PatientList } from "./patient_overview";
-import { FileList } from "./file_overview";
+import PatientList from "./patient_overview";
+import FileList from "./file_overview";
 import { IFile, IPatient } from "../types";
 import { useState } from "react";
 import { GrAdd } from "react-icons/gr";
@@ -13,13 +13,14 @@ type HomePageProps = {
 
 
 export default function HomePage({ patients_input, files_input }: HomePageProps) {
+    console.log("homepage")
+    console.log("patients: ", patients_input)
+    console.log("files: ", files_input)
     return (
         <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
             <div className="absolute top-12">
-                <PatientList patients={patients_input} />
-            </div>
-            <div className="right">
-                <FileList files={files_input} />
+                <PatientList patients_input={patients_input} />
+                <FileList files_input={files_input} />
             </div>
         </div>
     );
