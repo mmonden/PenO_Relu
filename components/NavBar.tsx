@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export const Navbar = () => {
   return (
@@ -20,7 +21,12 @@ export const Navbar = () => {
         </button>
       </div>
       <div className="absolute right-0 h-12 w-20">
-        <button className="h-12 w-20 hover:bg-gray-500 rounded">Log out</button>
+        <button
+          className="h-12 w-20 hover:bg-gray-500 rounded"
+          onClick={() => signOut()}
+        >
+          Log out
+        </button>
       </div>
     </div>
   );
