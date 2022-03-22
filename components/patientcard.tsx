@@ -4,6 +4,7 @@ import {
     AiOutlineDelete,
     AiOutlineEdit,
     AiOutlineSave,
+    AiOutlineArrowRight
 } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";
@@ -52,12 +53,16 @@ export default function PatientCard({ patient, deletePatient }: PatientCardProps
         <div className="relative text-gray-700 text-2xl">
             <div className="absolute top-6 -right-10">
                 <button onClick={onDelete}>
+                    <BsArrowReturnRight className="w-7 h-7" />
+                </button>
+            </div>
+            <div className="absolute top-6 -right-4">
+                <button onClick={onDelete}>
                     <AiOutlineDelete className="w-7 h-7" />
                 </button>
             </div>
             <div className="">
                 <div className="flex items-center">
-                    <Link href={editing ? "javascript: void(0)" : `/view/${patient._id}`}>
                         <a>
                             <div className="flex items-center">
                                 <AiOutlineFile className="text-5xl" />
@@ -79,7 +84,6 @@ export default function PatientCard({ patient, deletePatient }: PatientCardProps
                                 </div>
                             </div>
                         </a>
-                    </Link>
                     <button onClick={toggleEdit}>
                         {editing ? (
                             <AiOutlineSave className="text-3xl" />
