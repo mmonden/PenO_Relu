@@ -1,4 +1,4 @@
-import { IFile } from "../types";
+import { IPatient } from "../types";
 import {
     AiOutlineFile,
     AiOutlineDelete,

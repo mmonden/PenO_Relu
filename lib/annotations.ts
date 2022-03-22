@@ -1,7 +1,8 @@
 import { connectToDatabase } from "./mongodb";
-import { ICard, IFile } from "../types";
+import { ICard, IFile, IPatient } from "../types";
 import { resourceLimits } from "worker_threads";
 import { fileURLToPath } from "url";
+import { connect } from "http2";
 
 export async function getFiles() {
 	const { db } = await connectToDatabase();
@@ -38,8 +39,8 @@ export async function updateFile(file: IFile) {
 	console.log(file)
 	delete file.cards;
 
-	const opts = {upsert: true}
-	const result =  db.collection("files").updateOne({"_id": file._id}, {$set: file}, opts)
+	const opts = { upsert: true }
+	const result = db.collection("files").updateOne({ "_id": file._id }, { $set: file }, opts)
 	console.log(result) //Dit komt nog niet echt door denk ik --> of print toch geen resultaat af!
 }
 
@@ -54,4 +55,9 @@ export async function writeAnnotation(annotation: ICard) {
 export async function deleteAnnotation(annotation: ICard) {
 	const { db } = await connectToDatabase();
 	const result = await db.collection("annotations").deleteOne({ "_id": annotation._id })
+}
+
+export async function deletePatient(patient: IPatient) {
+	const { db } = await connectToDatabase();
+	const result = await db.collection("patients").deleteOne({ "_id": patient._id })
 }
