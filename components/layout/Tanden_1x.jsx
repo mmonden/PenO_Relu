@@ -1,5 +1,5 @@
 // import SVG_STRING_PER_STRUCTURE from "../textures/AnatomySvgData.js"
-import { ChangePerspective } from " ../stlviewer"; //weet ik nog niet hoe je dit import, later vragen aan thomas als hij al gevonden heeft
+//import { ChangePerspective } from " ../stlviewer"; //weet ik nog niet hoe je dit import, later vragen aan thomas als hij al gevonden heeft
 
 const Tanden = () => {
   return (

@@ -35,7 +35,7 @@ export default function Stlviewer() {
     //camera.lookAt(new THREE.Vector3(-1.2, -33.8, -57.33))
     camera.position.set(0, -3, 3); // Set position like this
     //camera.rotation.set(0, 100, 0);
-    camera.lookAt(new THREE.Vector3(-1.2, -33.8, -57.33));
+    camera.lookAt(-100, 0, 0);
     camera.updateProjectionMatrix();
     //camera.lookAt(new THREE.Vector3(0, -3, 3)); // Set look at coordinate like this
 
