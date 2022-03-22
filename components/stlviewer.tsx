@@ -18,10 +18,6 @@ export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
   useEffect(() => {
-    var title = file.selected.title;
-    var text = file.selected.text;
-    //console.log(title);
-    //console.log(text);
 
     //creating scene
     const scene = new THREE.Scene();
@@ -104,15 +100,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     scene.add(mesh);
     //end of code for lines
 
-    //start code for textlabel
-    var tekstlabel = makeTextSprite(title, {
-      fontsize: 50,
-      borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-      backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
-    });
-    tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
-    scene.add(tekstlabel);
-    //end code for text label
 
     //STL file loading
     const loader = new STLLoader();
@@ -175,21 +162,23 @@ export default function Stlviewer({ file }: FileCardProps) {
     let startY;
 
     document.addEventListener("dblclick", function (event) {
-      title = file.selected.title;
-      text = file.selected.text;
-      scene.children = scene.children.filter(
-        (child) => !(child instanceof Sprite)
-      );
+      if (file.selected) {
+        var title = file.selected.title;
+        var text = file.selected.text;
+        scene.children = scene.children.filter(
+          (child) => !(child instanceof Sprite)
+        );
 
-      //start code for textlabel
-      var tekstlabel = makeTextSprite(title, {
-        fontsize: 50,
-        borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-        backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
-      });
-      tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
-      scene.add(tekstlabel);
-      //end code for text label
+        //start code for textlabel
+        var tekstlabel = makeTextSprite(title, {
+          fontsize: 50,
+          borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
+          backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+        });
+        tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
+        scene.add(tekstlabel);
+        //end code for text label
+      }
     });
 
     document.addEventListener("mousedown", function (event) {
@@ -264,14 +253,6 @@ export default function Stlviewer({ file }: FileCardProps) {
           //@ts-ignore
           intersects[i].object.material.color.set(0xff0000);
         console.log(intersects[i].point);
-
-        /// Begin add sphere on click
-        // const geometry = new THREE.SphereGeometry( 15, 32, 16 );
-        // const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-        // const sphere = new THREE.Mesh( geometry, material );
-        // sphere.position.set(intersects[i].point.x, intersects[i].point.y, intersects[i].point.z);
-        // scene.add( sphere);
-        /// End add sphere on click
       }
 
       for (var i = 0; i < scene.children.length; i++) {

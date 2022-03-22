@@ -20,7 +20,6 @@ export default function AnnotationCard({ card, deleteCard, file }: AnnotationCar
 		if (editing && (title != card.title || text != card.text)) {
 			card.title = title
 			card.text = text
-
 			fetch('/api/write_anno', {
 				method: 'POST',
 				body: JSON.stringify({ card }),
@@ -54,9 +53,7 @@ export default function AnnotationCard({ card, deleteCard, file }: AnnotationCar
 
 	const onAnnotation = () => {
 		if (!editing) {
-			console.log("oude selected", file.selected)
 			file.selected = card;
-			console.log("nieuwe selected", file.selected)
 			fetch('/api/update_file', {
 				method: 'POST',
 				body: JSON.stringify({ file }),

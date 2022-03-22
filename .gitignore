@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# temporarily don't accept stl files
+*.stl
