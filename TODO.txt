@@ -1,0 +1,2 @@
+1. email fixen door .env bestand aan te passen
+2. api functies maken voor mongodb accounts, sessions, users en ook in lib aanpassen

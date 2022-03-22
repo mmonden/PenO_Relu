@@ -1,24 +1,37 @@
 import AnnotationCard from "./annotationcard";
-import { ICard } from "../types";
+import { ICard, IFile } from "../types";
 import { GrAdd } from "react-icons/gr";
 import { useState } from "react";
 import {
-  AiOutlineDoubleLeft,
-  AiOutlineDoubleRight,
   AiOutlineRightCircle,
   AiOutlineLeftCircle,
 } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
+import { calculateObjectSize } from "bson";
+import { time } from "console";
 
 type AnnotationBarProps = {
-  cardsInput: ICard[];
+  file: IFile;
 };
 
-export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
+export default function AnnotationBar({ file }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState(false);
-  const [cards, setCards] = useState(cardsInput);
-  const deleteCard = (cardID) => {
+  const [cards, setCards] = useState(file.cards);
+  console.log(file.cards);
+  const [selected, setSelected] = useState(file.selected);
+
+  const deleteCard = (cardID: number) => {
     setCards(cards.filter((card) => card._id != cardID));
+    //file.cards = cards.filter((card) => card._id != cardID);
+    file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
+    file.time = new Date().toLocaleString();
+    fetch('/api/update_file', {
+      method: 'POST',
+      body: JSON.stringify({ file }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   };
 
   const newCard = () => {
@@ -28,17 +41,34 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
       text: "",
       new: true,
     };
+    file.time = new Date().toLocaleString();
+    file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
+    //file.cards.push(new_card);
+    fetch('/api/update_file', {
+      method: 'POST',
+      body: JSON.stringify({ file }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   };
 
   const onSwipe = () => {
     setSwipe(!swiped);
   };
 
+ 
+
+
+
   return (
     <div className="flex items-center">
       {!swiped ? (
-        <div className="min-h-screen border-black bg-gray-100 border flex flex-col items-center ">
+        <div
+          className="border-black bg-gray-100 border flex flex-col items-center"
+          style={{ height: "calc(100vh - 48px)" }}
+        >
           <div id="header_annobar" className="flex justify-center items-center">
             <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4 w-80">
               Annotaties
@@ -48,19 +78,23 @@ export default function AnnotationBar({ cardsInput }: AnnotationBarProps) {
             </button>
           </div>
           <div className="divide-y-2 ">
-            {cards.map((item, index) => {
+            {cards.map((card, index) => {
               return (
-                <AnnotationCard
-                  key={index}
-                  card={item}
-                  deleteCard={deleteCard}
-                />
+                  <AnnotationCard
+                    key={card._id}
+                    card={card}
+                    deleteCard={deleteCard}
+                    file={file}
+                  />
               );
             })}
           </div>
         </div>
       ) : (
-        <div className="w-1/8 min-h-screen border-black border rounded-r-[5rem] flex flex-col items-center "></div>
+        <div
+          className="w-1/8 border-black border rounded-r-[5rem] flex flex-col items-center "
+          style={{ height: "calc(100vh - 48px)" }}
+        ></div>
       )}
       <button className="flex items-center text-4xl" onClick={onSwipe}>
         {!swiped ? <AiOutlineLeftCircle /> : <AiOutlineRightCircle />}
