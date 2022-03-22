@@ -50,8 +50,8 @@ export interface IFile {
 }
 
 export interface IPatient {
-  patient_id: String;
-  naam: string;
+  _id: String;
+  name: string;
   user_id: string;
   file_ids?: number[];
   new?: boolean;

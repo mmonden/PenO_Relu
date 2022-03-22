@@ -1,20 +1,26 @@
 import FileCard from "./filecard";
-import { IFile } from "../types";
+import { IFile, IPatient } from "../types";
 import { useState } from "react";
 import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid"
+import { useSession } from "next-auth/react"
 
 
 type FileListProps = {
   files_input: IFile[];
 };
 
+type PatientListProps = {
+    patients_input: IPatient[];
+  };
+
 //Patient_uinput
 
-export default function FileList({ files_input }: FileListProps, { patient_input }) {
+export default function FileList({ files_input }: FileListProps, { patients_input }: PatientListProps) {
 
     const [files, setFiles] = useState(files_input);
-    const [patients, setPatient] = useState(patient_input);
+    const [patients, setPatient] = useState(patients_input);
+    const session = useSession()
 
     const deleteFile = (fileID) => {
         setFiles(files.filter((file) => file._id != fileID));
@@ -34,11 +40,11 @@ export default function FileList({ files_input }: FileListProps, { patient_input
         setFiles([...files, new_file]);
     };
 
-    const newFile = () => {
-        const new_file: IFile = {
+    const newPatient = () => {
+        const new_patient: IPatient = {
         _id: uuidv4(),
-        title: "",
-        card_ids: [],
+        name: "",
+        user_id: "",
         new: true,
         };
         setFiles([...files, new_file]);
