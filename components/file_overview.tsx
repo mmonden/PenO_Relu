@@ -9,12 +9,29 @@ type FileListProps = {
   files_input: IFile[];
 };
 
-export default function FileList({ files_input }: FileListProps) {
+//Patient_uinput
+
+export default function FileList({ files_input }: FileListProps, { patient_input }) {
 
     const [files, setFiles] = useState(files_input);
+    const [patients, setPatient] = useState(patient_input);
 
     const deleteFile = (fileID) => {
         setFiles(files.filter((file) => file._id != fileID));
+    };
+
+    const deletePatient = (patientID) => {
+        setPatient(patients.filter((patient) => patient._id != patientID));
+    };
+
+    const newFile = () => {
+        const new_file: IFile = {
+        _id: uuidv4(),
+        title: "",
+        card_ids: [],
+        new: true,
+        };
+        setFiles([...files, new_file]);
     };
 
     const newFile = () => {

@@ -31,6 +31,7 @@ export interface user {
     updated_at: Timestamp,
     new?: boolean
 }
+
 export interface ICard {
   _id: number;
   title: string;
@@ -45,5 +46,13 @@ export interface IFile {
   selected?: ICard;
   card_ids: number[];
   cards?: ICard[];
+  new?: boolean;
+}
+
+export interface IPatient {
+  patient_id: String;
+  naam: string;
+  user_id: string;
+  file_ids?: number[];
   new?: boolean;
 }
