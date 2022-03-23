@@ -1901,7 +1901,7 @@
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
   "version" "1.2.5"
 
-"mongodb-connection-string-url@^2.4.1", "mongodb-connection-string-url@^2.5.2":
+"mongodb-connection-string-url@^2.4.1":
   "integrity" "sha512-tWDyIG8cQlI5k3skB6ywaEA5F9f5OntrKKsT/Lteub2zgwSUlhqEN2inGgBTm8bpYJf8QYBdA/5naz65XDpczA=="
   "resolved" "https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-2.5.2.tgz"
   "version" "2.5.2"
@@ -1910,14 +1910,14 @@
     "whatwg-url" "^11.0.0"
 
 "mongodb@^4.1.1", "mongodb@^4.4.0":
-  "integrity" "sha512-IAD3nFtCR4s22vi5qjqkCBnuyDDrOW8WVSSmgHquOvGaP1iTD+XpC5tr8wAUbZ2EeZkaswwBKQFHDvl4qYcKqQ=="
-  "resolved" "https://registry.npmjs.org/mongodb/-/mongodb-4.4.1.tgz"
-  "version" "4.4.1"
+  "integrity" "sha512-1hPhutJj6yxxu0ymwsO0uEimTo+QTh3oQP6YHxmLneBFBOGydYFdnmDDuLiGWimAlMdRN9WuDXY+JGp47aeOwA=="
+  "resolved" "https://registry.npmjs.org/mongodb/-/mongodb-4.4.0.tgz"
+  "version" "4.4.0"
   dependencies:
     "bson" "^4.6.1"
     "denque" "^2.0.1"
-    "mongodb-connection-string-url" "^2.5.2"
-    "socks" "^2.6.2"
+    "mongodb-connection-string-url" "^2.4.1"
+    "socks" "^2.6.1"
   optionalDependencies:
     "saslprep" "^1.0.3"
 
@@ -2501,7 +2501,7 @@
   "resolved" "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.2.0.tgz"
   "version" "4.2.0"
 
-"socks@^2.6.1", "socks@^2.6.2":
+"socks@^2.6.1":
   "integrity" "sha512-zDZhHhZRY9PxRruRMR7kMhnf3I8hDs4S3f9RecfnGxvcBHQcKcIH/oUcEWffsfl1XxdYlA7nnlGbbTvPz9D8gA=="
   "resolved" "https://registry.npmjs.org/socks/-/socks-2.6.2.tgz"
   "version" "2.6.2"

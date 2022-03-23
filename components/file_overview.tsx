@@ -3,6 +3,7 @@ import { IFile } from "../types";
 import { useState } from "react";
 import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid"
+import { signOut } from "next-auth/react";
 
 
 type FileListProps = {
@@ -41,6 +42,14 @@ export default function FileList({ files_input }: FileListProps) {
                 {files.map((item, index) => {
                     return <FileCard key={index} file={item} deleteFile={deleteFile} />;
                 })}
+            </div>
+            <div className="absolute right-20 top-10 h-12 w-20">
+                <button
+                className="h-12 w-20 hover:bg-gray-500 rounded"
+                onClick={() => signOut()}
+                >
+                Log out
+                </button>
             </div>
         </div>
   );
