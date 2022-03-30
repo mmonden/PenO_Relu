@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import { Navbar } from "../../components/NavBar";
 import { getSession } from "next-auth/react";
 
-
 export default function Home({ file }) {
   return (
     <div className="flex relative w-screen h-screen">
