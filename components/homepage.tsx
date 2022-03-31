@@ -33,7 +33,7 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
     return (
         <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
             <div className="absolute top-12">
-                <PatientList patients_input={patients_input} patientFunc = { changePatient }/>
+                <PatientList patients_input={patients_input} patientFunc = {changePatient}/>
                 <FileList files_input={loggedFiles} />
             </div>
         </div>

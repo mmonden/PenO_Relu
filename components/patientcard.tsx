@@ -19,6 +19,9 @@ export default function PatientCard({ patient, deletePatient, patientFunc }: Pat
     const [editing, setEdit] = useState(patient.new);
     const [name, setName] = useState(patient.name);
 
+    console.log(patient)
+    console.log(patientFunc)
+
     const onDelete = () => {
         deletePatient(patient._id);
         fetch("/api/delete_patient", {
