@@ -9,16 +9,17 @@ import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
 import { useRouter } from "next/router";
-import { Navbar } from "../../components/NavBar";
+import { Navigation } from "../../components/NavBar";
 import { getSession } from "next-auth/react";
+import { IFile } from "../../types";
+import { getFiles } from "../../lib/annotations";
 
-
-export default function Home({ file }) {
+export default function Home({ file, files }) {
   return (
     <div className="flex relative w-screen h-screen">
-      <Stlviewer file={file}/>
+      <Stlviewer file={file} />
       <div className="absolute w-full">
-        <Navbar />
+        <Navigation files_input={files} />
       </div>
       <div className="absolute top-12">
         <AnnotationBar file={file} />
@@ -49,6 +50,7 @@ export default function Home({ file }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const files: IFile[] = await getFiles();
   const session = await getSession(ctx);
   if (!session) {
     return {
