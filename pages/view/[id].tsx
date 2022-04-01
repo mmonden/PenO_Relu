@@ -34,23 +34,10 @@ export default function Home({ file, files }) {
         </div>
       </div>
     </div>
-    // {/* <div className="relative min-h-screen min-w-screen flex flex-row">
-    //   <Stlviewer />
-    //   <div className="absolute left-0">
-    //     <AnnotationBar cardsInput={annotations} />
-    //   </div>
-    //   <div className="absolute right-0">
-    //     <div className="absolute right-0 bottom-0 flex flex-row">
-    //       <PopUp file={file} />
-    //     </div>
-    //     <Sidebar />
-    //   </div>
-    // </div> */}
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const files: IFile[] = await getFiles();
   const session = await getSession(ctx);
   if (!session) {
     return {
@@ -60,12 +47,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
+  const files = await getFiles(session.user.name);
   const { id } = ctx.query;
   const file_id = parseInt(id[0]);
   const file = await getFile(file_id);
   file.cards = await getAnnotations(file);
 
   return {
-    props: { file }, // will be passed to the page component as props
+    props: { file, files }, // will be passed to the page component as props
   };
 };

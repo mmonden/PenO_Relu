@@ -13,7 +13,7 @@ type FileListProps = {
 
 export const Navigation = ({ files_input }: FileListProps) => {
   const [files, setFiles] = useState(files_input);
-  // const [title, setTitle] = files.map((item, index) => useState(item.title));
+  console.log(files);
 
   return (
     <div>
@@ -26,7 +26,7 @@ export const Navigation = ({ files_input }: FileListProps) => {
           width={120}
           height={50}
         />
-        <Container>
+        <Container className="container-fluid">
           <Navbar.Brand
             onClick={() => (document.location.href = "http://localhost:3000")}
           >
@@ -35,6 +35,17 @@ export const Navigation = ({ files_input }: FileListProps) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
+              <NavDropdown title="Patients" id="basic-nav-dropdown">
+                {files.map((item, index) => {
+                  return (
+                    <NavDropdown.Item key={index} href="#action/3.1">
+                      {item.title}
+                    </NavDropdown.Item>
+                  );
+                })}
+              </NavDropdown>
+            </Nav>
+            <Nav className="flex right-0">
               <Nav.Link
                 onClick={() =>
                   signOut({ callbackUrl: "http://localhost:3000" })
@@ -42,19 +53,7 @@ export const Navigation = ({ files_input }: FileListProps) => {
               >
                 Logout
               </Nav.Link>
-              <NavDropdown title="Patients" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">names</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-              </NavDropdown>
             </Nav>
-            <Navbar.Text>
-              Signed in as: <a className="underline">Rob Windey</a>
-            </Navbar.Text>
           </Navbar.Collapse>
         </Container>
       </Navbar>
