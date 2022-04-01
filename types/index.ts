@@ -36,6 +36,8 @@ export interface ICard {
   title: string;
   text: string;
   new?: boolean;
+  clicked: boolean;
+  position?: THREE.Vector3;
 }
 
 export interface IFile {
