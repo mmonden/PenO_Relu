@@ -204,10 +204,10 @@ export default function Stlviewer({ file }: FileCardProps) {
         }
 
         //variabeles for determining the postion of the text label and corresponding line
-        var startingpoint = file.selected.position; //eventually to be done by clicking the screen
-        var endpoint = [60, 0, 10]; //idem
-        //start of code for lines
+        var startingpoint = file.selected.position; //get startingpoint out of selected card
+        var endpoint = [60, 0, 10]; //to be calculated
 
+        //start of code for drawing theline
         const material = new THREE.LineBasicMaterial({
           color: new THREE.Color(0x000000),
           linewidth: 1,
@@ -223,7 +223,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 
         theline = new THREE.Line(geometry, material);
         scene.add(theline);
-        //end of code for lines
+        //end of code for drawing theline
 
         //start code for textlabel
         var tekstlabel = makeTextSprite(title, {
