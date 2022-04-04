@@ -55,4 +55,5 @@ export interface IPatient {
   user_id: string;
   file_ids?: String[];
   new?: boolean;
+  selected: boolean;
 }
