@@ -25,6 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const files: IFile[] = await getFiles(session.user.name);
   return {
     props: { patients, files },
   };

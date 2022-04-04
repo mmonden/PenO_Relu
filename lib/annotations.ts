@@ -2,11 +2,11 @@ import { connectToDatabase } from "./mongodb";
 import { ICard, IFile, IPatient } from "../types";
 import { resourceLimits } from "worker_threads";
 import { fileURLToPath } from "url";
-import { connect } from "http2";
+import { Session, User } from "next-auth";
 
-export async function getFiles() {
+export async function getFiles(name: String) {
 	const { db } = await connectToDatabase();
-	const files = await db.collection("files").find().toArray();
+	const files = await db.collection("files").find({ patient: name }).toArray();
 	return files
 }
 

@@ -9,6 +9,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { calculateObjectSize } from "bson";
 import { time } from "console";
+import { raycasting } from "./stlviewer";
 
 type AnnotationBarProps = {
   file: IFile;
@@ -17,12 +18,9 @@ type AnnotationBarProps = {
 export default function AnnotationBar({ file }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState(false);
   const [cards, setCards] = useState(file.cards);
-  console.log(file.cards);
-  const [selected, setSelected] = useState(file.selected);
 
   const deleteCard = (cardID: number) => {
     setCards(cards.filter((card) => card._id != cardID));
-    //file.cards = cards.filter((card) => card._id != cardID);
     file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
     file.time = new Date().toLocaleString();
     fetch('/api/update_file', {
@@ -41,10 +39,14 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       text: "",
       new: true,
     };
+    file.selected = new_card;
+
+    //call raycaster function
+    raycasting({file})
+    
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
-    //file.cards.push(new_card);
     fetch('/api/update_file', {
       method: 'POST',
       body: JSON.stringify({ file }),
