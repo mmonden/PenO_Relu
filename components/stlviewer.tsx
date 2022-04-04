@@ -18,6 +18,92 @@ type FileCardProps = {
 
 let camera, scene, controls, renderer, followLight, light, theline;
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms || 100));
+}
+
+export async function raycasting({ file }: FileCardProps) {
+  let changed = new Boolean();
+  changed = false;
+
+  /// Begin click vs drag v2
+  const delta = 2;
+  let startX;
+  let startY;
+
+  // Begin code mouseclick
+  document.addEventListener("mousedown", handlemousdown);
+
+  function handlemousdown(event) {
+    startX = event.pageX;
+    startY = event.pageY;
+  }
+
+  const mouse = new THREE.Vector2();
+  var raycaster = new THREE.Raycaster();
+
+  document.addEventListener("mouseup", handlemouseup);
+
+  function handlemouseup(event) {
+    const diffX = Math.abs(event.pageX - startX);
+    const diffY = Math.abs(event.pageY - startY);
+
+    if (diffX < delta && diffY < delta) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Begin raycaster
+      if (file.selected) {
+        raycaster.setFromCamera(mouse, camera);
+        var intersects = raycaster.intersectObjects(scene.children);
+        for (var i = 0; i < intersects.length; i++) {
+          if (intersects[i].object instanceof THREE.Mesh)
+            //@ts-ignore
+            intersects[i].object.material.color.set(0xff0000);
+
+          console.log(intersects[i].point);
+
+          file.selected.position = intersects[i].point;
+          changed = true;
+        }
+
+        //code for coloring the selected mesh
+        /*for (var i = 0; i < scene.children.length; i++) {
+          if (scene.children[i] instanceof THREE.Mesh) {
+            if (
+              typeof intersects[0] !== "undefined" &&
+              scene.children[i] == intersects[0].object
+            ) {
+              // @ts-ignore
+              (scene.children[i] as THREE.Mesh).material.color.set(0x00ff00);
+            } else {
+              // @ts-ignore
+              (scene.children[i] as THREE.Mesh).material.color.set(0xd3d3d3);
+            }
+          }
+        }*/
+      }
+      // End raycaster
+    }
+  }
+  // End code mouseclick
+
+  while (!changed) {
+    await sleep(100);
+  }
+
+  document.removeEventListener("mousedown", handlemousdown); //clean up listeners when raycaster has finished
+  document.removeEventListener("mouseup", handlemouseup);
+  fetch("/api/update_file", {
+    //update in database
+    method: "POST",
+    body: JSON.stringify({ file }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
@@ -106,11 +192,6 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     );
 
-    /// Begin click vs drag v2
-    const delta = 2;
-    let startX;
-    let startY;
-
     document.addEventListener("dblclick", function (event) {
       if (file.selected) {
         var title = file.selected.title;
@@ -119,12 +200,12 @@ export default function Stlviewer({ file }: FileCardProps) {
           (child) => !(child instanceof Sprite)
         );
         if (theline) {
-          scene.remove(theline)
+          scene.remove(theline);
         }
 
         //variabeles for determining the postion of the text label and corresponding line
-        const startingpoint = [25, -10, -40]; //eventually to be done by clicking the screen
-        const endpoint = [60, 0, 10]; //idem
+        var startingpoint = file.selected.position; //eventually to be done by clicking the screen
+        var endpoint = [60, 0, 10]; //idem
         //start of code for lines
 
         const material = new THREE.LineBasicMaterial({
@@ -134,13 +215,8 @@ export default function Stlviewer({ file }: FileCardProps) {
 
         const points = [];
 
-        points.push(
-          new THREE.Vector3(
-            startingpoint[0],
-            startingpoint[1],
-            startingpoint[3]
-          )
-        );
+        points.push(startingpoint);
+
         points.push(new THREE.Vector3(endpoint[0], endpoint[1], endpoint[2]));
 
         const geometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -161,55 +237,6 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     });
 
-    document.addEventListener("mousedown", function (event) {
-      startX = event.pageX;
-      startY = event.pageY;
-    });
-
-    // Begin code mouseclick
-    const mouse = new THREE.Vector2();
-    var raycaster = new THREE.Raycaster();
-
-    document.addEventListener("mouseup", function (event) {
-      const diffX = Math.abs(event.pageX - startX);
-      const diffY = Math.abs(event.pageY - startY);
-
-      if (diffX < delta && diffY < delta) {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-        // Begin raycaster
-        if (file.selected && !file.selected.clicked) {
-          raycaster.setFromCamera(mouse, camera);
-          var intersects = raycaster.intersectObjects(scene.children);
-          for (var i = 0; i < intersects.length; i++) {
-            if (intersects[i].object instanceof THREE.Mesh)
-              //@ts-ignore
-              intersects[i].object.material.color.set(0xff0000);
-            console.log(intersects[i].point);
-            file.selected.position = intersects[i].point;
-            file.selected.clicked = true;
-          }
-
-          for (var i = 0; i < scene.children.length; i++) {
-            if (scene.children[i] instanceof THREE.Mesh) {
-              if (
-                typeof intersects[0] !== "undefined" &&
-                scene.children[i] == intersects[0].object
-              ) {
-                // @ts-ignore
-                (scene.children[i] as THREE.Mesh).material.color.set(0x00ff00);
-              } else {
-                // @ts-ignore
-                (scene.children[i] as THREE.Mesh).material.color.set(0xd3d3d3);
-              }
-            }
-          }
-        }
-        // End raycaster
-      }
-      // End code mouseclick
-    });
     loader.load(
       "http://localhost:3000/Skull.stl",
       function (geometry) {

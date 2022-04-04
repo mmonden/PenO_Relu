@@ -36,7 +36,6 @@ export interface ICard {
   title: string;
   text: string;
   new?: boolean;
-  clicked: boolean;
   position?: THREE.Vector3; // start position line
   endPosition?: THREE.Vector3; // end position line
 }

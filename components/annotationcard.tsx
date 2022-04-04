@@ -56,9 +56,7 @@ export default function AnnotationCard({
 
     const onAnnotation = () => {
         if (!editing) {
-            console.log("oude selected", file.selected);
             file.selected = card;
-            console.log("nieuwe selected", file.selected);
             fetch("/api/update_file", {
                 method: "POST",
                 body: JSON.stringify({ file }),
