@@ -12,15 +12,12 @@ import { useState } from "react";
 type PatientCardProps = {
     patient: IPatient;
     deletePatient: Function;
-    patientFunc : any;
+    changePatient: Function;
 };
 
-export default function PatientCard({ patient, deletePatient, patientFunc }: PatientCardProps) {
+export default function PatientCard({ patient, deletePatient, changePatient}: PatientCardProps) {
     const [editing, setEdit] = useState(patient.new);
     const [name, setName] = useState(patient.name);
-
-    console.log(patient)
-    console.log(patientFunc)
 
     const onDelete = () => {
         deletePatient(patient._id);
@@ -32,6 +29,10 @@ export default function PatientCard({ patient, deletePatient, patientFunc }: Pat
             },
         });
     };
+
+    const setPatient = () => {
+        changePatient(patient._id)
+    }
 
     const toggleEdit = () => {
 
@@ -55,7 +56,7 @@ export default function PatientCard({ patient, deletePatient, patientFunc }: Pat
     return (
         <div className="relative text-gray-700 text-2xl">
             <div className="absolute top-6 -right-10">
-                <button onClick={patientFunc("1")}>
+                <button onClick={setPatient}>
                     <AiOutlineArrowRight className="w-7 h-7" />
                 </button>
             </div>

@@ -7,16 +7,15 @@ import { useSession } from "next-auth/react"
 
 type PatientListProps = {
     patients_input: IPatient[];
-    patientFunc : any;
+    changePatient: Function
 };
 
 //Patient_uinput
 
-export default function PatientList({ patients_input, patientFunc }: PatientListProps ) {
+export default function PatientList({ patients_input, changePatient }: PatientListProps ) {
 
     const [patients, setPatient] = useState(patients_input);
     const session = useSession()
-    console.log(session)
 
     // const deleteFile = (fileID) => {
     //     setFiles(files.filter((file) => file._id != fileID));
@@ -60,7 +59,7 @@ export default function PatientList({ patients_input, patientFunc }: PatientList
             </div>
             <div className="divide-y-2 ">
                 {patients.map((item, index) => {
-                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} patientFunc = {patientFunc} />;
+                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} changePatient = {changePatient} />;
                 })}
             </div>
         </div>
