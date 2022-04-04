@@ -12,7 +12,7 @@ type PatientListProps = {
 
 //Patient_uinput
 
-export default function PatientList({ patients_input, changePatient }: PatientListProps ) {
+export default function PatientList({ patients_input, changePatient }: PatientListProps) {
 
     const [patients, setPatient] = useState(patients_input);
     const session = useSession()
@@ -41,6 +41,7 @@ export default function PatientList({ patients_input, changePatient }: PatientLi
             name: "",
             user_id: "",
             new: true,
+            selected: true,
         };
         setPatient([...patients, new_patient]);
     };
@@ -59,7 +60,7 @@ export default function PatientList({ patients_input, changePatient }: PatientLi
             </div>
             <div className="divide-y-2 ">
                 {patients.map((item, index) => {
-                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} changePatient = {changePatient} />;
+                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} changePatient={changePatient} />;
                 })}
             </div>
         </div>
