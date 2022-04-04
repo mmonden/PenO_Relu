@@ -9,6 +9,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { calculateObjectSize } from "bson";
 import { time } from "console";
+import { raycasting } from "./stlviewer";
 
 type AnnotationBarProps = {
   file: IFile;
@@ -37,9 +38,11 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       title: "",
       text: "",
       new: true,
-      clicked: false,
     };
     file.selected = new_card;
+
+    //call raycaster function
+    raycasting({file})
     
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);

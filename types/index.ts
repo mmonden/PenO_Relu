@@ -36,12 +36,12 @@ export interface ICard {
   title: string;
   text: string;
   new?: boolean;
-  clicked: boolean;
-  position?: THREE.Vector3;
+  position?: THREE.Vector3; // start position line
+  endPosition?: THREE.Vector3; // end position line
 }
 
 export interface IFile {
-  _id: String;
+  _id: String; // later misschien number van maken net zoals bij ICard
   title: string;
   time?: string;
   selected?: ICard;
