@@ -13,9 +13,13 @@ export default function Overview({ patients, files }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const patients: IPatient = await getPatients();
-  const files: IFile = await getFiles();
+
   const session = await getSession(ctx);
+
+  const patients: IPatient = await getPatients();
+  // const files: IFile = await getFiles(session.user.name);
+  const files: IFile = await getFiles();
+
   if (!session) {
     return {
       redirect: {
@@ -25,7 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const files: IFile[] = await getFiles(session.user.name);
   return {
     props: { patients, files },
   };

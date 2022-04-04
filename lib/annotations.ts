@@ -4,9 +4,9 @@ import { resourceLimits } from "worker_threads";
 import { fileURLToPath } from "url";
 import { Session, User } from "next-auth";
 
-export async function getFiles(name: String) {
+export async function getFiles() {
 	const { db } = await connectToDatabase();
-	const files = await db.collection("files").find({ patient: name }).toArray();
+	const files = await db.collection("files").find().toArray();
 	return files
 }
 
