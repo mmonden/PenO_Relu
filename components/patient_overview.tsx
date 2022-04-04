@@ -11,6 +11,7 @@ type PatientListProps = {
 };
 
 //Patient_uinput
+//Test
 
 export default function PatientList({ patients_input, changePatient }: PatientListProps ) {
 
