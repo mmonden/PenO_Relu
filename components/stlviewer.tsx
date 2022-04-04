@@ -52,29 +52,6 @@ export default function Stlviewer({ file }: FileCardProps) {
       transparent: true,
     });
 
-    //start of code for lines  #thomas zijn lijn op stl
-    const points = [];
-    const startingpoint = [25, -10, -40]; //eventually to be done by clicking the screen
-    const endpoint = [60, 0, 10]; //idem
-    const detail = 100;
-    for (let j = 0; j < 1; j += 1 / detail) {
-      points.push([
-        startingpoint[0] + j * (endpoint[0] - startingpoint[0]),
-        startingpoint[1] + j * (endpoint[1] - startingpoint[1]),
-        startingpoint[2] + j * (endpoint[2] - startingpoint[2]),
-      ]);
-    }
-
-    const line = new MeshLine();
-    line.setPoints(points.flat());
-    const linematerial = new MeshLineMaterial({
-      color: new THREE.Color(0x000000),
-      lineWidth: 0.3,
-    });
-    const mesh = new THREE.Mesh(line, linematerial);
-    scene.add(mesh);
-    //end of code for lines
-
     //STL file loading
     const loader = new STLLoader();
 
@@ -142,6 +119,27 @@ export default function Stlviewer({ file }: FileCardProps) {
         scene.children = scene.children.filter(
           (child) => !(child instanceof Sprite)
         );
+        //variabeles for determining the postion of the text label and corresponding line 
+        const startingpoint = [25, -10, -40]; //eventually to be done by clicking the screen
+        const endpoint = [60, 0, 10]; 
+        //start of code for lines
+
+        const material = new THREE.LineBasicMaterial( { 
+          color: new THREE.Color(0x000000),
+          linewidth: 1, });
+
+        const points = [];
+      
+
+        points.push( new THREE.Vector3( startingpoint[0], startingpoint[1], startingpoint[3] ) ); 
+        points.push( new THREE.Vector3( endpoint[0] , endpoint[1] , endpoint[2] ) );
+
+        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+    
+        const line = new THREE.Line( geometry, material );
+        scene.add( line );
+        //scene.remove(line);  deze commande verwijderd de lijn
+        //end of code for lines
 
         //start code for textlabel
         var tekstlabel = makeTextSprite(title, {
