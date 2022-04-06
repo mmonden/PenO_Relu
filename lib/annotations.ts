@@ -1,12 +1,12 @@
 import { connectToDatabase } from "./mongodb";
-import { ICard, IFile } from "../types";
+import { ICard, IFile, IPatient } from "../types";
 import { resourceLimits } from "worker_threads";
 import { fileURLToPath } from "url";
 import { Session, User } from "next-auth";
 
-export async function getFiles(name: String) {
+export async function getFiles() {
 	const { db } = await connectToDatabase();
-	const files = await db.collection("files").find({ patient: name }).toArray();
+	const files = await db.collection("files").find().toArray();
 	return files
 }
 
@@ -20,6 +20,18 @@ export async function getAnnotations(file: IFile) {
 	const { db } = await connectToDatabase();
 	const annotations = await db.collection("annotations").find({ _id: { $in: file.card_ids } }).toArray();
 	return annotations;
+}
+
+export async function getPatients() {
+	const { db } = await connectToDatabase();
+	const patients = await db.collection("patients").find().toArray();
+	return patients
+}
+
+export async function getPatient(id: number) {
+	const { db } = await connectToDatabase();
+	const patient = await db.collection("patients").findOne({ _id: id });
+	return patient
 }
 
 export async function deleteFile(file: IFile) {
@@ -37,10 +49,11 @@ export async function deleteFile(file: IFile) {
 export async function updateFile(file: IFile) {
 	const { db } = await connectToDatabase();
 	console.log(file)
+	delete file.cards;
 
-	const opts = {upsert: true}
-	const result =  db.collection("files").updateOne({"_id": file._id}, {$set: file}, opts)
-	console.log(result) //Dit komt nog niet echt door denk ik --> of print toch geen resultaat af!
+	const opts = { upsert: true }
+	const result = db.collection("files").updateOne({ "_id": file._id }, { $set: file }, opts)
+	console.log(result)
 }
 
 export async function writeAnnotation(annotation: ICard) {
@@ -54,4 +67,19 @@ export async function writeAnnotation(annotation: ICard) {
 export async function deleteAnnotation(annotation: ICard) {
 	const { db } = await connectToDatabase();
 	const result = await db.collection("annotations").deleteOne({ "_id": annotation._id })
+}
+
+export async function deletePatient(patient: IPatient) {
+	const { db } = await connectToDatabase();
+	const result = await db.collection("patients").deleteOne({ "_id": patient._id })
+}
+
+export async function updatePatient(patient: IPatient) {
+	const { db } = await connectToDatabase();
+	console.log(patient)
+	delete patient.new;
+
+	const opts = { upsert: true }
+	const result = db.collection("files").updateOne({ "_id": patient._id }, { $set: patient }, opts)
+	console.log(result)
 }
