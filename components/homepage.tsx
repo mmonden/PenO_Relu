@@ -27,14 +27,9 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
     const changePatient = (patientID) => {
         const newLoggedFiles = getFilesFromPat(patientID) //Manier nog om patientID te linken
         const first_length = loggedFiles.length
-        // for (let i=first_length-1; i>0; i--){
-        //     loggedFiles.splice(i)
-        // }
-
-        // for (let i=0; i<newLoggedFiles.length; i++){
-        //     loggedFiles.push(newLoggedFiles[i])
-        // }
-        useCallback(() => setLoggedFiles(newLoggedFiles), [])
+        console.log(newLoggedFiles)
+        setLoggedFiles(newLoggedFiles)
+        console.log(loggedFiles)
 
     }
 
