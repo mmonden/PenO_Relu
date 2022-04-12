@@ -4,37 +4,11 @@ const DisplayButtons = () => {
 			<div className="flex flex-row pb-3">
 				<div className="pr-2">
 					<button className="flex flex-row border rounded border-2 w-fit text-xs">
-						<svg
-							className="h-4 w-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-							/>
-						</svg>
 						<p>Full 3D View</p>
 					</button>
 				</div>
 
 				<button className="flex flex-row border rounded border-2 w-fit text-xs">
-					<svg
-						className="h-4 w-4"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-							d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-						/>
-					</svg>
 					<p>Ortho Slices</p>
 				</button>
 			</div>
@@ -42,77 +16,25 @@ const DisplayButtons = () => {
 			<div className="flex flex-row">
 				<div className="px-1">
 					<button className="border rounded border-2 w-fit text-xs">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-12 w-12"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-							/>
-						</svg>
+						<img className="h-12 w-12" src="./textures/full.png"/>
 					</button>
 				</div>
 
 				<div className="px-1">
 					<button className="border rounded border-2 w-fit text-xs">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-12 w-12"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-							/>
-						</svg>
+						<img className="h-12 w-12" src="./textures/doorsnede_horizontaal.png"/>
 					</button>
 				</div>
 
 				<div className="px-1">
 					<button className="border rounded border-2 w-fit text-xs">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-12 w-12"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-							/>
-						</svg>
+						<img className="h-12 w-12" src="./textures/doorsnede_verticaal.png"/>
 					</button>
 				</div>
 
 				<div className="px-1">
 					<button className="border rounded border-2 w-fit text-xs">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-12 w-12"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
-							/>
-						</svg>
+						<img className="h-12 w-12" src="./textures/doorsnede_verticaal_2.png"/>
 					</button>
 				</div>
 			</div>

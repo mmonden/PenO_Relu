@@ -561,11 +561,6 @@
   "resolved" "https://registry.npmjs.org/@swc/core-darwin-arm64/-/core-darwin-arm64-1.2.163.tgz"
   "version" "1.2.163"
 
-"@swc/core-win32-x64-msvc@1.2.163":
-  "integrity" "sha512-BB1tioCAu2Wdt2efKOcbNR9vByzNUhiJqmBv1wWGR6wqV2k46jRMex2NzQESMBl8slIJG+ZPFLE8gUChl0crIg=="
-  "resolved" "https://registry.npmjs.org/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.2.163.tgz"
-  "version" "1.2.163"
-
 "@swc/core@^1.2.119", "@swc/core@^1.2.155", "@swc/core@^1.2.66":
   "integrity" "sha512-8/ytlOhXSomPjfgOFgto6xnYR+UAj0eHJEIu2NbdHgpFjrDFti6C9XeW0zB6zheCq0fShP0RbE9qXlgYKoSZ8w=="
   "resolved" "https://registry.npmjs.org/@swc/core/-/core-1.2.163.tgz"
@@ -1561,6 +1556,11 @@
   "integrity" "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
