@@ -52,6 +52,14 @@ export default function AnnotationCard({
                 "Content-Type": "application/json",
             },
         });
+        file.card_ids = file.card_ids.filter((ID) => ID != card._id);
+        fetch("/api/update_file", {
+            method: "POST",
+            body: JSON.stringify({ file: file }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     };
 
     const onAnnotation = () => {

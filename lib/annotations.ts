@@ -50,6 +50,7 @@ export async function updateFile(file: IFile) {
 	const { db } = await connectToDatabase();
 	console.log(file)
 	delete file.cards;
+	delete file.new;
 
 	const opts = { upsert: true }
 	const result = db.collection("files").updateOne({ "_id": file._id }, { $set: file }, opts)
@@ -76,10 +77,11 @@ export async function deletePatient(patient: IPatient) {
 
 export async function updatePatient(patient: IPatient) {
 	const { db } = await connectToDatabase();
+	console.log("Updating patient...")
 	console.log(patient)
 	delete patient.new;
 
 	const opts = { upsert: true }
-	const result = db.collection("files").updateOne({ "_id": patient._id }, { $set: patient }, opts)
+	const result = db.collection("patients").updateOne({ "_id": patient._id }, { $set: patient }, opts)
 	console.log(result)
 }
