@@ -25,7 +25,6 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
 
     const getFilesFromPat = (patientID) => {
         if (patients_input.filter((patient) => patient._id == patientID)[0].file_ids.length != 0) {
-            console.log("files: ", files)
             const loggedFiles = files
                 .filter((file) => patients_input.filter((patient) => patient._id == patientID)[0]
                     .file_ids.some((id) => file._id == id));
@@ -50,17 +49,25 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
 
     const addFile = (file) => {
         console.log("files voor add: ", files)
-        const file_copy = _.cloneDeep(file);
-        file_copy.new = false;
-        setFiles([...files, file_copy]);
-        console.log("files na add: ", files)
+        setFiles([...files, file]);
+    }
+
+    const deleteFile = (oldfile) => {
+        const newFiles = files.filter((file) => file._id != oldfile._id);
+        setFiles(newFiles);
+    }
+
+    const updateFile = (file) => {
+        const newFiles = files.filter((oldfile) => oldfile._id != file._id);
+        newFiles.push(file);
+        setFiles(newFiles);
     }
 
     return (
         <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
             <div className="absolute top-12">
                 <PatientList patients_input={patients_input} changePatient={changePatient} />
-                <FileList files_input={loggedFiles} selected_patient={selectedPatient} addFile={addFile} />
+                <FileList files_input={loggedFiles} selected_patient={selectedPatient} addFile={addFile} updateFile={updateFile} deleteFilecard={deleteFile}/>
             </div>
         </div>
     );

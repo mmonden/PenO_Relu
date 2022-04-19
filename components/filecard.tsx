@@ -12,9 +12,11 @@ type FileCardProps = {
   file: IFile;
   deleteFile: Function;
   selectedPatient: IPatient;
+  updateFile: Function;
+  deleteFilecard: Function;
 };
 
-export default function FileCard({ file, deleteFile, selectedPatient }: FileCardProps) {
+export default function FileCard({ file, deleteFile, selectedPatient, updateFile, deleteFilecard }: FileCardProps) {
 
   const [editing, setEdit] = useState(file.new);
   const [title, setTitle] = useState(file.title);
@@ -36,6 +38,7 @@ export default function FileCard({ file, deleteFile, selectedPatient }: FileCard
         "Content-Type": "application/json",
       },
     });
+    deleteFilecard(file)
   };
 
   const toggleEdit = () => {
@@ -51,8 +54,9 @@ export default function FileCard({ file, deleteFile, selectedPatient }: FileCard
         },
       });
     }
-
     setEdit(!editing);
+    file.new = !editing;
+    updateFile(file);
 
     //Hier moet dan nog die extra code komen voor de database (zie bij annatations)
     //Api voor gebruiken? --> zoek eens op --> niet helemaal zeker van

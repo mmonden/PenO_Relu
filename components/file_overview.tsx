@@ -9,9 +9,11 @@ type FileListProps = {
     files_input: IFile[];
     selected_patient: IPatient;
     addFile: Function;
+    updateFile: Function;
+    deleteFilecard: Function;
 };
 
-export default function FileList({ files_input, selected_patient, addFile }: FileListProps) {
+export default function FileList({ files_input, selected_patient, addFile, updateFile, deleteFilecard }: FileListProps) {
     const [files, setFiles] = useState(files_input);
 
     //Dit is nog niet helemaal optimaal maar het werkt wel
@@ -53,7 +55,7 @@ export default function FileList({ files_input, selected_patient, addFile }: Fil
             </div>
             <div className="divide-y-2 ">
                 {files.map((file) => {
-                    return <FileCard key={file._id} file={file} deleteFile={deleteFile} selectedPatient={selected_patient} />;
+                    return <FileCard key={file._id} file={file} deleteFile={deleteFile} selectedPatient={selected_patient} updateFile={updateFile} deleteFilecard={deleteFilecard} />;
                 })}
             </div>
             <div className="absolute right-20 top-10 h-12 w-20">
