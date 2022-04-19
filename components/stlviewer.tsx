@@ -57,14 +57,12 @@ export async function raycasting({ file }: FileCardProps) {
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(scene.children);
         for (var i = 0; i < intersects.length; i++) {
-          if (intersects[i].object instanceof THREE.Mesh && !changed)
+          if (intersects[i].object instanceof THREE.Mesh && !changed){
             //@ts-ignore
             intersects[i].object.material.color.set(0xff0000);
-
-          console.log(intersects[i].point);
-
-          file.selected.position = intersects[i].point;
-          changed = true;
+            file.selected.position = intersects[i].point;
+            changed = true;
+          }
         }
   
 
