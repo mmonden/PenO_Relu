@@ -21,7 +21,7 @@ const Sidebar = () => {
           <button onClick={onSwipe}>
             <Back value={swiped} />
           </button>
-          <div className="divide-y-2 divide-gray-400 overflow-hidden">
+          <div className="divide-y-2 divide-gray-400 overflow-hidden" style={{width: "370px"}}>
             <div className="bg-gray-400"></div>
 
             <div className="h-1/2 bg-gray-100">
