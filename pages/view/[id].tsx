@@ -3,6 +3,7 @@ import {
   getAnnotations,
   writeAnnotation,
   getFile,
+  getPatients,
 } from "../../lib/annotations";
 import { GetServerSideProps } from "next";
 import PopUp from "../../components/PopUp";
@@ -15,12 +16,12 @@ import { IFile } from "../../types";
 import { getFiles } from "../../lib/annotations";
 import { ObjectID } from "mongodb";
 
-export default function Home({ file, files }) {
+export default function Home({ file, files, patients }) {
   return (
     <div className="flex relative w-screen h-screen">
       <Stlviewer file={file} />
       <div className="absolute w-full">
-        <Navigation files_input={files} />
+        <Navigation files_input={files} patients_input={patients} file={file}/>
       </div>
       <div className="absolute top-12">
         <AnnotationBar file={file} />
@@ -56,7 +57,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const file = await getFile(file_id);
   file.cards = await getAnnotations(file);
 
+  const patients = await getPatients();
+
   return {
-    props: { file, files }, // will be passed to the page component as props
+    props: { file, files, patients }, // will be passed to the page component as props
   };
 };
