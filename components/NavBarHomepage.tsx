@@ -16,7 +16,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IFile, ICard } from "../types";
 
-export const Navigation = () => {
+export const NavBarHome = () => {
   return (
     <div>
       <Navbar className="bg-gray-400 h-12 flex space-x-4" expand="lg">
@@ -29,27 +29,24 @@ export const Navigation = () => {
           height={50}
         />
         <Container className="container-fluid">
-          <Form className="d-flex">
-            <FormControl
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="flex right-0">
-              <Nav.Link
-                onClick={() =>
-                  signOut({ callbackUrl: "http://localhost:3000" })
-                }
-              >
-                Logout
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav className="flex right-0">
+            <Form className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Nav>
+          <Nav className="flex right-0">
+            <Nav.Link
+              onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
+            >
+              Logout
+            </Nav.Link>
+          </Nav>
         </Container>
       </Navbar>
     </div>

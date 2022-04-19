@@ -9,7 +9,7 @@ import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
 import { useRouter } from "next/router";
-import { Navigation } from "../../components/NavBar";
+import { Navigation } from "../../components/NavBarPatient";
 import { getSession } from "next-auth/react";
 import { IFile } from "../../types";
 import { getFiles } from "../../lib/annotations";
