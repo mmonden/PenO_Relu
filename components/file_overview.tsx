@@ -16,7 +16,6 @@ type FileListProps = {
 export default function FileList({ files_input, selected_patient, addFile, updateFile, deleteFilecard }: FileListProps) {
     const [files, setFiles] = useState(files_input);
 
-    //Dit is nog niet helemaal optimaal maar het werkt wel
     useEffect(() => { setFiles(files_input); }, [files_input]);
 
     const deleteFile = (fileID) => {
