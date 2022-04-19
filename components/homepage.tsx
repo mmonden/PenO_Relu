@@ -80,3 +80,70 @@ export default function HomePage({
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+
+export default function HomePage({ patients_input, files_input }: HomePageProps) {
+    const [selectedPatient, setSelectedPatient] = useState(patients_input[0])
+    const [files, setFiles] = useState(files_input)
+
+    console.log(patients_input);
+
+    const getFilesFromPat = (patientID) => {
+        if (patients_input.length == 0) {
+            return []
+        } else {
+            console.log(patientID)
+            if (patients_input.filter((patient) => patient._id == patientID)[0].file_ids.length != 0) {
+                console.log(patientID)
+                const loggedFiles = files
+                    .filter((file) => patients_input.filter((patient) => patient._id == patientID)[0]
+                        .file_ids.some((id) => file._id == id));
+                return loggedFiles
+            } else {
+                return []
+            }
+        }
+    };
+
+    const [loggedFiles, setLoggedFiles] = useState([]);
+
+    // Deze functie dan mee doorgeven?
+    const changePatient = (patient) => {
+        console.log("file ids: ", patient.file_ids)
+        const newLoggedFiles = getFilesFromPat(patient._id) //Manier nog om patientID te linken
+        console.log("new: ", newLoggedFiles)
+        setLoggedFiles(newLoggedFiles)
+        console.log(loggedFiles)
+        setSelectedPatient(patient)
+    }
+
+
+    const addFile = (file) => {
+        console.log("files voor add: ", files)
+        setFiles([...files, file]);
+    }
+
+    const deleteFile = (oldfile) => {
+        const newFiles = files.filter((file) => file._id != oldfile._id);
+        setFiles(newFiles);
+    }
+
+    const updateFile = (file) => {
+        const newFiles = files.filter((oldfile) => oldfile._id != file._id);
+        newFiles.push(file);
+        setFiles(newFiles);
+    }
+
+    return (
+        <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
+            <div className="absolute top-12">
+                <PatientList patients_input={patients_input} changePatient={changePatient} />
+                <FileList files_input={loggedFiles} selected_patient={selectedPatient} addFile={addFile} updateFile={updateFile} deleteFilecard={deleteFile} />
+            </div>
+        </div>
+    );
+
+}
+>>>>>>> 269586e71e972325483c9ad510d1dc153e4543d1
