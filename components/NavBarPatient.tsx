@@ -14,10 +14,8 @@ type FileListProps = {
 };
 
 export const Navigation = ({ files_input, patients_input, file }: FileListProps) => {
-  const [files, setFiles] = useState(files_input);
-  console.log(files);
   const selectedPatient = patients_input.filter((patient) => patient.file_ids.includes(file._id))[0];
-  setFiles(files.filter((fileFromPatient) => selectedPatient.file_ids.includes(fileFromPatient._id));
+  const [files, setFiles] = useState(files_input.filter((fileFromPatient) => selectedPatient.file_ids.includes(fileFromPatient._id)));
 
   return (
     <div className="min-w-screen">
@@ -40,10 +38,10 @@ export const Navigation = ({ files_input, patients_input, file }: FileListProps)
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <NavDropdown title={selectedPatient.name} id="basic-nav-dropdown">
-                {files.map((item, index) => {
+                {files.map((file, index) => {
                   return (
-                    <NavDropdown.Item key={index} href="#action/3.1">
-                      {item.title}
+                    <NavDropdown.Item key={index} href={`/view/${file._id}`}>
+                      {file.title}
                     </NavDropdown.Item>
                   );
                 })}
