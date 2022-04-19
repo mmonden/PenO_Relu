@@ -23,11 +23,15 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
     const [selectedPatient, setSelectedPatient] = useState(patients_input[0])
     const [files, setFiles] = useState(files_input)
 
+    console.log(patients_input);
+
     const getFilesFromPat = (patientID) => {
         if (patients_input.length == 0) {
             return []
         } else {
+            console.log(patientID)
             if (patients_input.filter((patient) => patient._id == patientID)[0].file_ids.length != 0) {
+                console.log(patientID)
                 const loggedFiles = files
                     .filter((file) => patients_input.filter((patient) => patient._id == patientID)[0]
                         .file_ids.some((id) => file._id == id));
@@ -38,7 +42,7 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
         }
     };
 
-    const [loggedFiles, setLoggedFiles] = useState(getFilesFromPat(1));
+    const [loggedFiles, setLoggedFiles] = useState([]);
 
     // Deze functie dan mee doorgeven?
     const changePatient = (patient) => {
