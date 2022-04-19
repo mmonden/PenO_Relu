@@ -61,7 +61,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" style={{overflow: "scroll"}}>
       {!swiped ? (
         <div
           className="border-black bg-gray-100 border flex flex-col items-center"
