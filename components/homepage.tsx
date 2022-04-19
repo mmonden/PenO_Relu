@@ -84,8 +84,8 @@ export default function HomePage({
         <NavBarHome />
       </div>
       <div
-        className="absolute left-10 top-16 w-1/3"
-        style={{ height: "calc(100vh - 48px)" }}
+        className="absolute left-10 top-16 w-1/3 overflow-y-auto"
+        style={{ height: "calc(100vh - 64px)" }}
       >
         <PatientList
           patients_input={patients_input}
@@ -93,8 +93,8 @@ export default function HomePage({
         />
       </div>
       <div
-        className="absolute right-10 top-16 w-1/3"
-        style={{ height: "calc(100vh - 48px)" }}
+        className="absolute right-10 top-16 w-1/3 overflow-y-auto"
+        style={{ height: "calc(100vh - 64px)" }}
       >
         <FileList
           files_input={loggedFiles}

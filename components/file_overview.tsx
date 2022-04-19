@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid";
 import { signOut } from "next-auth/react";
+import { MdAdd } from "react-icons/md";
 
 type FileListProps = {
   files_input: IFile[];
@@ -52,12 +53,28 @@ export default function FileList({
 
   return (
     <div>
-      <div className="flex justify-center items-center text-6xl border-b-2">
+      <div className="relative flex justify-center items-center text-6xl border-b-2">
         Scans
+        <div className="absolute flex right-0">
+          <button onClick={newFile}>
+            <MdAdd className="text-3xl" />
+          </button>
+        </div>
       </div>
-      <button onClick={newFile}>
-        <GrAdd className="text-3xl m-5" />
-      </button>
+      <div className="divide-y-2 ">
+        {files.map((file) => {
+          return (
+            <FileCard
+              key={file._id}
+              file={file}
+              deleteFile={deleteFile}
+              selectedPatient={selected_patient}
+              updateFile={updateFile}
+              deleteFilecard={deleteFilecard}
+            />
+          );
+        })}
+      </div>
     </div>
     // <div
     //   className="flex flex-col items-start m-8"
