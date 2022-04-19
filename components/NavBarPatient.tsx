@@ -5,15 +5,19 @@ import { signOut } from "next-auth/react";
 import SelectInput from "@mui/material/Select/SelectInput";
 import { Container, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { IFile, ICard } from "../types";
+import { IFile, ICard, IPatient } from "../types";
 
 type FileListProps = {
   files_input: IFile[];
+  patients_input: IPatient[];
+  file: IFile;
 };
 
-export const Navigation = ({ files_input }: FileListProps) => {
+export const Navigation = ({ files_input, patients_input, file }: FileListProps) => {
   const [files, setFiles] = useState(files_input);
   console.log(files);
+  const selectedPatient = patients_input.filter((patient) => patient.file_ids.includes(file._id))[0];
+  setFiles(files.filter((fileFromPatient) => selectedPatient.file_ids.includes(fileFromPatient._id));
 
   return (
     <div className="min-w-screen">
@@ -35,7 +39,7 @@ export const Navigation = ({ files_input }: FileListProps) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <NavDropdown title="Patients" id="basic-nav-dropdown">
+              <NavDropdown title={selectedPatient.name} id="basic-nav-dropdown">
                 {files.map((item, index) => {
                   return (
                     <NavDropdown.Item key={index} href="#action/3.1">
