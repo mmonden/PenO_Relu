@@ -16,7 +16,7 @@ export const Navigation = ({ files_input }: FileListProps) => {
   console.log(files);
 
   return (
-    <div>
+    <div className="min-w-screen">
       <Navbar className="bg-gray-400 h-12 flex space-x-4" expand="lg">
         <div className="pl-4"></div>
         <Image
