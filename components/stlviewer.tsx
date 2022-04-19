@@ -62,6 +62,7 @@ export async function raycasting({ file }: FileCardProps) {
             intersects[i].object.material.color.set(0xff0000);
             file.selected.position = intersects[i].point;
             changed = true;
+            console.log(intersects[i].point)
           }
         }
   
