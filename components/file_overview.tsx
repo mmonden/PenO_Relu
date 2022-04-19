@@ -76,32 +76,5 @@ export default function FileList({
         })}
       </div>
     </div>
-    // <div
-    //   className="flex flex-col items-start m-8"
-    //   style={{ height: "calc(100vh - 48px)" }}
-    // >
-    //   <div className="flex justify-start justify-items-start">
-    //     <div className="flex justify-center items-center text-6xl my-4 border-b-2 border-black h-fit pb-4">
-    //       Patiënt bestanden
-    //       <button onClick={newFile}>
-    //         <GrAdd className="text-3xl m-5" />
-    //       </button>
-    //     </div>
-    //   </div>
-    //   <div className="divide-y-2 ">
-    //     {files.map((file) => {
-    //       return (
-    //         <FileCard
-    //           key={file._id}
-    //           file={file}
-    //           deleteFile={deleteFile}
-    //           selectedPatient={selected_patient}
-    //           updateFile={updateFile}
-    //           deleteFilecard={deleteFilecard}
-    //         />
-    //       );
-    //     })}
-    //   </div>
-    // </div>
   );
 }
