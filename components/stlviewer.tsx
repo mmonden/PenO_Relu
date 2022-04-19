@@ -214,26 +214,27 @@ export default function Stlviewer({ file }: FileCardProps) {
         });
 
         const points = [];
+        if (startingpoint) {
+          points.push(startingpoint);
 
-        points.push(startingpoint);
+          points.push(new THREE.Vector3(endpoint[0], endpoint[1], endpoint[2]));
 
-        points.push(new THREE.Vector3(endpoint[0], endpoint[1], endpoint[2]));
+          const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+          theline = new THREE.Line(geometry, material);
+          scene.add(theline);
+          //end of code for drawing theline
 
-        theline = new THREE.Line(geometry, material);
-        scene.add(theline);
-        //end of code for drawing theline
-
-        //start code for textlabel
-        var tekstlabel = makeTextSprite(title, {
-          fontsize: 50,
-          borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-          backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
-        });
-        tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
-        scene.add(tekstlabel);
-        //end code for text label
+          //start code for textlabel
+          var tekstlabel = makeTextSprite(title, {
+            fontsize: 50,
+            borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
+            backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+          });
+          tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
+          scene.add(tekstlabel);
+          //end code for text label
+        }
       }
     });
 
