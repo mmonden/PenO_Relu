@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";
+import DeletePopup from "./deletePopup";
 
 type FileCardProps = {
   file: IFile;
@@ -28,6 +29,7 @@ export default function FileCard({
   const [title, setTitle] = useState(file.title);
 
   const onDelete = () => {
+    return (<DeletePopup file={file}/>);
     deleteFile(file._id);
     fetch("/api/delete_file", {
       method: "POST",
