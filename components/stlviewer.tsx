@@ -281,8 +281,7 @@ function init() {
 
   camera.position.set(0, -3, 3); // Set position like this
   //camera.rotation.set(0, 100, 0);
-  camera.lookAt(new THREE.Vector3(5, 0, -57.33));
-  camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), 3.14);
+  requestAnimationFrame(render)
   camera.updateProjectionMatrix();
 
   //RENDERER
@@ -302,6 +301,9 @@ function animate() {
 
 function render() {
   followLight.position.copy(camera.position);
+
+  //camera.lookAt(new THREE.Vector3(5, 0, -57.33));
+
   renderer.render(scene, camera);
 }
 
