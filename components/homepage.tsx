@@ -24,13 +24,17 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
     const [files, setFiles] = useState(files_input)
 
     const getFilesFromPat = (patientID) => {
-        if (patients_input.filter((patient) => patient._id == patientID)[0].file_ids.length != 0) {
-            const loggedFiles = files
-                .filter((file) => patients_input.filter((patient) => patient._id == patientID)[0]
-                    .file_ids.some((id) => file._id == id));
-            return loggedFiles
-        } else {
+        if (patients_input.length == 0) {
             return []
+        } else {
+            if (patients_input.filter((patient) => patient._id == patientID)[0].file_ids.length != 0) {
+                const loggedFiles = files
+                    .filter((file) => patients_input.filter((patient) => patient._id == patientID)[0]
+                        .file_ids.some((id) => file._id == id));
+                return loggedFiles
+            } else {
+                return []
+            }
         }
     };
 
@@ -45,7 +49,7 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
         console.log(loggedFiles)
         setSelectedPatient(patient)
     }
-    
+
 
     const addFile = (file) => {
         console.log("files voor add: ", files)
@@ -67,7 +71,7 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
         <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
             <div className="absolute top-12">
                 <PatientList patients_input={patients_input} changePatient={changePatient} />
-                <FileList files_input={loggedFiles} selected_patient={selectedPatient} addFile={addFile} updateFile={updateFile} deleteFilecard={deleteFile}/>
+                <FileList files_input={loggedFiles} selected_patient={selectedPatient} addFile={addFile} updateFile={updateFile} deleteFilecard={deleteFile} />
             </div>
         </div>
     );
