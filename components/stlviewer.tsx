@@ -60,9 +60,9 @@ export async function raycasting({ file }: FileCardProps) {
           if (intersects[i].object instanceof THREE.Mesh && !changed){
             //@ts-ignore
             intersects[i].object.material.color.set(0xff0000);
-            file.selected.position = intersects[i].point;
+            file.selected.position = intersects[i].point.clone();
+            file.selected.endPosition = intersects[i].point.setLength(100);
             changed = true;
-            console.log(intersects[i].point)
           }
         }
   
@@ -195,7 +195,6 @@ export default function Stlviewer({ file }: FileCardProps) {
     document.addEventListener("dblclick", function (event) {
       if (file.selected) {
         var title = file.selected.title;
-        var text = file.selected.text;
         scene.children = scene.children.filter(
           (child) => !(child instanceof Sprite)
         );
@@ -205,7 +204,8 @@ export default function Stlviewer({ file }: FileCardProps) {
 
         //variabeles for determining the postion of the text label and corresponding line
         var startingpoint = file.selected.position; //get startingpoint out of selected card
-        var endpoint = [60, 0, 10]; //to be calculated
+        var endpoint = file.selected.endPosition; //to be calculated
+       
 
         //start of code for drawing theline
         const material = new THREE.LineBasicMaterial({
@@ -214,13 +214,10 @@ export default function Stlviewer({ file }: FileCardProps) {
         });
 
         const points = [];
-        if (startingpoint) {
+        if (startingpoint && endpoint) {
           points.push(startingpoint);
-
-          points.push(new THREE.Vector3(endpoint[0], endpoint[1], endpoint[2]));
-
+          points.push(endpoint);
           const geometry = new THREE.BufferGeometry().setFromPoints(points);
-
           theline = new THREE.Line(geometry, material);
           scene.add(theline);
           //end of code for drawing theline
@@ -231,7 +228,7 @@ export default function Stlviewer({ file }: FileCardProps) {
             borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
             backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
           });
-          tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
+          tekstlabel.position.set(endpoint.x + 5, endpoint.y, endpoint.z); //Define sprite's anchor point
           scene.add(tekstlabel);
           //end code for text label
         }

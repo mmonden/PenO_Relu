@@ -33,7 +33,7 @@ export interface user {
 }
 
 export interface ICard {
-  _id: number;
+  _id: ObjectId;
   title: string;
   text: string;
   new?: boolean;
@@ -42,19 +42,19 @@ export interface ICard {
 }
 
 export interface IFile {
-  _id: number; // later misschien number van maken net zoals bij ICard
+  _id: ObjectId; // later misschien number van maken net zoals bij ICard
   title: string;
   time?: string;
   selected?: ICard;
-  card_ids: number[];
+  card_ids: ObjectId[];
   cards?: ICard[];
   new?: boolean;
 }
 
 export interface IPatient {
-  _id: number;
+  _id: ObjectId;
   name: string;
   user_id: string;
-  file_ids?: number[];
+  file_ids?: ObjectId[];
   new?: boolean;
 }
