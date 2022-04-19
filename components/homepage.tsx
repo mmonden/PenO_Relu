@@ -84,7 +84,7 @@ export default function HomePage({
         <NavBarHome />
       </div>
       <div
-        className="absolute left-0 top-12"
+        className="absolute left-10 top-16 w-1/3"
         style={{ height: "calc(100vh - 48px)" }}
       >
         <PatientList
@@ -93,7 +93,7 @@ export default function HomePage({
         />
       </div>
       <div
-        className="absolute right-0 top-12"
+        className="absolute right-10 top-16 w-1/3"
         style={{ height: "calc(100vh - 48px)" }}
       >
         <FileList

@@ -19,7 +19,7 @@ import { IFile, ICard } from "../types";
 export const NavBarHome = () => {
   return (
     <div>
-      <Navbar className="bg-gray-400 h-12 flex space-x-4" expand="lg">
+      <Navbar className="bg-gray-200 h-12 flex space-x-4" expand="lg">
         <div className="pl-4"></div>
         <Image
           src={require("./images/relu-logo-small.png")}
