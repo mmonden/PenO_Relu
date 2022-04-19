@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const DisplayButtons = () => {
 	return (
 		<div className="flex flex-col items-center">
@@ -15,26 +17,26 @@ const DisplayButtons = () => {
 
 			<div className="flex flex-row">
 				<div className="px-1">
-					<button className="border rounded border-2 w-fit text-xs">
-						<img className="h-12 w-12" src="./textures/full.png"/>
+					<button className="rounded w-fit text-xs">
+						<Image className="w-fit" src={require("../textures/full.png")} alt="full"/>
 					</button>
 				</div>
 
 				<div className="px-1">
-					<button className="border rounded border-2 w-fit text-xs">
-						<img className="h-12 w-12" src="./textures/doorsnede_horizontaal.png"/>
+					<button className="rounded w-fit text-xs">
+						<Image className="w-fit" src={require("../textures/doorsnede_horizontaal.png")} alt="ds_hz"/>
 					</button>
 				</div>
 
 				<div className="px-1">
-					<button className="border rounded border-2 w-fit text-xs">
-						<img className="h-12 w-12" src="./textures/doorsnede_verticaal.png"/>
+					<button className="rounded w-fit text-xs">
+						<Image className="w-fit" src={require("../textures/doorsnede_verticaal.png")} alt="ds_v1"/>
 					</button>
 				</div>
 
 				<div className="px-1">
-					<button className="border rounded border-2 w-fit text-xs">
-						<img className="h-12 w-12" src="./textures/doorsnede_verticaal_2.png"/>
+					<button className="rounded w-fit text-xs">
+						<Image className="w-fit" src={require("../textures/doorsnede_verticaal_2.png")} alt="ds_v2"/>
 					</button>
 				</div>
 			</div>
