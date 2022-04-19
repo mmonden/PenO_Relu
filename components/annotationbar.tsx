@@ -65,14 +65,14 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       {!swiped ? (
         <div
           className="border-black bg-gray-100 border flex flex-col items-center"
-          style={{ height: "calc(100vh - 48px)", overflow: "scroll"}}
+          style={{ height: "calc(100vh - 48px)", overflow: "scroll", width: "380px"}}
         >
           <div id="header_annobar" className="flex justify-center items-center">
-            <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4 w-80">
+            <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4">
               Annotaties
             </div>
             <button onClick={newCard}>
-              <GrAdd className="text-3xl m-5 text-gray-700" />
+              <GrAdd className="text-3xl mx-4 text-gray-700" />
             </button>
           </div>
           <div className="divide-y-2 ">
@@ -90,7 +90,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
         </div>
       ) : (
         <div
-          className="w-1/8 border-black border rounded-r-[5rem] flex flex-col items-center "
+          className="w-1/8 border-black border rounded-r-[5rem] flex flex-col items-center"
           style={{ height: "calc(100vh - 48px)" }}
         ></div>
       )}

@@ -3,14 +3,14 @@ import Tanden from "./Tanden";
 const Anatomy = () => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row">
+      <div className="flex flex-row items-center text-2xl">
         <img
           src="https://cdn-icons-png.flaticon.com/512/103/103386.png"
-          className="h-5 w-4 pt-1"
+          className="h-6 w-8 px-1"
           fill="none"
           stroke="currentColor"/>
 
-        <h1>Anatomy Selector</h1>
+        Anatomy Selector
       </div>
 
       <Tanden />

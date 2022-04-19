@@ -77,7 +77,7 @@ export default function AnnotationCard({
 
     return (
         <div className="flex items-center" onClick={onAnnotation}>
-            <form className="w-80 text-gray-700 p-5" onSubmit={toggleEdit}>
+            <form className="w-80 text-gray-700 px-3" onSubmit={toggleEdit}>
                 <div className="text-2xl mb-2">
                     {editing ? (
                         <input

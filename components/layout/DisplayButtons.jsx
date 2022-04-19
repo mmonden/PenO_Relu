@@ -6,12 +6,12 @@ const DisplayButtons = () => {
 			<div className="flex flex-row pb-3">
 				<div className="pr-2">
 					<button className="flex flex-row border rounded border-2 w-fit text-xs">
-						<p>Full 3D View</p>
+						Full 3D View
 					</button>
 				</div>
 
 				<button className="flex flex-row border rounded border-2 w-fit text-xs">
-					<p>Ortho Slices</p>
+					Ortho Slices
 				</button>
 			</div>
 
