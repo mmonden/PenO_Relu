@@ -60,8 +60,6 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     setSwipe(!swiped);
   };
 
-
-
   return (
     <div className="flex items-center">
       {!swiped ? (
