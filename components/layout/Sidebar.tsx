@@ -21,13 +21,13 @@ const Sidebar = () => {
           <button onClick={onSwipe}>
             <Back value={swiped} />
           </button>
-          <div className="divide-y-2 divide-gray-400 overflow-hidden" style={{width: "370px"}}>
+          <div className="flex flex-col divide-y-2 divide-gray-400 overflow-hidden" style={{width: "370px"}}>
             <div className="bg-gray-400"></div>
 
-            <div className="h-1/2 bg-gray-100">
+            <div className="h-full bg-gray-100 pb-2">
               <Anatomy />
             </div>
-            <div className="bg-gray-100 h-1/2">
+            <div className="bg-gray-100 h-full">
               <Display />
             </div>
           </div>
