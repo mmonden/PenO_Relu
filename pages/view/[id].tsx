@@ -13,6 +13,7 @@ import { Navigation } from "../../components/NavBar";
 import { getSession } from "next-auth/react";
 import { IFile } from "../../types";
 import { getFiles } from "../../lib/annotations";
+import { ObjectID } from "mongodb";
 
 export default function Home({ file, files }) {
   return (
@@ -47,9 +48,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
-  const files = await getFiles(session.user.name);
+
+  const files = await getFiles();
   const { id } = ctx.query;
-  const file_id = parseInt(id[0]);
+  const file_id = String(id)
+  
   const file = await getFile(file_id);
   file.cards = await getAnnotations(file);
 
