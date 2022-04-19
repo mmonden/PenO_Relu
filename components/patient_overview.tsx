@@ -4,6 +4,7 @@ import { useState } from "react";
 import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid";
 import { useSession } from "next-auth/react";
+import { MdAdd } from "react-icons/md";
 
 type PatientListProps = {
   patients_input: IPatient[];
@@ -34,11 +35,16 @@ export default function PatientList({
   };
 
   return (
-    <div>
-      <div className="flex justify-center items-center text-6xl border-b-2">
+    <div className="">
+      <div className="relative flex justify-center items-center text-6xl border-b-2">
         Patiënten
+        <div className="absolute flex right-0">
+          <button onClick={newPatient}>
+            <MdAdd className="text-3xl" />
+          </button>
+        </div>
       </div>
-      <div className="">
+      <div className="divide-y-2">
         {patients.map((patient, index) => {
           return (
             <PatientCard

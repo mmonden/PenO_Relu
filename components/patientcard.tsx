@@ -57,26 +57,28 @@ export default function PatientCard({
   return (
     <div className="relative text-gray-700 text-2xl">
       <div className="">
-        <div className="flex items-center">
-          <a>
-            <div className="flex items-center">
-              <AiFillFolder className="text-5xl" />
-              <div className="w-80 p-4 text-gray-700">
-                <div className="text-3xl">
-                  {editing ? (
-                    <input
-                      className="border-2"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  ) : (
-                    name
-                  )}
+        <div className="flex items-center space-x-2">
+          <button onClick={setPatient}>
+            <a>
+              <div className="flex items-center">
+                <AiFillFolder className="text-5xl" />
+                <div className="w-80 p-4 text-gray-700">
+                  <div className="text-3xl flex left-0">
+                    {editing ? (
+                      <input
+                        className="border-2"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    ) : (
+                      name
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </button>
           <button onClick={toggleEdit}>
             {editing ? (
               <AiOutlineSave className="text-3xl" />
@@ -87,11 +89,6 @@ export default function PatientCard({
           <button onClick={onDelete}>
             <AiOutlineDelete className="w-7 h-7" />
           </button>
-          <div className="flex -right-0">
-            <button onClick={setPatient}>
-              <AiOutlineArrowRight className="w-7 h-7" />
-            </button>
-          </div>
         </div>
       </div>
     </div>

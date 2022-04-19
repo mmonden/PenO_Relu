@@ -4,6 +4,7 @@ import {
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineSave,
+  AiFillFile,
 } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,8 +17,13 @@ type FileCardProps = {
   deleteFilecard: Function;
 };
 
-export default function FileCard({ file, deleteFile, selectedPatient, updateFile, deleteFilecard }: FileCardProps) {
-
+export default function FileCard({
+  file,
+  deleteFile,
+  selectedPatient,
+  updateFile,
+  deleteFilecard,
+}: FileCardProps) {
   const [editing, setEdit] = useState(file.new);
   const [title, setTitle] = useState(file.title);
 
@@ -30,7 +36,9 @@ export default function FileCard({ file, deleteFile, selectedPatient, updateFile
         "Content-Type": "application/json",
       },
     });
-    selectedPatient.file_ids = selectedPatient.file_ids.filter((ID) => ID != file._id)
+    selectedPatient.file_ids = selectedPatient.file_ids.filter(
+      (ID) => ID != file._id
+    );
     fetch("/api/update_patient", {
       method: "POST",
       body: JSON.stringify({ patient: selectedPatient }),
@@ -38,7 +46,7 @@ export default function FileCard({ file, deleteFile, selectedPatient, updateFile
         "Content-Type": "application/json",
       },
     });
-    deleteFilecard(file)
+    deleteFilecard(file);
   };
 
   const toggleEdit = () => {
@@ -64,19 +72,17 @@ export default function FileCard({ file, deleteFile, selectedPatient, updateFile
 
   return (
     <div className="relative text-gray-700 text-2xl">
-      <div className="absolute top-6 -right-10">
-        <button onClick={onDelete}>
-          <AiOutlineDelete className="w-7 h-7" />
-        </button>
-      </div>
       <div className="">
-        <div className="flex items-center">
-          <Link href={editing ? "javascript: void(0)" : `/view/${file._id}`}>
+        <div className="flex items-center space-x-2">
+          <a
+            href={editing ? "javascript: void(0)" : `/view/${file._id}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <a>
               <div className="flex items-center">
-                <AiOutlineFile className="text-5xl" />
-                <div className="w-80 text-gray-700 p-5">
-                  <div className="text-2xl mb-2">
+                <AiFillFile className="text-5xl" />
+                <div className="w-80 p-4 text-gray-700">
+                  <div className="text-3xl flex left-0">
                     {editing ? (
                       <input
                         className="border-2"
@@ -91,13 +97,16 @@ export default function FileCard({ file, deleteFile, selectedPatient, updateFile
                 </div>
               </div>
             </a>
-          </Link>
+          </a>
           <button onClick={toggleEdit}>
             {editing ? (
               <AiOutlineSave className="text-3xl" />
             ) : (
               <AiOutlineEdit className="text-3xl" />
             )}
+          </button>
+          <button onClick={onDelete}>
+            <AiOutlineDelete className="w-7 h-7" />
           </button>
         </div>
       </div>
