@@ -1,11 +1,17 @@
 import PatientList from "./patient_overview";
 import FileList from "./file_overview";
 import { IFile, IPatient } from "../types";
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid"
 import { useSession } from "next-auth/react"
 import { get } from "https";
+import _ from "lodash";
+
+/*
+$ npm i -g npm
+$ npm i --save lodash
+*/
 
 type HomePageProps = {
     patients_input: IPatient[];
@@ -14,35 +20,58 @@ type HomePageProps = {
 
 
 export default function HomePage({ patients_input, files_input }: HomePageProps) {
+    const [selectedPatient, setSelectedPatient] = useState(patients_input[0])
+    const [files, setFiles] = useState(files_input)
 
     const getFilesFromPat = (patientID) => {
-        console.log(patientID)
-        const loggedFiles = files_input.filter((file) => patients_input[(patientID-1)].file_ids.some((id) => file._id == id))
-        return loggedFiles
-    }; 
+        if (patients_input.length == 0) {
+            return []
+        } else {
+            if (patients_input.filter((patient) => patient._id == patientID)[0].file_ids.length != 0) {
+                const loggedFiles = files
+                    .filter((file) => patients_input.filter((patient) => patient._id == patientID)[0]
+                        .file_ids.some((id) => file._id == id));
+                return loggedFiles
+            } else {
+                return []
+            }
+        }
+    };
 
     const [loggedFiles, setLoggedFiles] = useState(getFilesFromPat(1));
 
     // Deze functie dan mee doorgeven?
-    const changePatient = (patientID) => {
-        const newLoggedFiles = getFilesFromPat(patientID) //Manier nog om patientID te linken
-        const first_length = loggedFiles.length
-        // for (let i=first_length-1; i>0; i--){
-        //     loggedFiles.splice(i)
-        // }
+    const changePatient = (patient) => {
+        console.log("file ids: ", patient.file_ids)
+        const newLoggedFiles = getFilesFromPat(patient._id) //Manier nog om patientID te linken
+        console.log("new: ", newLoggedFiles)
+        setLoggedFiles(newLoggedFiles)
+        console.log(loggedFiles)
+        setSelectedPatient(patient)
+    }
 
-        // for (let i=0; i<newLoggedFiles.length; i++){
-        //     loggedFiles.push(newLoggedFiles[i])
-        // }
-        useCallback(() => setLoggedFiles(newLoggedFiles), [])
 
+    const addFile = (file) => {
+        console.log("files voor add: ", files)
+        setFiles([...files, file]);
+    }
+
+    const deleteFile = (oldfile) => {
+        const newFiles = files.filter((file) => file._id != oldfile._id);
+        setFiles(newFiles);
+    }
+
+    const updateFile = (file) => {
+        const newFiles = files.filter((oldfile) => oldfile._id != file._id);
+        newFiles.push(file);
+        setFiles(newFiles);
     }
 
     return (
         <div className="min-w-screen min-h-screen flex flex-col items-start m-8">
             <div className="absolute top-12">
-                <PatientList patients_input={patients_input} changePatient = {changePatient}/>
-                <FileList files_input={loggedFiles} />
+                <PatientList patients_input={patients_input} changePatient={changePatient} />
+                <FileList files_input={loggedFiles} selected_patient={selectedPatient} addFile={addFile} updateFile={updateFile} deleteFilecard={deleteFile} />
             </div>
         </div>
     );

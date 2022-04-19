@@ -42,7 +42,7 @@ export interface ICard {
 }
 
 export interface IFile {
-  _id: String; // later misschien number van maken net zoals bij ICard
+  _id: number; // later misschien number van maken net zoals bij ICard
   title: string;
   time?: string;
   selected?: ICard;
@@ -52,9 +52,9 @@ export interface IFile {
 }
 
 export interface IPatient {
-  _id: Number;
+  _id: number;
   name: string;
   user_id: string;
-  file_ids?: String[];
+  file_ids?: number[];
   new?: boolean;
 }

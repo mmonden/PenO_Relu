@@ -1,5 +1,5 @@
 import PatientCard from "./patientcard";
-import { IFile, IPatient } from "../types";
+import { IPatient } from "../types";
 import { useState } from "react";
 import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid"
@@ -10,39 +10,27 @@ type PatientListProps = {
     changePatient: Function
 };
 
-//Patient_uinput
-//Test
 
-export default function PatientList({ patients_input, changePatient }: PatientListProps ) {
+export default function PatientList({ patients_input, changePatient }: PatientListProps) {
 
     const [patients, setPatient] = useState(patients_input);
     const session = useSession()
 
-    // const deleteFile = (fileID) => {
-    //     setFiles(files.filter((file) => file._id != fileID));
-    // };
 
     const deletePatient = (patientID) => {
         setPatient(patients.filter((patient) => patient._id != patientID));
     };
 
-    // const newFile = () => {
-    //     const new_file: IFile = {
-    //     _id: uuidv4(),
-    //     title: "",
-    //     card_ids: [],
-    //     new: true,
-    //     };
-    //     setFiles([...files, new_file]);
-    // };
 
     const newPatient = () => {
         const new_patient: IPatient = {
             _id: uuidv4(),
             name: "",
             user_id: "",
+            file_ids: [],
             new: true,
         };
+        console.log(newPatient);
         setPatient([...patients, new_patient]);
     };
 
@@ -59,8 +47,8 @@ export default function PatientList({ patients_input, changePatient }: PatientLi
                 </div>
             </div>
             <div className="divide-y-2 ">
-                {patients.map((item, index) => {
-                    return <PatientCard key={index} patient={item} deletePatient={deletePatient} changePatient = {changePatient} />;
+                {patients.map((patient, index) => {
+                    return <PatientCard key={patient._id} patient={patient} deletePatient={deletePatient} changePatient={changePatient} />;
                 })}
             </div>
         </div>

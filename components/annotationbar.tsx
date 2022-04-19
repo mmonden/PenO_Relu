@@ -42,8 +42,8 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     file.selected = new_card;
 
     //call raycaster function
-    raycasting({file})
-    
+    raycasting({ file })
+
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
@@ -59,8 +59,6 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
   const onSwipe = () => {
     setSwipe(!swiped);
   };
-
- 
 
 
 
@@ -82,12 +80,12 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
           <div className="divide-y-2 ">
             {cards.map((card, index) => {
               return (
-                  <AnnotationCard
-                    key={card._id}
-                    card={card}
-                    deleteCard={deleteCard}
-                    file={file}
-                  />
+                <AnnotationCard
+                  key={card._id}
+                  card={card}
+                  deleteCard={deleteCard}
+                  file={file}
+                />
               );
             })}
           </div>
