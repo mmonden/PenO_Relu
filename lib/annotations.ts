@@ -3,6 +3,7 @@ import { ICard, IFile, IPatient } from "../types";
 import { resourceLimits } from "worker_threads";
 import { fileURLToPath } from "url";
 import { Session, User } from "next-auth";
+import { ObjectId } from "mongodb";
 
 export async function getFiles() {
 	const { db } = await connectToDatabase();
@@ -10,7 +11,7 @@ export async function getFiles() {
 	return files
 }
 
-export async function getFile(id: number) {
+export async function getFile(id: String) {
 	const { db } = await connectToDatabase();
 	const file = await db.collection("files").findOne({ _id: id });
 	return file
