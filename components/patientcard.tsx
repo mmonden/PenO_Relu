@@ -8,6 +8,7 @@ import {
   AiFillFolder,
 } from "react-icons/ai";
 import { useState } from "react";
+import DeleteModal from "./deleteModal";
 
 type PatientCardProps = {
   patient: IPatient;
@@ -22,6 +23,7 @@ export default function PatientCard({
 }: PatientCardProps) {
   const [editing, setEdit] = useState(patient.new);
   const [name, setName] = useState(patient.name);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onDelete = () => {
     deletePatient(patient._id);
@@ -86,9 +88,15 @@ export default function PatientCard({
               <AiOutlineEdit className="text-3xl" />
             )}
           </button>
-          <button onClick={onDelete}>
-            <AiOutlineDelete className="w-7 h-7" />
-          </button>
+          {isOpen ?
+            < DeleteModal open={isOpen} onClose={() => setIsOpen(false)} onDelete={onDelete}>
+              Wil je deze patiënt verwijderen?
+            </DeleteModal>
+            :
+            <button onClick={() => setIsOpen(true)}>
+              <AiOutlineDelete className="w-7 h-7" />
+            </button>
+          }
         </div>
       </div>
     </div>
