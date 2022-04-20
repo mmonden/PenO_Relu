@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";
-import DeletePopup from "./deletePopup";
+import DeleteModal from "./deleteModal";
 
 type FileCardProps = {
   file: IFile;
@@ -27,9 +27,11 @@ export default function FileCard({
 }: FileCardProps) {
   const [editing, setEdit] = useState(file.new);
   const [title, setTitle] = useState(file.title);
+  const [isOpen, setIsOpen] = useState(false);
+
+
 
   const onDelete = () => {
-    return (<DeletePopup file={file}/>);
     deleteFile(file._id);
     fetch("/api/delete_file", {
       method: "POST",
@@ -107,9 +109,16 @@ export default function FileCard({
               <AiOutlineEdit className="text-3xl" />
             )}
           </button>
-          <button onClick={onDelete}>
-            <AiOutlineDelete className="w-7 h-7" />
-          </button>
+          {isOpen ?
+            < DeleteModal open={isOpen} onClose={() => setIsOpen(false)} onDelete={onDelete}>
+              Wil je de file verwijderen?
+            </DeleteModal>
+            :
+            <button onClick={() => setIsOpen(true)}>
+              <AiOutlineDelete className="w-7 h-7" />
+            </button>
+          }
+
         </div>
       </div>
     </div>
