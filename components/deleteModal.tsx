@@ -33,8 +33,8 @@ export default function DeleteModal({ open, children, onClose, onDelete }) {
                     {children}
                 </div>
                 <div>
-                    <button onClick={onClose}><FcCancel className="w-7 h-7" /></button>
                     <button onClick={onDelete}><FcCheckmark className="w-7 h-7" /></button>
+                    <button onClick={onClose}><FcCancel className="w-7 h-7" /></button>
                 </div>
             </div>
         </div>
