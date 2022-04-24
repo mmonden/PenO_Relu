@@ -94,7 +94,13 @@ export default function HomePage({
         />
       </div>
       <div className="absolute right-10 top-16 w-7/12 h-2/6 bg-gray-200">
-        <PatientInfo />
+        <PatientInfo
+          selected_patient={selectedPatient}
+          files_input={[]}
+          addFile={undefined}
+          updateFile={undefined}
+          deleteFilecard={undefined}
+        />
       </div>
       <div className="absolute right-10 bottom-10 w-7/12 h-1/2 overflow-y-auto">
         <FileList

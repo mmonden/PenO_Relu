@@ -1,6 +1,23 @@
 import Image from "next/image";
+import FileCard from "./filecard";
+import { IFile, IPatient } from "../types";
+import { useState, useEffect } from "react";
+import { GrAdd } from "react-icons/gr";
+import { v4 as uuidv4 } from "uuid";
+import { signOut } from "next-auth/react";
+import { MdAdd } from "react-icons/md";
 
-export default function PatientInfo() {
+type FileListProps = {
+  files_input: IFile[];
+  selected_patient: IPatient;
+  addFile: Function;
+  updateFile: Function;
+  deleteFilecard: Function;
+};
+
+export default function PatientInfo({ selected_patient }: FileListProps) {
+  console.log("----------------------------");
+  console.log(selected_patient);
   return (
     <div className="relative min-h-full min-w-full ">
       <div className="absolute min-w-full h-1/6 flex justify-center text-3xl border-b-2 border-black">
@@ -19,7 +36,7 @@ export default function PatientInfo() {
         <div className="flex flex-column pt-3">
           <p>
             <span className="font-bold">Naam: </span>
-            <span>Xander Pottier </span>
+            <span>{selected_patient.name} </span>
           </p>
           <p>
             <span className="font-bold">Geslacht: </span>
