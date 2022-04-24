@@ -179,7 +179,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     loader.load(
-      "http://localhost:3000/Mandible.stl",
+      "https://annosend.blob.core.windows.net/stl-files/Mandible.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
