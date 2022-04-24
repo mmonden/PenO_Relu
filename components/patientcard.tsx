@@ -88,15 +88,19 @@ export default function PatientCard({
               <AiOutlineEdit className="text-3xl" />
             )}
           </button>
-          {isOpen ?
-            < DeleteModal open={isOpen} onClose={() => setIsOpen(false)} onDelete={onDelete}>
+          {isOpen ? (
+            <DeleteModal
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              onDelete={onDelete}
+            >
               Wil je deze patiënt verwijderen?
             </DeleteModal>
-            :
+          ) : (
             <button onClick={() => setIsOpen(true)}>
               <AiOutlineDelete className="w-7 h-7" />
             </button>
-          }
+          )}
         </div>
       </div>
     </div>

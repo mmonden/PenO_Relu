@@ -80,7 +80,7 @@ export default function HomePage({
   };
 
   return (
-    <div className="min-w-screen min-h-screen flex relative">
+    <div className="min-w-screen min-h-screen flex relative overflow-hidden">
       <div className="w-full absolute top-0">
         <NavBarHome />
       </div>

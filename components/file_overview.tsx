@@ -52,7 +52,7 @@ export default function FileList({
   };
 
   return (
-    <div>
+    <div className="">
       <div className="relative flex justify-center items-center text-6xl border-b-2">
         Scans
         <div className="absolute flex right-0">
@@ -61,7 +61,7 @@ export default function FileList({
           </button>
         </div>
       </div>
-      <div className="divide-y-2 ">
+      <div className="divide-y-2">
         {files.map((file) => {
           return (
             <FileCard
