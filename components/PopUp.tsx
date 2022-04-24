@@ -39,7 +39,7 @@ const PopUp = ({ file }: FileCardProps) => {
                 <button
                   onClick={() =>
                     window.open(
-                      "mailto:? &subject=Relu 3D image with annotations &body=Beste collega \n hierbij de link van patient x: " +
+                      "mailto:? &subject=Relu 3D image with annotations &body=Beste collega, \r\n Hierbij de link van patient : " +
                         GetURL({ file })
                     )
                   }
@@ -56,8 +56,8 @@ const PopUp = ({ file }: FileCardProps) => {
             </div>
           </div>
 
-          <div className="h-10 w-46 overflow-hidden flex items-center">
-            <div className="flex bottom-0">{GetURL({ file })}</div>
+          <div className="h-10 flex items-center text-truncate overflow-auto">
+            <div className="">{GetURL({ file })}</div>
           </div>
         </div>
       )}

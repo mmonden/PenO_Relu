@@ -156,7 +156,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
-          "http://localhost:3000/" + filename + ".stl",
+          "https://annosend.blob.core.windows.net/stl-files/" + filename + ".stl",
           function (geometry) {
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
@@ -236,7 +236,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     });
 
     loader.load(
-      "http://localhost:3000/Skull.stl",
+      "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, materialSkull);
         scene.add(mesh);
