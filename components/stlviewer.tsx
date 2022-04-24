@@ -156,7 +156,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
-          "http://localhost:3000/" + filename + ".stl",
+          "https://annosend.blob.core.windows.net/stl-files/" + filename + ".stl",
           function (geometry) {
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
