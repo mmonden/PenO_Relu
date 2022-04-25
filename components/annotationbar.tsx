@@ -65,7 +65,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       {!swiped ? (
         <div
           className="border-black bg-gray-100 border flex flex-col items-center"
-          style={{ height: "calc(100vh - 48px)", overflow: "scroll", width: "380px"}}
+          style={{ height:"calc(100vh - 48px)", overflow:"scroll", width:"380px"}}
         >
           <div id="header_annobar" className="flex justify-center items-center">
             <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4">

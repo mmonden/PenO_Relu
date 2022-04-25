@@ -19,7 +19,7 @@ export const Navigation = ({ files_input, patients_input, file }: FileListProps)
 
   return (
     <div className="min-w-screen">
-      <Navbar className="bg-gray-400 h-12 flex space-x-4" expand="lg">
+      <Navbar className="bg-gray-200 h-12 flex space-x-4" expand="lg">
         <div className="pl-4"></div>
         <Image
           src={require("./images/relu-logo-small.png")}
