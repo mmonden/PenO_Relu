@@ -28,21 +28,18 @@ export default function HomePage({
   const [files, setFiles] = useState(files_input);
   const [patients, setPatients] = useState(patients_input);
 
-  console.log(patients_input);
 
   const getFilesFromPat = (patientID) => {
     if (patients.length == 0) {
       return [];
     } else {
-      console.log(patientID);
-      console.log("patients_input", patients_input);
       if (
         patients.filter((patient) => patient._id == patientID)[0].file_ids
           .length != 0
       ) {
         console.log(patientID);
         const loggedFiles = files.filter((file) =>
-        patients
+          patients
             .filter((patient) => patient._id == patientID)[0]
             .file_ids.some((id) => file._id == id)
         );
@@ -66,7 +63,6 @@ export default function HomePage({
   };
 
   const addFile = (file) => {
-    console.log("files voor add: ", files);
     setFiles([...files, file]);
   };
 
@@ -82,7 +78,6 @@ export default function HomePage({
   };
 
   const addPatient = (patient) => {
-    console.log("patients to add: ", patients);
     setPatients([...patients, patient]);
   }
 
