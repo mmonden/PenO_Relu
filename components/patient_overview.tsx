@@ -9,11 +9,17 @@ import { MdAdd } from "react-icons/md";
 type PatientListProps = {
   patients_input: IPatient[];
   changePatient: Function;
+  addPatient: Function;
+  updatePatient: Function;
+  deletePatientCard: Function;
 };
 
 export default function PatientList({
   patients_input,
   changePatient,
+  addPatient,
+  updatePatient,
+  deletePatientCard,
 }: PatientListProps) {
   const [patients, setPatient] = useState(patients_input);
   const session = useSession();
@@ -32,6 +38,7 @@ export default function PatientList({
     };
     console.log(newPatient);
     setPatient([...patients, new_patient]);
+    addPatient(new_patient);
   };
 
   return (
@@ -52,6 +59,8 @@ export default function PatientList({
               patient={patient}
               deletePatient={deletePatient}
               changePatient={changePatient}
+              updatePatient={updatePatient}
+              deletePatientCard={deletePatientCard}
             />
           );
         })}

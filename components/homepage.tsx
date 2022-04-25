@@ -26,21 +26,23 @@ export default function HomePage({
 }: HomePageProps) {
   const [selectedPatient, setSelectedPatient] = useState(patients_input[0]);
   const [files, setFiles] = useState(files_input);
+  const [patients, setPatients] = useState(patients_input);
 
   console.log(patients_input);
 
   const getFilesFromPat = (patientID) => {
-    if (patients_input.length == 0) {
+    if (patients.length == 0) {
       return [];
     } else {
       console.log(patientID);
+      console.log("patients_input", patients_input);
       if (
-        patients_input.filter((patient) => patient._id == patientID)[0].file_ids
+        patients.filter((patient) => patient._id == patientID)[0].file_ids
           .length != 0
       ) {
         console.log(patientID);
         const loggedFiles = files.filter((file) =>
-          patients_input
+        patients
             .filter((patient) => patient._id == patientID)[0]
             .file_ids.some((id) => file._id == id)
         );
@@ -79,6 +81,22 @@ export default function HomePage({
     setFiles(newFiles);
   };
 
+  const addPatient = (patient) => {
+    console.log("patients to add: ", patients);
+    setPatients([...patients, patient]);
+  }
+
+  const deletePatient = (oldPatient) => {
+    const newPatients = patients.filter((patient) => oldPatient._id != patient._id);
+    setPatients(newPatients);
+  }
+
+  const updatePatient = (patient) => {
+    const newPatients = patients.filter((oldpatient) => oldpatient._id != patient._id);
+    newPatients.push(patient);
+    setPatients(newPatients);
+  }
+
   return (
     <div className="min-w-screen min-h-screen flex relative overflow-hidden">
       <div className="w-full absolute top-0">
@@ -89,8 +107,11 @@ export default function HomePage({
         style={{ height: "calc(100vh - 64px)" }}
       >
         <PatientList
-          patients_input={patients_input}
+          patients_input={patients}
           changePatient={changePatient}
+          addPatient={addPatient}
+          updatePatient={updatePatient}
+          deletePatientCard={deletePatient}
         />
       </div>
       <div className="absolute right-10 top-16 w-7/12 h-2/6 bg-gray-200">
