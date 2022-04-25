@@ -14,12 +14,16 @@ type PatientCardProps = {
   patient: IPatient;
   deletePatient: Function;
   changePatient: Function;
+  updatePatient: Function;
+  deletePatientCard: Function;
 };
 
 export default function PatientCard({
   patient,
   deletePatient,
   changePatient,
+  updatePatient,
+  deletePatientCard,
 }: PatientCardProps) {
   const [editing, setEdit] = useState(patient.new);
   const [name, setName] = useState(patient.name);
@@ -34,6 +38,7 @@ export default function PatientCard({
         "Content-Type": "application/json",
       },
     });
+    deletePatientCard(patient)
   };
 
   const setPatient = () => {
@@ -54,6 +59,7 @@ export default function PatientCard({
     }
 
     setEdit(!editing);
+    updatePatient(patient)
   };
 
   return (
