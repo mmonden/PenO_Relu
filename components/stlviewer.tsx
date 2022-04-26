@@ -35,7 +35,7 @@ export function removecolor(file){
 
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if ((file.selected) && (scene.children[j].id == file.selected.intersect) && (scene.children[j].material)){
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -189,7 +189,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 
             const mesh = new THREE.Mesh(
               geometry,
-              materials[(a - 1) * 6 + (b - 1)]
+              materials.pop()
             );
             scene.add(mesh);
           },
