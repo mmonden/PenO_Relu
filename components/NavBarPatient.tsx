@@ -29,6 +29,7 @@ export const Navigation = ({
 
   return (
     <div className="min-w-screen">
+<<<<<<< HEAD
       <Navbar
         className="bg-gray-400 h-12 flex space-x-4 min-w-full"
         expand="lg"
@@ -43,6 +44,18 @@ export const Navigation = ({
               height={50}
             />
           </div>
+=======
+      <Navbar className="bg-gray-200 h-12 flex space-x-4" expand="lg">
+        <div className="pl-4"></div>
+        <Image
+          src={require("./images/relu-logo-small.png")}
+          className=""
+          alt="Logo"
+          width={120}
+          height={50}
+        />
+        <Container className="container-fluid">
+>>>>>>> 1d397012d8ef8e69e5fb3eeb5e169135b2e8a4aa
           <Navbar.Brand
             onClick={() => (document.location.href = "http://localhost:3000")}
           >
