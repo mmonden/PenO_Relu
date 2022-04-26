@@ -21,7 +21,7 @@ export default function Home({ file, files, patients }) {
     <div className="flex relative w-screen h-screen">
       <Stlviewer file={file} />
       <div className="absolute w-full">
-        <Navigation files_input={files} patients_input={patients} file={file}/>
+        <Navigation files_input={files} patients_input={patients} file={file} />
       </div>
       <div className="absolute top-12">
         <AnnotationBar file={file} />
@@ -52,8 +52,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const files = await getFiles();
   const { id } = ctx.query;
-  const file_id = String(id)
-  
+  const file_id = String(id);
+
   const file = await getFile(file_id);
   file.cards = await getAnnotations(file);
 

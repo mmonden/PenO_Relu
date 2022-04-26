@@ -13,22 +13,36 @@ type FileListProps = {
   file: IFile;
 };
 
-export const Navigation = ({ files_input, patients_input, file }: FileListProps) => {
-  const selectedPatient = patients_input.filter((patient) => patient.file_ids.includes(file._id))[0];
-  const [files, setFiles] = useState(files_input.filter((fileFromPatient) => selectedPatient.file_ids.includes(fileFromPatient._id)));
+export const Navigation = ({
+  files_input,
+  patients_input,
+  file,
+}: FileListProps) => {
+  const selectedPatient = patients_input.filter((patient) =>
+    patient.file_ids.includes(file._id)
+  )[0];
+  const [files, setFiles] = useState(
+    files_input.filter((fileFromPatient) =>
+      selectedPatient.file_ids.includes(fileFromPatient._id)
+    )
+  );
 
   return (
     <div className="min-w-screen">
-      <Navbar className="bg-gray-400 h-12 flex space-x-4" expand="lg">
-        <div className="pl-4"></div>
-        <Image
-          src={require("./images/relu-logo-small.png")}
-          className=""
-          alt="Logo"
-          width={120}
-          height={50}
-        />
-        <Container className="container-fluid">
+      <Navbar
+        className="bg-gray-400 h-12 flex space-x-4 min-w-full"
+        expand="lg"
+      >
+        <Container className="container-fluid min-w-full">
+          <div className="pl-2 pr-4 pt-2">
+            <Image
+              src={require("./images/relu-logo-small.png")}
+              className=""
+              alt="Logo"
+              width={120}
+              height={50}
+            />
+          </div>
           <Navbar.Brand
             onClick={() => (document.location.href = "http://localhost:3000")}
           >

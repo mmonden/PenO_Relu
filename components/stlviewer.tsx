@@ -57,7 +57,7 @@ export async function raycasting({ file }: FileCardProps) {
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(scene.children);
         for (var i = 0; i < intersects.length; i++) {
-          if (intersects[i].object instanceof THREE.Mesh && !changed){
+          if (intersects[i].object instanceof THREE.Mesh && !changed) {
             //@ts-ignore
             intersects[i].object.material.color.set(0xff0000);
             file.selected.position = intersects[i].point.clone();
@@ -65,7 +65,6 @@ export async function raycasting({ file }: FileCardProps) {
             changed = true;
           }
         }
-  
 
         //code for coloring the selected mesh
         /*for (var i = 0; i < scene.children.length; i++) {
@@ -156,7 +155,9 @@ export default function Stlviewer({ file }: FileCardProps) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
-          "https://annosend.blob.core.windows.net/stl-files/" + filename + ".stl",
+          "https://annosend.blob.core.windows.net/stl-files/" +
+            filename +
+            ".stl",
           function (geometry) {
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
@@ -205,7 +206,6 @@ export default function Stlviewer({ file }: FileCardProps) {
         //variabeles for determining the postion of the text label and corresponding line
         var startingpoint = file.selected.position; //get startingpoint out of selected card
         var endpoint = file.selected.endPosition; //to be calculated
-       
 
         //start of code for drawing theline
         const material = new THREE.LineBasicMaterial({
@@ -279,7 +279,7 @@ function init() {
 
   camera.position.set(0, -3, 3); // Set position like this
   //camera.rotation.set(0, 100, 0);
-  requestAnimationFrame(render)
+  requestAnimationFrame(render);
   camera.updateProjectionMatrix();
 
   //RENDERER

@@ -2,10 +2,7 @@ import AnnotationCard from "./annotationcard";
 import { ICard, IFile } from "../types";
 import { GrAdd } from "react-icons/gr";
 import { useState } from "react";
-import {
-  AiOutlineRightCircle,
-  AiOutlineLeftCircle,
-} from "react-icons/ai";
+import { AiOutlineRightCircle, AiOutlineLeftCircle } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { calculateObjectSize } from "bson";
 import { time } from "console";
@@ -23,13 +20,13 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     setCards(cards.filter((card) => card._id != cardID));
     file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
     file.time = new Date().toLocaleString();
-    fetch('/api/update_file', {
-      method: 'POST',
+    fetch("/api/update_file", {
+      method: "POST",
       body: JSON.stringify({ file }),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   const newCard = () => {
@@ -42,18 +39,18 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     file.selected = new_card;
 
     //call raycaster function
-    raycasting({ file })
+    raycasting({ file });
 
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
-    fetch('/api/update_file', {
-      method: 'POST',
+    fetch("/api/update_file", {
+      method: "POST",
       body: JSON.stringify({ file }),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   const onSwipe = () => {
@@ -65,7 +62,11 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       {!swiped ? (
         <div
           className="border-black bg-gray-100 border flex flex-col items-center"
-          style={{ height: "calc(100vh - 48px)", overflow: "scroll", width: "380px"}}
+          style={{
+            height: "calc(100vh - 48px)",
+            overflow: "scroll",
+            width: "380px",
+          }}
         >
           <div id="header_annobar" className="flex justify-center items-center">
             <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4">
