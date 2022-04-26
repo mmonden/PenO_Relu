@@ -19,7 +19,7 @@ type FileCardProps = {
   file: IFile;
 };
 
-let camera, scene, controls, renderer, followLight, light, theline;
+let clock, camera, scene, controls, renderer, followLight, light, theline;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -255,7 +255,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     //   }
     // );
 
-    animate();
+    anim();
   });
 
   return<div ref={threeContainerRef}/>;
@@ -295,15 +295,33 @@ function init() {
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  //CONTROLS
-  controls = new OrbitControls(camera, renderer.domElement);
+  //CONTROLS + CLOCK
+  clock = new THREE.Clock();
+  controls = new CameraControls( camera, renderer.domElement );
+  controls.mouseButtons.left = CameraControls.ACTION.TRUCK;
+  controls.mouseButtons.left = CameraControls.ACTION.TOUCH_ROTATE;
 }
 
-function animate() {
-  requestAnimationFrame(animate);
-  controls.update();
-  render();
-}
+function anim () {
+
+	const delta = clock.getDelta();
+	const hasControlsUpdated = controls.update( delta );
+
+	requestAnimationFrame( anim );
+
+	if ( hasControlsUpdated ) {
+
+		renderer.render( scene, camera );
+
+	}
+
+};
+
+// function animate() {
+//   requestAnimationFrame(animate);
+//   controls.update();
+//   render();
+// }
 
 function render() {
   followLight.position.copy(camera.position);
@@ -314,3 +332,9 @@ function render() {
 }
 
 export {scene, theline};
+//FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
+function ChangePerspective(x, y, z) {
+  camera.position.set(x, y, z);
+  camera.updateProjectionMatrix();
+  render();
+}
