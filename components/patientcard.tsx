@@ -9,6 +9,19 @@ import {
 } from "react-icons/ai";
 import { useState } from "react";
 import DeleteModal from "./deleteModal";
+import { EditForm } from "./editForm"
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 type PatientCardProps = {
   patient: IPatient;
@@ -28,6 +41,7 @@ export default function PatientCard({
   const [editing, setEdit] = useState(patient.new);
   const [name, setName] = useState(patient.name);
   const [isOpen, setIsOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
 
   const onDelete = () => {
     deletePatient(patient._id);
@@ -87,11 +101,13 @@ export default function PatientCard({
               </div>
             </a>
           </button>
-          <button onClick={toggleEdit}>
-            {editing ? (
-              <AiOutlineSave className="text-3xl" />
+          <button>
+            {editOpen ? (
+              <Modal isOpen={editOpen} style={customStyles}>
+                <EditForm setIsOpen={setEditOpen} patient={patient} />
+              </Modal>
             ) : (
-              <AiOutlineEdit className="text-3xl" />
+              <AiOutlineEdit onClick={() => setEditOpen(true)} className="text-3xl" />
             )}
           </button>
           {isOpen ? (

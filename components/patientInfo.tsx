@@ -33,26 +33,22 @@ export default function PatientInfo({ selected_patient }: FileListProps) {
             height={180}
           />
         </div>
-        <div className="flex flex-column pt-3">
+        <div className="flex flex-column justify-center">
           <p>
             <span className="font-bold">Naam: </span>
             <span>{selected_patient.name} </span>
           </p>
           <p>
             <span className="font-bold">Geslacht: </span>
-            <span>M</span>
+            <span>{selected_patient.sex}</span>
           </p>
           <p>
             <span className="font-bold">Geboorte: </span>
-            <span>29/06/2001 </span>
-          </p>
-          <p>
-            <span className="font-bold">Beroep: </span>
-            <span> Front end Developer </span>
+            <span>{selected_patient.birth} </span>
           </p>
           <p>
             <span className="font-bold">Extra info: </span>
-            <span> 3 Gaatjes, heeft nog wijsheidstanden </span>
+            <span> {selected_patient.extraInfo} </span>
           </p>
         </div>
       </div>
