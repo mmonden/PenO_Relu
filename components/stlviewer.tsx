@@ -59,9 +59,12 @@ export async function raycasting({ file }: FileCardProps) {
         for (var i = 0; i < intersects.length; i++) {
           if (intersects[i].object instanceof THREE.Mesh && !changed){
             //@ts-ignore
-            intersects[i].object.material.color.set(0xff0000);
             file.selected.position = intersects[i].point.clone();
             file.selected.endPosition = intersects[i].point.setLength(100);
+            //@ts-ignore
+            file.selected.intersect = intersects[i].object;
+            //@ts-ignore
+            file.selected.intersect.material.color.set(0xff0000);
             changed = true;
           }
         }
@@ -235,19 +238,19 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     });
 
-    loader.load(
-      "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
-      function (geometry) {
-        const mesh = new THREE.Mesh(geometry, materialSkull);
-        scene.add(mesh);
-      },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // loader.load(
+    //   "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
+    //   function (geometry) {
+    //     const mesh = new THREE.Mesh(geometry, materialSkull);
+    //     scene.add(mesh);
+    //   },
+    //   (xhr) => {
+    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
     animate();
   });
@@ -258,7 +261,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 function init() {
   //creating scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff);
+  scene.background = new THREE.Color(0xffffff)
   //light
   followLight = new THREE.DirectionalLight(0xffffff, 1.0);
   followLight.position.set(20, 100, 10);

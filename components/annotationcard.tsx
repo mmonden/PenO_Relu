@@ -64,7 +64,15 @@ export default function AnnotationCard({
 
     const onAnnotation = () => {
         if (!editing) {
+            if (file.selected.intersect){//remove color
+                //@ts-ignore
+                file.selected.intersect.material.color.set(0xffffff);
+              }
             file.selected = card;
+            if (file.selected.intersect){//add color
+                //@ts-ignore
+                file.selected.intersect.material.color.set(0xff0000);
+              }
             fetch("/api/update_file", {
                 method: "POST",
                 body: JSON.stringify({ file }),

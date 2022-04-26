@@ -39,6 +39,10 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       text: "",
       new: true,
     };
+    if (file.selected.intersect) {
+      //@ts-ignore
+      file.selected.intersect.material.color.set(0xffffff);
+    }
     file.selected = new_card;
 
     //call raycaster function
