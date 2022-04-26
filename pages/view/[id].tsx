@@ -18,6 +18,7 @@ import { IFile } from "../../types";
 import { getFiles } from "../../lib/annotations";
 import { ObjectID } from "mongodb";
 import { Sprite } from "three";
+import { useState } from "react";
 
 export default function Home({ file, files, patients }) {
   const resetSTL = () => {
@@ -31,8 +32,11 @@ export default function Home({ file, files, patients }) {
       }
       controls.reset( true )
   };
-  
-  var states_dict = {}
+
+  const onSwipe = () => {
+		
+	};
+  var states_dict = {"TOOTH_11" : onSwipe}
 
   return (
     <div className="flex relative w-screen h-screen">

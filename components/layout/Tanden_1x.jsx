@@ -12,6 +12,10 @@ import {
 } from "../../util/structuresCBCT";
 
 const Tanden = ( states ) => {
+	const onSwipe = () => {
+		swiped = !swiped;
+	};
+
   return (
     <div className="pl-4 pt-2 pb-2">
       <button className="w-5">
