@@ -9,7 +9,7 @@ import { GetServerSideProps } from "next";
 import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
-import {scene,theline} from "../../components/stlviewer";
+import {controls, scene,theline} from "../../components/stlviewer";
 
 import { useRouter } from "next/router";
 import { Navigation } from "../../components/NavBarPatient";
@@ -20,7 +20,8 @@ import { ObjectID } from "mongodb";
 import { Sprite } from "three";
 
 export default function Home({ file, files, patients }) {
-  const deleteAnn = () => {
+  
+  const resetSTL = () => {
     file.selected = null; 
     scene.children = scene.children.filter(
         (child) => !(child instanceof Sprite)
@@ -28,6 +29,7 @@ export default function Home({ file, files, patients }) {
       if (theline) {
         scene.remove(theline);
       }
+      controls.reset( true )
   };
 
   return (
@@ -37,7 +39,7 @@ export default function Home({ file, files, patients }) {
         <Navigation files_input={files} patients_input={patients} file={file} />
       </div>
       <div className="absolute">
-        <button onClick={() => deleteAnn()}> haeij</button>
+        <button onClick={() => resetSTL()}>reset</button>
       </div>
       <div className="absolute top-12">
         <AnnotationBar file={file} />

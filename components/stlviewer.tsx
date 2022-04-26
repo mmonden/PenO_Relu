@@ -351,10 +351,5 @@ function render() {
   renderer.render(scene, camera);
 }
 
-export {scene, theline};
-//FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-function ChangePerspective(x, y, z) {
-  camera.position.set(x, y, z);
-  camera.updateProjectionMatrix();
-  render();
-}
+export {controls, scene, theline};
+
