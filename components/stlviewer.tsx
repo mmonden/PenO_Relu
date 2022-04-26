@@ -25,7 +25,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
 }
 
-export async function removecolor(file){
+export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
     if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xffffff);
@@ -337,12 +337,6 @@ function anim () {
 
 };
 
-// function animate() {
-//   requestAnimationFrame(animate);
-//   controls.update();
-//   render();
-// }
-
 function render() {
   followLight.position.copy(camera.position);
 
@@ -352,9 +346,3 @@ function render() {
 }
 
 export {scene, theline};
-//FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-function ChangePerspective(x, y, z) {
-  camera.position.set(x, y, z);
-  camera.updateProjectionMatrix();
-  render();
-}

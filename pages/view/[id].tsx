@@ -10,7 +10,7 @@ import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
 import {scene,theline} from "../../components/stlviewer";
-
+import {removecolor} from "../../components/stlviewer";
 import { useRouter } from "next/router";
 import { Navigation } from "../../components/NavBarPatient";
 import { getSession } from "next-auth/react";
@@ -21,6 +21,7 @@ import { Sprite } from "three";
 
 export default function Home({ file, files, patients }) {
   const deleteAnn = () => {
+    if (file.selected) {removecolor(file)}
     file.selected = null; 
     scene.children = scene.children.filter(
         (child) => !(child instanceof Sprite)
