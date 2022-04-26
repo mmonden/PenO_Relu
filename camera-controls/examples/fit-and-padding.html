@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>=^.^=</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="ruler"></div>
+
+<div class="info">
+	<a href="https://github.com/yomotsu/camera-controls">GitHub repo</a><br>
+	<button onclick="rotateTo( 'front' ), cameraControls.reset( true )">reset</button><br>
+	<button onclick="rotateTo( 'front' ), cameraControls.fitToBox( mesh, true )">fit front side of the mesh</button><br>
+	<button onclick="rotateTo( 'back' ), cameraControls.fitToBox( mesh, true, { paddingLeft: 0, paddingRight: 0, paddingBottom: 1, paddingTop: 2 } )">fit back side with padding(top: 2unit, bottom: 1unit )</button>
+	<button onclick="rotateTo( 'up' ), cameraControls.fitToBox( mesh, true, { paddingLeft: 0, paddingRight: 0, paddingBottom: 0.5, paddingTop: 2 } )">fit up side with padding(top: 2unit, bottom: 0.5unit )</button>
+	<button onclick="rotateTo( 'down' ), cameraControls.fitToBox( mesh, true, { paddingLeft: 4, paddingRight: 4, paddingBottom: 4, paddingTop: 4 } )">fit down side with padding(top: 4unit, bottom: 4unit, left: 4unit, right: 4unit )</button>
+	<button onclick="rotateTo( 'right' ), cameraControls.fitToBox( mesh, true, { paddingLeft: 1, paddingRight: 0 } )">fit right side with padding(left: 1unit, right: 0unit )</button>
+	<button onclick="rotateTo( 'left' ), paddingInCssPixel( 100, 100, 200, 100 )">fit left side with padding in pixel( top: 100<b>px</b>, right: 100<b>px</b>, bottom: 200<b>px</b>, right: 100<b>px</b> )</button>
+</div>
+
+<script src="https://unpkg.com/three@0.138.2/build/three.min.js"></script>
+<script src="https://unpkg.com/gsap@3.9.1/dist/gsap.min.js"></script>
+<script src="../dist/camera-controls.js"></script>
+<script>
+CameraControls.install( { THREE: THREE } );
+
+const width  = window.innerWidth;
+const height = window.innerHeight;
+const clock = new THREE.Clock();
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera( 60, width / height, 0.01, 100 );
+camera.position.set( 0, 0, 5 );
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( width, height );
+document.body.appendChild( renderer.domElement );
+
+const cameraControls = new CameraControls( camera, renderer.domElement );
+
+const gridHelper = new THREE.GridHelper( 50, 50 );
+gridHelper.rotation.x = - Math.PI / 2;
+gridHelper.position.z = 0.5;
+scene.add( gridHelper );
+
+const axesHelper = new THREE.AxesHelper();
+axesHelper.material.depthTest = false;
+scene.add( axesHelper );
+
+const mesh = new THREE.Mesh(
+	new THREE.BoxGeometry( 2, 2, 1 ),
+	new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
+);
+scene.add( mesh );
+
+renderer.render( scene, camera );
+
+( function anim () {
+
+	const delta = clock.getDelta();
+	const elapsed = clock.getElapsedTime();
+	const updated = cameraControls.update( delta );
+
+	// if ( elapsed > 30 ) { return; }
+
+	requestAnimationFrame( anim );
+
+	if ( updated ) {
+
+		renderer.render( scene, camera );
+		console.log( 'rendered' );
+
+	}
+
+} )();
+
+const DEG90 = Math.PI * 0.5;
+const DEG180 = Math.PI;
+
+function rotateTo( side ) {
+
+	switch ( side ) {
+
+		case 'front':
+			cameraControls.rotateTo( 0, DEG90, true );
+			gsap.to( gridHelper.position, { duration: 0.8, x: 0, y: 0, z:  0.5 } );
+			gsap.to( gridHelper.rotation, { duration: 0.8, x: - DEG90, y: 0, z: 0 } );
+			break;
+
+		case 'back':
+			cameraControls.rotateTo( DEG180, DEG90, true );
+			gsap.to( gridHelper.position, { duration: 0.8, x: 0, y: 0, z:  - 0.5 } );
+			gsap.to( gridHelper.rotation, { duration: 0.8, x: - DEG90, y: 0, z: 0 } );
+			break;
+
+		case 'up':
+			cameraControls.rotateTo( 0, 0, true );
+			gsap.to( gridHelper.position, { duration: 0.8, x: 0, y: 1, z: 0 } );
+			gsap.to( gridHelper.rotation, { duration: 0.8, x: 0, y: 0, z: 0 } );
+			break;
+
+		case 'down':
+			cameraControls.rotateTo( 0, DEG180, true );
+			gsap.to( gridHelper.position, { duration: 0.8, x: 0, y: - 1, z: 0 } );
+			gsap.to( gridHelper.rotation, { duration: 0.8, x: 0, y: 0, z: 0 } );
+			break;
+
+		case 'right':
+			cameraControls.rotateTo( DEG90, DEG90, true );
+			gsap.to( gridHelper.position, { duration: 0.8, x: 1, y: 0, z: 0 } );
+			gsap.to( gridHelper.rotation, { duration: 0.8, x: - DEG90, y: 0, z: DEG90 } );
+			break;
+
+		case 'left':
+			cameraControls.rotateTo( - DEG90, DEG90, true );
+			gsap.to( gridHelper.position, { duration: 0.8, x: - 1, y: 0, z: 0 } );
+			gsap.to( gridHelper.rotation, { duration: 0.8, x: - DEG90, y: 0, z: DEG90 } );
+			break;
+
+	}
+
+}
+
+function paddingInCssPixel( top, right, bottom, left ) {
+
+	const fov = camera.fov * THREE.MathUtils.DEG2RAD;
+	const rendererHeight = renderer.getSize( new THREE.Vector2() ).height;
+
+	const boundingBox = new THREE.Box3().setFromObject( mesh );
+	const size = boundingBox.getSize( new THREE.Vector3() );
+	const boundingWidth  = size.x;
+	const boundingHeight = size.y;
+	const boundingDepth = size.z;
+
+	var distanceToFit = cameraControls.getDistanceToFitBox( boundingWidth, boundingHeight, boundingDepth );
+	var paddingTop = 0;
+	var paddingBottom = 0;
+	var paddingLeft = 0;
+	var paddingRight = 0;
+
+	// loop to find almost convergence points
+	for ( var i = 0; i < 10; i ++ ) {
+
+		const depthAt = distanceToFit - boundingDepth * 0.5;
+		const cssPixelToUnit = ( 2 * Math.tan( fov * 0.5 ) * Math.abs( depthAt ) ) / rendererHeight;
+		paddingTop = top * cssPixelToUnit;
+		paddingBottom = bottom * cssPixelToUnit;
+		paddingLeft = left * cssPixelToUnit;
+		paddingRight = right * cssPixelToUnit;
+
+		distanceToFit = cameraControls.getDistanceToFitBox(
+			boundingWidth + paddingLeft + paddingRight,
+			boundingHeight + paddingTop + paddingBottom,
+			boundingDepth
+		);
+
+	}
+
+	cameraControls.fitToBox( mesh, true, { paddingLeft: paddingLeft, paddingRight: paddingRight, paddingBottom: paddingBottom, paddingTop: paddingTop } );
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>=^.^=</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="info">
+	<a href="https://github.com/yomotsu/camera-controls">GitHub repo</a><br>
+	<button onclick="cameraControls.reset( true )">reset</button><br>
+	<button onclick="rotate45()">rotate 45 deg <b>relatively</b> with easing in 1 sec</button><br>
+	<button onclick="rotate0To120()">rotate 0 to 120 deg with easing in 3 sec</button><br>
+</div>
+
+<script src="https://unpkg.com/three@0.138.2/build/three.min.js"></script>
+<script src="https://unpkg.com/gsap@3.9.1/dist/gsap.min.js"></script>
+<script src="../dist/camera-controls.js"></script>
+<script>
+CameraControls.install( { THREE: THREE } );
+
+const width  = window.innerWidth;
+const height = window.innerHeight;
+const clock = new THREE.Clock();
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera( 60, width / height, 0.01, 100 );
+camera.position.set( 0, 0, 5 );
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( width, height );
+document.body.appendChild( renderer.domElement );
+
+const cameraControls = new CameraControls( camera, renderer.domElement );
+
+const mesh = new THREE.Mesh(
+	new THREE.BoxGeometry( 1, 1, 1 ),
+	new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
+);
+scene.add( mesh );
+
+const gridHelper = new THREE.GridHelper( 50, 50 );
+gridHelper.position.y = - 1;
+scene.add( gridHelper );
+
+
+
+const rotate45 = function () {
+
+	const tween = gsap.to(
+		cameraControls,
+		{
+			azimuthAngle: cameraControls.azimuthAngle + 45 * THREE.MathUtils.DEG2RAD,
+			duration: 1,
+			ease: 'elastic',
+			paused: true
+		},
+	);
+
+	cameraControls.enabled = false;
+	tween.play( 0 );
+
+}
+
+
+const rotate0To120 = function () {
+
+	const tween = gsap.fromTo(
+		cameraControls,
+		{
+			azimuthAngle: 0,
+		},
+		{
+			azimuthAngle: 120 * THREE.MathUtils.DEG2RAD,
+			duration: 3,
+			paused: true
+		},
+	);
+
+	cameraControls.enabled = false;
+	tween.play( 0 );
+
+}
+
+
+renderer.render( scene, camera );
+
+( function anim () {
+
+	const delta = clock.getDelta();
+	const elapsed = clock.getElapsedTime();
+	const updated = cameraControls.update( delta );
+
+	// if ( elapsed > 30 ) { return; }
+
+	requestAnimationFrame( anim );
+
+	if ( updated ) {
+
+		renderer.render( scene, camera );
+		console.log( 'rendered' );
+
+	}
+
+} )();
+</script>
+
+</body>
+</html>

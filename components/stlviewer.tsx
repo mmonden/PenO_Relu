@@ -11,6 +11,9 @@ import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
 import { Sprite } from "three";
 import { makeTextSprite } from "./makeTextSprite";
+import CameraControls from '../camera-controls';
+
+CameraControls.install( { THREE: THREE } );
 
 type FileCardProps = {
   file: IFile;

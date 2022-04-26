@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>=^.^=</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="info">
+	<p><a href="https://github.com/yomotsu/camera-controls">GitHub repo</a></p>
+	<label><input type="checkbox" onchange="cameraControls.verticalDragToForward = this.checked">vertical drag to move forward</label>
+	<br>
+	<label><input type="checkbox" onchange="cameraControls.dollyToCursor = this.checked">dolly to cursor</label>
+	<br>
+	<label><input type="checkbox" onchange="cameraControls.infinityDolly = this.checked">infinity dolly</label>
+	<br>
+	<br>
+	<button onclick="cameraControls.rotate(  45 * THREE.MathUtils.DEG2RAD, 0, true )">rotate theta 45deg</button>
+	<button onclick="cameraControls.rotate( -90 * THREE.MathUtils.DEG2RAD, 0, true )">rotate theta -90deg</button>
+	<button onclick="cameraControls.rotate( 360 * THREE.MathUtils.DEG2RAD, 0, true )">rotate theta 360deg</button>
+	<button onclick="cameraControls.rotate( 0, 20 * THREE.MathUtils.DEG2RAD, true )">rotate phi 20deg</button>
+	<br>
+	<button onclick="cameraControls.truck(  1,  0, true)">truck( 1, 0 )</button>
+	<button onclick="cameraControls.truck(  0,  1, true)">truck( 0, 1 )</button>
+	<button onclick="cameraControls.truck( -1, -1, true )">truck( -1, -1 )</button>
+	<br>
+	<button onclick="cameraControls.dolly(  1, true )">dolly  1</button>
+	<button onclick="cameraControls.dolly( -1, true )">dolly -1</button>
+	<br>
+	<label><input oninput="cameraControls.minDistance = this.value" type="number">Min Distance</label>
+	<br>
+	<button onclick="cameraControls.zoom( camera.zoom / 2, true )">zoom `camera.zoom / 2`</button>
+	<button onclick="cameraControls.zoom( -camera.zoom / 2, true )">zoom `- camera.zoom / 2`</button>
+	<br>
+	<button onclick="cameraControls.moveTo( 3, 5, 2, true )">move to( 3, 5, 2 )</button>
+	<button onclick="cameraControls.fitToBox( mesh, true )">fit to the bounding box of the mesh</button>
+	<br>
+	<button onclick="cameraControls.setPosition( -5, 2, 1, true )">move to ( -5, 2, 1 )</button>
+	<button onclick="cameraControls.setTarget( 3, 0, -3, true )">look at ( 3, 0, -3 )</button>
+	<button onclick="cameraControls.setLookAt( 1, 2, 3, 1, 1, 0, true )">move to ( 1, 2, 3 ), look at ( 1, 1, 0 )</button>
+	<br>
+	<button onclick="cameraControls.lerpLookAt( -2, 0, 0, 1, 1, 0, 0, 2, 5, -1, 0, 0, Math.random(), true )">move to somewhere between ( -2, 0, 0 ) -> ( 1, 1, 0 ) and ( 0, 2, 5 ) -> ( -1, 0, 0 )</button>
+	<br>
+	<button onclick="cameraControls.reset( true )">reset</button>
+	<button onclick="cameraControls.saveState()">saveState</button>
+	<br>
+	<button onclick="cameraControls.enabled = false;">disable mouse/touch controls</button>
+	<button onclick="cameraControls.enabled = true;">enable mouse/touch controls</button>
+</div>
+
+<script src="https://unpkg.com/three@0.138.2/build/three.min.js"></script>
+<script src="../dist/camera-controls.js"></script>
+<script>
+CameraControls.install( { THREE: THREE } );
+
+const width  = window.innerWidth;
+const height = window.innerHeight;
+const clock = new THREE.Clock();
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera( 60, width / height, 0.01, 100 );
+camera.position.set( 0, 0, 5 );
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( width, height );
+document.body.appendChild( renderer.domElement );
+
+const cameraControls = new CameraControls( camera, renderer.domElement );
+
+const mesh = new THREE.Mesh(
+	new THREE.BoxGeometry( 1, 1, 1 ),
+	new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } )
+);
+scene.add( mesh );
+
+const gridHelper = new THREE.GridHelper( 50, 50 );
+gridHelper.position.y = - 1;
+scene.add( gridHelper );
+
+renderer.render( scene, camera );
+
+( function anim () {
+
+	const delta = clock.getDelta();
+	const elapsed = clock.getElapsedTime();
+	const updated = cameraControls.update( delta );
+
+	// if ( elapsed > 30 ) { return; }
+
+	requestAnimationFrame( anim );
+
+	if ( updated ) {
+
+		renderer.render( scene, camera );
+		console.log( 'rendered' );
+
+	}
+
+} )();
+</script>
+
+</body>
+</html>
