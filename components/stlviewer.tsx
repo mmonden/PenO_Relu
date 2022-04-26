@@ -297,6 +297,8 @@ function init() {
   //CONTROLS + CLOCK
   clock = new THREE.Clock();
   controls = new CameraControls( camera, renderer.domElement );
+  controls.mouseButtons.left = CameraControls.ACTION.TRUCK;
+  controls.mouseButtons.left = CameraControls.ACTION.TOUCH_ROTATE;
 }
 
 function anim () {
