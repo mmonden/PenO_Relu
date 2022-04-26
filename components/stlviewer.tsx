@@ -235,19 +235,19 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     });
 
-    loader.load(
-      "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
-      function (geometry) {
-        const mesh = new THREE.Mesh(geometry, materialSkull);
-        scene.add(mesh);
-      },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // loader.load(
+    //   "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
+    //   function (geometry) {
+    //     const mesh = new THREE.Mesh(geometry, materialSkull);
+    //     scene.add(mesh);
+    //   },
+    //   (xhr) => {
+    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
     animate();
   });
