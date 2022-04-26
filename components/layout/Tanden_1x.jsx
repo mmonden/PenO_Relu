@@ -19,7 +19,7 @@ const onSwipe = () => {
   // cameraControls.rotate( -90 * THREE.MathUtils.DEG2RAD, 0, true )
   // controls.moveTo(100, 65 ,0, true)
   // controls.rotateAzimuthTo( Math.PI / 2, true)
-  // controls.rotatePolarTo( Math.PI / 2, true)
+  // controls.rotatePolarTo( Math.PI / 2, true)e
   // console.log("Uitgevoerd")
 };
 
