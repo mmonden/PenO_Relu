@@ -159,6 +159,7 @@ export default function Stlviewer({ file }: FileCardProps) {
             filename +
             ".stl",
           function (geometry) {
+            geometry.translate(0,0,35)
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
             let b = toothNr % 10;
@@ -182,6 +183,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     loader.load(
       "https://annosend.blob.core.windows.net/stl-files/Mandible.stl",
       function (geometry) {
+        geometry.translate(0,0,35)
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
       },
@@ -268,6 +270,8 @@ function init() {
 
   light = new THREE.AmbientLight(0x404040);
   scene.add(light);
+  const axesHelper = new THREE.AxesHelper(5);
+  scene.add( axesHelper);
 
   //CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -277,9 +281,7 @@ function init() {
     1000 //distance from camera objects stops appearing
   );
 
-  camera.position.set(0, -3, 3); // Set position like this
-  const axexHelper = new THREE.AxesHelper(5);
-  scene.add( AxesHelper);
+  camera.position.set(0, -128, 0); // Set position like this
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
