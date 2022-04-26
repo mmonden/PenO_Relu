@@ -25,9 +25,9 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
 }
 
-export async function removecolor(file){
+export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xffffff);
     }
   }
@@ -35,7 +35,7 @@ export async function removecolor(file){
 
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -124,6 +124,8 @@ export async function raycasting({ file }: FileCardProps) {
   });
 }
 
+
+
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
@@ -172,7 +174,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     for (var x = 1; x < 5; x++) {
-      for (var y = 1; y < 7; y++) {
+      for (var y = 1; y < 9; y++) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
@@ -337,12 +339,6 @@ function anim () {
 
 };
 
-// function animate() {
-//   requestAnimationFrame(animate);
-//   controls.update();
-//   render();
-// }
-
 function render() {
   followLight.position.copy(camera.position);
 
@@ -351,5 +347,11 @@ function render() {
   renderer.render(scene, camera);
 }
 
-export {controls, scene, theline};
+function filter(id)
+{
+  scene.children = scene.children.filter(
+    (child) => !(child.id == id)
+  );
+}
 
+export {controls, scene, theline};

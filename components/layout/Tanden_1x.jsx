@@ -1,5 +1,4 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
-import { Stlviewer } from "../stlviewer";
 
 import {
   TOOTH_11,
@@ -12,18 +11,7 @@ import {
   TOOTH_18,
 } from "../../util/structuresCBCT";
 
-import {
-  CROWN_11,
-  CROWN_12,
-  CROWN_13,
-  CROWN_14,
-  CROWN_15,
-  CROWN_16,
-  CROWN_17,
-  CROWN_18,
-} from "../../util/structuresIOS";
-
-const Tanden = () => {
+const Tanden = ( states ) => {
   return (
     <div className="pl-4 pt-2 pb-2">
       <button className="w-5">

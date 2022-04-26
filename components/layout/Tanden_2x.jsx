@@ -11,18 +11,7 @@ import {
 	TOOTH_28
 } from '../../util/structuresCBCT';
   
-import {
-	CROWN_21,
-	CROWN_22,
-	CROWN_23,
-	CROWN_24,
-	CROWN_25,
-	CROWN_26,
-	CROWN_27,
-	CROWN_28
-} from '../../util/structuresIOS';
-  
-const Tanden = () => {
+const Tanden = ( states ) => {
   return (
 	<div className="pr-4 pt-2 pb-2">
 		<button className="w-5">

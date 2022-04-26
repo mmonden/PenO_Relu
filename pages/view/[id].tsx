@@ -9,8 +9,8 @@ import { GetServerSideProps } from "next";
 import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
-import {controls, scene,theline} from "../../components/stlviewer";
-
+import {controls, scene, theline} from "../../components/stlviewer";
+import {removecolor} from "../../components/stlviewer";
 import { useRouter } from "next/router";
 import { Navigation } from "../../components/NavBarPatient";
 import { getSession } from "next-auth/react";
@@ -20,8 +20,8 @@ import { ObjectID } from "mongodb";
 import { Sprite } from "three";
 
 export default function Home({ file, files, patients }) {
-  
   const resetSTL = () => {
+    if (file.selected) {removecolor(file)}
     file.selected = null; 
     scene.children = scene.children.filter(
         (child) => !(child instanceof Sprite)
@@ -31,6 +31,8 @@ export default function Home({ file, files, patients }) {
       }
       controls.reset( true )
   };
+  
+  var states_dict = {}
 
   return (
     <div className="flex relative w-screen h-screen">
@@ -48,7 +50,7 @@ export default function Home({ file, files, patients }) {
         className="absolute right-0 top-12"
         style={{ height: "calc(100vh - 48px)" }}
       >
-        <Sidebar />
+        <Sidebar states={states_dict}/>
         <div className="absolute right-0 bottom-0 flex flex-row">
           <PopUp file={file} />
         </div>
