@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { MeshLine, MeshLineMaterial } from "three.meshline";
-import { InstancedInterleavedBuffer } from "three";
+import { AxesHelper, InstancedInterleavedBuffer } from "three";
 
 import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
@@ -278,6 +278,8 @@ function init() {
   );
 
   camera.position.set(0, -3, 3); // Set position like this
+  const axexHelper = new THREE.AxesHelper(5);
+  scene.add( AxesHelper);
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
