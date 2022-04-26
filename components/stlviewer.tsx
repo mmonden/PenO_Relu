@@ -300,7 +300,7 @@ function animate() {
 function render() {
   followLight.position.copy(camera.position);
 
-  camera.lookAt(new THREE.Vector3(5, 0, -57.33));
+  //camera.lookAt(new THREE.Vector3(5, 0, -57.33));
 
   renderer.render(scene, camera);
 }
