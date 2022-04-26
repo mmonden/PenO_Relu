@@ -1,4 +1,5 @@
 import { ObjectId, Timestamp } from "bson";
+import * as THREE from "three";
 
 export interface account {
   _id: ObjectId;
