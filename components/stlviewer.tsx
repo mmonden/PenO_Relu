@@ -16,7 +16,7 @@ type FileCardProps = {
   file: IFile;
 };
 
-let camera, scene, controls, renderer, followLight, light, theline;
+let camera, scene, controls, renderer, followLight, light, theline, theline1;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -108,6 +108,23 @@ export default function Stlviewer({ file }: FileCardProps) {
 
   useEffect(() => {
     init();
+
+    var startingpoint1 = [0,0,0]
+    var endpoint1 = [20,0,0]
+
+    //start of code for drawing theline
+    const material1 = new THREE.LineBasicMaterial({
+      color: new THREE.Color(0x000000),
+      linewidth: 1,
+    });
+
+    const points1 = [];
+    points1.push(startingpoint1);
+    points1.push(endpoint1);
+    const geometry1 = new THREE.BufferGeometry().setFromPoints(points1);
+    theline1 = new THREE.Line(geometry1, material1);
+    scene.add(theline1);
+
 
     //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
@@ -277,7 +294,7 @@ function init() {
     1000 //distance from camera objects stops appearing
   );
 
-  camera.position.set(0, -3, 3); // Set position like this
+  camera.position.set(-1.2, -33.8, -57.33); // Set position like this
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
@@ -289,6 +306,14 @@ function init() {
 
   //CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
+  controls.keys = {
+    LEFT: 'ArrowLeft', //left arrow
+    UP: 'ArrowUp', // up arrow
+    RIGHT: 'ArrowRight', // right arrow
+    BOTTOM: 'ArrowDown' // down arrow
+  }
+  controls.update();
+
 }
 
 function animate() {
