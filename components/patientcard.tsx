@@ -38,7 +38,7 @@ export default function PatientCard({
         "Content-Type": "application/json",
       },
     });
-    deletePatientCard(patient)
+    deletePatientCard(patient);
   };
 
   const setPatient = () => {
@@ -59,7 +59,7 @@ export default function PatientCard({
     }
 
     setEdit(!editing);
-    updatePatient(patient)
+    updatePatient(patient);
   };
 
   return (

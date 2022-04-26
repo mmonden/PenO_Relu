@@ -15,7 +15,7 @@ type FileCardProps = {
 
 function GetURL({ file }: FileCardProps) {
   const id = file._id;
-  let url = "http://localhost:3000/view/" + id.toString();
+  let url = "relu-ano.vercel.app/view/" + id.toString();
   return url;
 }
 

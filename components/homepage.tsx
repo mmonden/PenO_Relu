@@ -28,7 +28,6 @@ export default function HomePage({
   const [files, setFiles] = useState(files_input);
   const [patients, setPatients] = useState(patients_input);
 
-
   const getFilesFromPat = (patientID) => {
     if (patients.length == 0) {
       return [];
@@ -79,18 +78,22 @@ export default function HomePage({
 
   const addPatient = (patient) => {
     setPatients([...patients, patient]);
-  }
+  };
 
   const deletePatient = (oldPatient) => {
-    const newPatients = patients.filter((patient) => oldPatient._id != patient._id);
+    const newPatients = patients.filter(
+      (patient) => oldPatient._id != patient._id
+    );
     setPatients(newPatients);
-  }
+  };
 
   const updatePatient = (patient) => {
-    const newPatients = patients.filter((oldpatient) => oldpatient._id != patient._id);
+    const newPatients = patients.filter(
+      (oldpatient) => oldpatient._id != patient._id
+    );
     newPatients.push(patient);
     setPatients(newPatients);
-  }
+  };
 
   return (
     <div className="min-w-screen min-h-screen flex relative overflow-hidden">
