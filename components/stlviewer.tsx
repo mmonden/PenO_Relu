@@ -115,7 +115,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
 
-    //dunno what this do @aline @thomas
+    //dunno what this do
     window.addEventListener("resize", onWindowResize, false);
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -198,6 +198,7 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     );
 
+
     document.addEventListener("dblclick", function (event) {
       if (file.selected) {
         var title = file.selected.title;
@@ -257,7 +258,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     animate();
   });
 
-  return <div ref={threeContainerRef} />;
+  return<div ref={threeContainerRef}/>;
 }
 
 function init() {
@@ -312,9 +313,4 @@ function render() {
   renderer.render(scene, camera);
 }
 
-//FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-function ChangePerspective(x, y, z) {
-  camera.position.set(x, y, z);
-  camera.updateProjectionMatrix();
-  render();
-}
+export {scene, theline};
