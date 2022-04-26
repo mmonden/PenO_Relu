@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState} from "react";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -20,6 +20,22 @@ let camera, scene, controls, renderer, followLight, light, theline;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
+}
+
+export async function removecolor(file){
+  for (var j = 0; j < scene.children.length; j++) {
+    if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
+      scene.children[j].material.color.set(0xffffff);
+    }
+  }
+}
+
+export function addcolor(file){
+  for (var j = 0; j < scene.children.length; j++) {
+    if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
+      scene.children[j].material.color.set(0xff0000);
+    }
+  }
 }
 
 export async function raycasting({ file }: FileCardProps) {
@@ -62,9 +78,8 @@ export async function raycasting({ file }: FileCardProps) {
             file.selected.position = intersects[i].point.clone();
             file.selected.endPosition = intersects[i].point.setLength(100);
             //@ts-ignore
-            file.selected.intersect = intersects[i].object;
-            //@ts-ignore
-            file.selected.intersect.material.color.set(0xff0000);
+            file.selected.intersect = intersects[i].object.id;
+            addcolor(file);
             changed = true;
           }
         }

@@ -39,7 +39,7 @@ export interface ICard {
   new?: boolean;
   position?: THREE.Vector3; // start position line
   endPosition?: THREE.Vector3; // end position line
-  intersect?: THREE.Mesh; //for coloring
+  intersect?: number; //for coloring
 }
 
 export interface IFile {

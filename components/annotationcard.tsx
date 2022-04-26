@@ -1,7 +1,7 @@
 import { ICard, IFile } from "../types";
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import Stlviewer from "./stlviewer";
+import Stlviewer, { addcolor, removecolor } from "./stlviewer";
 
 type AnnotationCardProps = {
     card: ICard;
@@ -64,15 +64,9 @@ export default function AnnotationCard({
 
     const onAnnotation = () => {
         if (!editing) {
-            if (file.selected.intersect){//remove color
-                //@ts-ignore
-                file.selected.intersect.material.color.set(0xffffff);
-              }
+            removecolor(file)
             file.selected = card;
-            if (file.selected.intersect){//add color
-                //@ts-ignore
-                file.selected.intersect.material.color.set(0xff0000);
-              }
+            addcolor(file)
             fetch("/api/update_file", {
                 method: "POST",
                 body: JSON.stringify({ file }),
