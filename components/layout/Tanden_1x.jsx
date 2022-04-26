@@ -14,8 +14,8 @@ import {
 } from "../../util/structuresCBCT";
 
 const onSwipe = () => {
-  controls.setLookAt(50, 0, 0, 0, 0, 0, true)
-
+  controls.setLookAt(68.78, -19.13, 10.44, 32.56, -4.90, 0, true)
+  console.log(controls.getPosition())
   // cameraControls.rotate( -90 * THREE.MathUtils.DEG2RAD, 0, true )
   // controls.moveTo(100, 65 ,0, true)
   // controls.rotateAzimuthTo( Math.PI / 2, true)
