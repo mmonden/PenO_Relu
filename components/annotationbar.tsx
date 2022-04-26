@@ -6,7 +6,7 @@ import { AiOutlineRightCircle, AiOutlineLeftCircle } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { calculateObjectSize } from "bson";
 import { time } from "console";
-import { raycasting } from "./stlviewer";
+import { raycasting, removecolor } from "./stlviewer";
 
 type AnnotationBarProps = {
   file: IFile;
@@ -36,8 +36,11 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       text: "",
       new: true,
     };
+    if (file.selected) {
+      removecolor(file)
+    }
     file.selected = new_card;
-
+    
     //call raycaster function
     raycasting({ file });
 
