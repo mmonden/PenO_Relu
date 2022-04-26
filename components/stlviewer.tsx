@@ -226,7 +226,7 @@ export default function Stlviewer({ file }: FileCardProps) {
           var tekstlabel = makeTextSprite(title, {
             fontsize: 50,
             borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-            backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+            backgroundColor: { r: 169, g: 169, b: 169, a: 1.0 },
           });
           tekstlabel.position.set(endpoint.x + 5, endpoint.y, endpoint.z); //Define sprite's anchor point
           scene.add(tekstlabel);
@@ -302,7 +302,7 @@ function animate() {
 function render() {
   followLight.position.copy(camera.position);
 
-  camera.lookAt(new THREE.Vector3(5, 0, -57.33));
+  //camera.lookAt(new THREE.Vector3(5, 0, -57.33));
 
   renderer.render(scene, camera);
 }
@@ -311,5 +311,5 @@ function render() {
 function ChangePerspective(x, y, z) {
   camera.position.set(x, y, z);
   camera.updateProjectionMatrix();
-  render(); //moet dit erbij?
+  render();
 }
