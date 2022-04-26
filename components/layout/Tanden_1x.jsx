@@ -1,4 +1,5 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
+import {controls, scene, theline} from "../../components/stlviewer";
 
 import {
   TOOTH_11,
@@ -11,14 +12,17 @@ import {
   TOOTH_18,
 } from "../../util/structuresCBCT";
 
-const Tanden = ( states ) => {
-	const onSwipe = () => {
-		swiped = !swiped;
-	};
+const onSwipe = () => {
+  controls.moveTo(100, 65 ,0, true)
+  controls.rotateAzimuthTo( Math.PI / 2, true)
+  controls.rotatePolarTo( Math.PI / 2, true)
+  console.log("Uitgevoerd")
+};
 
+const Tanden = ( states ) => {
   return (
     <div className="pl-4 pt-2 pb-2">
-      <button className="w-5">
+      <button className="w-5" onClick = {onSwipe}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"

@@ -34,7 +34,8 @@ export default function Home({ file, files, patients }) {
   };
 
   const onSwipe = () => {
-		
+		controls.moveTo(50, 50 ,100, true)
+    console.log("Uitgevoerd")
 	};
   var states_dict = {"TOOTH_11" : onSwipe}
 
