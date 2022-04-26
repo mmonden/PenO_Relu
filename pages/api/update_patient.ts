@@ -3,8 +3,7 @@ import { updatePatient } from '../../lib/annotations'
 export default async function handler(req, res) {
     if (req.method == 'POST') {
         try {
-            await updatePatient(req.body.patient)
-            console.log("updatepatient: ", req.body.patient)
+            await updatePatient(req.body.new_patient)
             res.status(200).end()
         }
 
