@@ -27,7 +27,7 @@ function sleep(ms) {
 
 export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xffffff);
     }
   }
@@ -35,7 +35,7 @@ export function removecolor(file){
 
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xff0000);
     }
   }
