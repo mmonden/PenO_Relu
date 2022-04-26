@@ -14,9 +14,9 @@ import {
 } from "../../util/structuresCBCT";
 
 const onSwipe = () => {
-  const a = new THREE.Vector3( 0, 0, 1);
-  controls.updateCameraUp(a)
-  controls.setLookAt(100, 50, 0, 0, 0, 0, true)
+  controls.setLookAt(50, 0, 0, 0, 0, 0, true)
+
+  // cameraControls.rotate( -90 * THREE.MathUtils.DEG2RAD, 0, true )
   // controls.moveTo(100, 65 ,0, true)
   // controls.rotateAzimuthTo( Math.PI / 2, true)
   // controls.rotatePolarTo( Math.PI / 2, true)

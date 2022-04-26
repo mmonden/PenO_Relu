@@ -309,6 +309,7 @@ function init() {
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
+  camera.up.set( 0, 0, 1 )
 
   //RENDERER
   renderer = new THREE.WebGLRenderer();
