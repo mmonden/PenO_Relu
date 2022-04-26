@@ -9,19 +9,35 @@ import { GetServerSideProps } from "next";
 import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
 import Stlviewer from "../../components/stlviewer";
+import {scene,theline} from "../../components/stlviewer";
+
 import { useRouter } from "next/router";
 import { Navigation } from "../../components/NavBarPatient";
 import { getSession } from "next-auth/react";
 import { IFile } from "../../types";
 import { getFiles } from "../../lib/annotations";
 import { ObjectID } from "mongodb";
+import { Sprite } from "three";
 
 export default function Home({ file, files, patients }) {
+  const deleteAnn = () => {
+    file.selected = null; 
+    scene.children = scene.children.filter(
+        (child) => !(child instanceof Sprite)
+      );
+      if (theline) {
+        scene.remove(theline);
+      }
+  };
+
   return (
     <div className="flex relative w-screen h-screen">
       <Stlviewer file={file} />
       <div className="absolute w-full">
         <Navigation files_input={files} patients_input={patients} file={file} />
+      </div>
+      <div className="absolute">
+        <button onClick={() => deleteAnn()}> haeij</button>
       </div>
       <div className="absolute top-12">
         <AnnotationBar file={file} />

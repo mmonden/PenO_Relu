@@ -16,7 +16,7 @@ type FileCardProps = {
   file: IFile;
 };
 
-let camera, scene, controls, renderer, followLight, light, theline, theline1;
+let camera, scene, controls, renderer, followLight, light, theline;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -109,27 +109,10 @@ export default function Stlviewer({ file }: FileCardProps) {
   useEffect(() => {
     init();
 
-    var startingpoint1 = [0,0,0]
-    var endpoint1 = [20,0,0]
-
-    //start of code for drawing theline
-    const material1 = new THREE.LineBasicMaterial({
-      color: new THREE.Color(0x000000),
-      linewidth: 1,
-    });
-
-    const points1 = [];
-    points1.push(startingpoint1);
-    points1.push(endpoint1);
-    const geometry1 = new THREE.BufferGeometry().setFromPoints(points1);
-    theline1 = new THREE.Line(geometry1, material1);
-    scene.add(theline1);
-
-
     //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
 
-    //dunno what this do @aline @thomas
+    //dunno what this do
     window.addEventListener("resize", onWindowResize, false);
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -210,6 +193,7 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     );
 
+
     document.addEventListener("dblclick", function (event) {
       if (file.selected) {
         var title = file.selected.title;
@@ -269,7 +253,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     animate();
   });
 
-  return <div ref={threeContainerRef} />;
+  return<div ref={threeContainerRef}/>;
 }
 
 function init() {
@@ -306,14 +290,6 @@ function init() {
 
   //CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.keys = {
-    LEFT: 'ArrowLeft', //left arrow
-    UP: 'ArrowUp', // up arrow
-    RIGHT: 'ArrowRight', // right arrow
-    BOTTOM: 'ArrowDown' // down arrow
-  }
-  controls.update();
-
 }
 
 function animate() {
@@ -330,9 +306,4 @@ function render() {
   renderer.render(scene, camera);
 }
 
-//FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-function ChangePerspective(x, y, z) {
-  camera.position.set(x, y, z);
-  camera.updateProjectionMatrix();
-  render();
-}
+export {scene, theline};
