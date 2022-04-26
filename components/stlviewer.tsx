@@ -315,6 +315,8 @@ function anim () {
 
 	}
 
+  render()
+
 };
 
 // function animate() {
