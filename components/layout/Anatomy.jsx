@@ -1,6 +1,6 @@
 import Tanden from "./Tanden";
 
-const Anatomy = () => {
+const Anatomy = ( states ) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center text-2xl">
@@ -13,7 +13,7 @@ const Anatomy = () => {
         Anatomy Selector
       </div>
 
-      <Tanden />
+      <Tanden states={states}/>
     </div>
   );
 };

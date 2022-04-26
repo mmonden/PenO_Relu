@@ -29,6 +29,8 @@ export default function Home({ file, files, patients }) {
         scene.remove(theline);
       }
   };
+  
+  var states_dict = {}
 
   return (
     <div className="flex relative w-screen h-screen">
@@ -46,7 +48,7 @@ export default function Home({ file, files, patients }) {
         className="absolute right-0 top-12"
         style={{ height: "calc(100vh - 48px)" }}
       >
-        <Sidebar />
+        <Sidebar states={states_dict}/>
         <div className="absolute right-0 bottom-0 flex flex-row">
           <PopUp file={file} />
         </div>

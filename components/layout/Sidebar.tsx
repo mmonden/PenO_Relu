@@ -3,7 +3,7 @@ import Anatomy from "./Anatomy";
 import Display from "./Display";
 import { useState } from "react";
 
-const Sidebar = () => {
+const Sidebar = ( states ) => {
 	const [swiped, setSwipe] = useState(false);
 
 	const onSwipe = () => {
@@ -19,7 +19,7 @@ const Sidebar = () => {
           </button>
           <div className="flex flex-col divide-y-2 divide-gray-300" style={{width:"370px", overflow:"scroll"}}>
             <div className="h-full bg-gray-100 pb-2">
-              <Anatomy />
+              <Anatomy states={states}/>
             </div>
             <div className="bg-gray-100 h-full">
               <Display />

@@ -124,6 +124,8 @@ export async function raycasting({ file }: FileCardProps) {
   });
 }
 
+
+
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
@@ -172,7 +174,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     for (var x = 1; x < 5; x++) {
-      for (var y = 1; y < 7; y++) {
+      for (var y = 1; y < 9; y++) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
@@ -357,4 +359,11 @@ function ChangePerspective(x, y, z) {
   camera.position.set(x, y, z);
   camera.updateProjectionMatrix();
   render();
+}
+
+function filter(id)
+{
+  scene.children = scene.children.filter(
+    (child) => !(child.id == id)
+  );
 }

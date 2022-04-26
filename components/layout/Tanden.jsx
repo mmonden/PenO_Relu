@@ -20,17 +20,17 @@ import {
 	RIGHT_MAXILLARY_SINUS
 } from '../../util/structuresCBCT';
 
-const Tanden = () => {
+const Tanden = ( states ) => {
 	return (
 		<div className="justify-center items-center flex-col flex">
 			<div className="flex flex-row justify-center items-center text-xs">
-				<Tanden_1x />
-				<Tanden_2x />
+				<Tanden_1x states={states}/>
+				<Tanden_2x states={states}/>
 			</div>
 
 			<div className="flex flex-row place-content-center text-xs">
-				<Tanden_4x />
-				<Tanden_3x />
+				<Tanden_4x states={states}/>
+				<Tanden_3x states={states}/>
 			</div>
 
 			<div className="flex flex-row">
