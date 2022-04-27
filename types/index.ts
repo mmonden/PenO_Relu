@@ -61,5 +61,5 @@ export interface IPatient {
   user_id: string;
   file_ids?: ObjectId[];
   new?: boolean;
-  picture?: Image;
+  picture?: string;
 }

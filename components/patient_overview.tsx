@@ -19,12 +19,12 @@ type PatientListProps = {
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
 };
 
@@ -44,16 +44,6 @@ export default function PatientList({
   };
 
   const newPatient = (new_patient) => {
-    // const new_patient: IPatient = {
-    //   _id: uuidv4(),
-    //   name: "",
-    //   user_id: "",
-    //   sex: "",
-    //   birth: "",
-    //   extraInfo: "",
-    //   file_ids: [],
-    //   new: true,
-    // };
     console.log(new_patient);
     fetch("/api/update_patient", {
       method: "POST",
@@ -62,10 +52,9 @@ export default function PatientList({
         "Content-Type": "application/json",
       },
     });
-    console.log("saved")
+    console.log("saved");
     setPatient([...patients, new_patient]);
     addPatient(new_patient);
-
   };
 
   return (
@@ -98,6 +87,6 @@ export default function PatientList({
           );
         })}
       </div>
-    </div >
+    </div>
   );
 }
