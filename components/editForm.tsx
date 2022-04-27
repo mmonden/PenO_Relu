@@ -27,7 +27,7 @@ export const EditForm = ({
   const [gender_Patient, setGender] = useState(patient.sex);
   const [birthdate, setBirthDate] = useState(patient.birth);
   const [extraText, setExtraText] = useState(patient.extraInfo);
-  const [imageFile, setImageFile] = useState("");
+  const [imageFile, setImageFile] = useState(patient.picture);
 
   const onSubmit = () => {
     patient.name = name;
