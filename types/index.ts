@@ -1,7 +1,5 @@
-import { Image } from "aws-sdk/clients/iotanalytics";
 import { ObjectId, Timestamp } from "bson";
 import * as THREE from "three";
-import { Image } from "aws-sdk/clients/iotanalytics";
 
 export interface account {
   _id: ObjectId;
