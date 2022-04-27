@@ -11,12 +11,14 @@ type FileListProps = {
   files_input: IFile[];
   patients_input: IPatient[];
   file: IFile;
+  resetSTL: Function;
 };
 
 export const Navigation = ({
   files_input,
   patients_input,
   file,
+  resetSTL,
 }: FileListProps) => {
   const selectedPatient = patients_input.filter((patient) =>
     patient.file_ids.includes(file._id)
@@ -60,6 +62,7 @@ export const Navigation = ({
                   );
                 })}
               </NavDropdown>
+              <button onClick={() => resetSTL()}>Clear Annotation</button>
             </Nav>
             <Nav className="flex right-0">
               <Nav.Link
