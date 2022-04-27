@@ -110,7 +110,9 @@ export default function PatientCard({
               Wil je deze patiënt verwijderen?
             </DeleteModal>
           ) : (
-            <AiOutlineDelete className="text-3xl" />
+            <button onClick={() => setIsOpen(true)}>
+              <AiOutlineDelete className="text-3xl" />
+            </button>
           )}
         </div>
       </div>
