@@ -192,6 +192,19 @@ export default function Stlviewer({ file }: FileCardProps) {
               materials.pop()
             );
             scene.add(mesh);
+            mesh.geometry.computeBoundingBox();
+
+            var boundingBox = mesh.geometry.boundingBox;
+
+            var position = new THREE.Vector3();
+            position.subVectors( boundingBox.max, boundingBox.min );
+            position.multiplyScalar( 0.5 );
+            position.add( boundingBox.min );
+
+            position.applyMatrix4( mesh.matrixWorld );
+
+            alert(position.x + ',' + position.y + ',' + position.z);
+            console.log(position)
           },
           (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
