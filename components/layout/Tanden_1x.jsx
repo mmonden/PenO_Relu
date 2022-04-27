@@ -1,5 +1,6 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
 import {controls, scene, theline} from "../../components/stlviewer";
+import * as THREE from "three";
 
 import {
   TOOTH_11,
@@ -13,10 +14,13 @@ import {
 } from "../../util/structuresCBCT";
 
 const onSwipe = () => {
-  controls.moveTo(100, 65 ,0, true)
-  controls.rotateAzimuthTo( Math.PI / 2, true)
-  controls.rotatePolarTo( Math.PI / 2, true)
-  console.log("Uitgevoerd")
+  controls.setLookAt(68.78, -19.13, 10.44, 32.56, -4.90, 0, true)
+  console.log(controls.getPosition())
+  // cameraControls.rotate( -90 * THREE.MathUtils.DEG2RAD, 0, true )
+  // controls.moveTo(100, 65 ,0, true)
+  // controls.rotateAzimuthTo( Math.PI / 2, true)
+  // controls.rotatePolarTo( Math.PI / 2, true)e
+  // console.log("Uitgevoerd")
 };
 
 const Tanden = ( states ) => {
