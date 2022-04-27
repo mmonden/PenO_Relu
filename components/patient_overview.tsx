@@ -1,11 +1,8 @@
 import PatientCard from "./patientcard";
 import { IPatient } from "../types";
 import { useState } from "react";
-import { GrAdd } from "react-icons/gr";
-import { v4 as uuidv4 } from "uuid";
 import { useSession } from "next-auth/react";
 import { MdAdd } from "react-icons/md";
-import AddModal from "./addModal";
 import Modal from "react-modal";
 import { AddForm } from "./addForm";
 
@@ -19,21 +16,12 @@ type PatientListProps = {
 
 const customStyles = {
   content: {
-<<<<<<< HEAD
     top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-=======
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
->>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
   },
 };
 
@@ -53,19 +41,6 @@ export default function PatientList({
   };
 
   const newPatient = (new_patient) => {
-<<<<<<< HEAD
-=======
-    // const new_patient: IPatient = {
-    //   _id: uuidv4(),
-    //   name: "",
-    //   user_id: "",
-    //   sex: "",
-    //   birth: "",
-    //   extraInfo: "",
-    //   file_ids: [],
-    //   new: true,
-    // };
->>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
     console.log(new_patient);
     fetch("/api/update_patient", {
       method: "POST",
@@ -74,14 +49,9 @@ export default function PatientList({
         "Content-Type": "application/json",
       },
     });
-<<<<<<< HEAD
     console.log("saved");
-=======
-    console.log("saved")
->>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
     setPatient([...patients, new_patient]);
     addPatient(new_patient);
-
   };
 
   return (

@@ -25,7 +25,8 @@ export default function PatientInfo({ selected_patient }: FileListProps) {
       </div>
       <div className="absolute flex flex-row h-5/6 min-w-full bottom-0 space-x-10 overflow-y-auto">
         <div className="flex items-center pl-4">
-          {typeof selected_patient.picture != "undefined" ? (
+          {typeof selected_patient.picture != "undefined" &&
+          selected_patient.picture != "" ? (
             <Image
               src={selected_patient.picture}
               alt="Photo"
