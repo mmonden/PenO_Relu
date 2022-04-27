@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import SelectInput from "@mui/material/Select/SelectInput";
+import { Typeahead } from "react-bootstrap-typeahead";
 import {
   Button,
   Container,
@@ -14,9 +15,27 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { IFile, ICard } from "../types";
+import { IFile, ICard, IPatient } from "../types";
 
-export const NavBarHome = () => {
+type NavBarHomeProps = {
+  patients: IPatient[];
+  changePatient: Function;
+};
+
+export default function NavBarHome({
+  patients,
+  changePatient,
+}: NavBarHomeProps) {
+  const [inputName, setInputName] = useState([]);
+  let patientsNames = [];
+  patients.map((patient) => {
+    patientsNames.push(patient.name);
+  });
+
+  const handleClick = () => {
+    const patient = patients.filter((patient) => patient.name == inputName[0]);
+    changePatient(patient[0]);
+  };
   return (
     <div>
       <Navbar className="bg-gray-200 h-12 flex space-x-4" expand="lg">
@@ -31,13 +50,16 @@ export const NavBarHome = () => {
         <Container className="container-fluid">
           <Nav className="flex right-0">
             <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
+              <Typeahead
+                id="basic-typeahead-single"
+                labelKey="name"
+                options={patientsNames}
+                onChange={(event) => setInputName(event)}
+                selected={inputName}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" onClick={handleClick}>
+                Search
+              </Button>
             </Form>
           </Nav>
           <Nav className="flex right-0">
@@ -51,4 +73,4 @@ export const NavBarHome = () => {
       </Navbar>
     </div>
   );
-};
+}

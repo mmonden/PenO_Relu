@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useSession } from "next-auth/react";
 import { get } from "https";
 import _ from "lodash";
-import { NavBarHome } from "./NavBarHomepage";
+import NavBarHome from "./NavBarHomepage";
 import PatientInfo from "./patientInfo";
 
 /*
@@ -98,7 +98,7 @@ export default function HomePage({
   return (
     <div className="min-w-screen min-h-screen flex relative overflow-hidden">
       <div className="w-full absolute top-0">
-        <NavBarHome />
+        <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
       <div
         className="absolute left-10 top-16 w-1/3 overflow-y-auto"

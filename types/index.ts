@@ -1,3 +1,4 @@
+import { Image } from "aws-sdk/clients/iotanalytics";
 import { ObjectId, Timestamp } from "bson";
 import * as THREE from "three";
 
@@ -56,7 +57,11 @@ export interface IFile {
 export interface IPatient {
   _id: ObjectId;
   name: string;
+  sex: string;
+  birth: string;
+  extraInfo: string;
   user_id: string;
   file_ids?: ObjectId[];
   new?: boolean;
+  picture?: string;
 }
