@@ -9,17 +9,30 @@ import {
 } from "react-icons/ai";
 import { useState } from "react";
 import DeleteModal from "./deleteModal";
+<<<<<<< HEAD
 import { EditForm } from "./editForm";
+=======
+import { EditForm } from "./editForm"
+>>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
 import Modal from "react-modal";
 
 const customStyles = {
   content: {
+<<<<<<< HEAD
     top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+=======
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+>>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
   },
 };
 
@@ -79,13 +92,32 @@ export default function PatientCard({
   return (
     <div className="relative text-gray-700 text-2xl">
       <div className="">
+<<<<<<< HEAD
         <div className="flex items-center space-x-2">
+=======
+        <div className="flex items-center space-x-2 w-full">
+>>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
           <button onClick={setPatient}>
             <a>
               <div className="flex items-center">
                 <AiFillFolder className="text-5xl" />
                 <div className="w-80 p-4 text-gray-700">
+<<<<<<< HEAD
                   <div className="text-3xl flex left-0">{patient.name}</div>
+=======
+                  <div className="text-3xl flex left-0">
+                    {editing ? (
+                      <input
+                        className="border-2"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    ) : (
+                      name
+                    )}
+                  </div>
+>>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
                 </div>
               </div>
             </a>
@@ -93,6 +125,7 @@ export default function PatientCard({
           <button>
             {editOpen ? (
               <Modal isOpen={editOpen} style={customStyles}>
+<<<<<<< HEAD
                 <EditForm
                   setIsOpen={setEditOpen}
                   updatePatient={updatePatient}
@@ -104,6 +137,12 @@ export default function PatientCard({
                 onClick={() => setEditOpen(true)}
                 className="text-3xl"
               />
+=======
+                <EditForm setIsOpen={setEditOpen} patient={patient} />
+              </Modal>
+            ) : (
+              <AiOutlineEdit onClick={() => setEditOpen(true)} className="text-3xl" />
+>>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
             )}
           </button>
           {isOpen ? (
@@ -115,7 +154,13 @@ export default function PatientCard({
               Wil je deze patiënt verwijderen?
             </DeleteModal>
           ) : (
+<<<<<<< HEAD
             <AiOutlineDelete className="text-3xl" />
+=======
+            <button onClick={() => setIsOpen(true)}>
+              <AiOutlineDelete className="w-7 h-7" />
+            </button>
+>>>>>>> fd26c5131b5c22fdf05c346d0cb437c60a2fdd14
           )}
         </div>
       </div>

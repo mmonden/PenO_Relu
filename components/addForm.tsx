@@ -48,7 +48,7 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
   const btnClicked = (name) => {
     setGender(name);
   };
-  
+
   return (
     <div>
       <div>
