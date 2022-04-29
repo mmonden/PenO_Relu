@@ -32,6 +32,7 @@ export default function NavBarHome({
     patientsNames.push(patient.name);
   });
 
+  console.log(inputName);
   const handleClick = () => {
     const patient = patients.filter((patient) => patient.name == inputName[0]);
     changePatient(patient[0]);
@@ -54,7 +55,7 @@ export default function NavBarHome({
                 id="basic-typeahead-single"
                 labelKey="name"
                 options={patientsNames}
-                onChange={(event) => setInputName(event)}
+                onInputChange={(event) => setInputName()}
                 selected={inputName}
               />
               <Button variant="outline-success" onClick={handleClick}>
