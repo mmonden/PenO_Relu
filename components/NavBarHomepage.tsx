@@ -55,7 +55,7 @@ export default function NavBarHome({
                 id="basic-typeahead-single"
                 labelKey="name"
                 options={patientsNames}
-                onInputChange={(event) => setInputName()}
+                //onInputChange={(event) => setInputName()}
                 selected={inputName}
               />
               <Button variant="outline-success" onClick={handleClick}>
