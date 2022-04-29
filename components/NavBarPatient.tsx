@@ -62,7 +62,7 @@ export const Navigation = ({
                   );
                 })}
               </NavDropdown>
-              <button onClick={() => resetSTL()}>Clear Annotation</button>
+              <button onClick={() => resetSTL()}>Reset</button>
             </Nav>
             <Nav className="flex right-0">
               <Nav.Link

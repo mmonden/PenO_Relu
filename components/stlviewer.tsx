@@ -11,6 +11,7 @@ import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
 import { Sprite } from "three";
 import { makeTextSprite } from "./makeTextSprite";
+// import { SpriteText2D, textAlign } from 'three-text2d'
 import CameraControls from '../camera-controls';
 
 CameraControls.install( { THREE: THREE } );
@@ -192,19 +193,8 @@ export default function Stlviewer({ file }: FileCardProps) {
               materials.pop()
             );
             scene.add(mesh);
-            mesh.geometry.computeBoundingBox();
-
-            var boundingBox = mesh.geometry.boundingBox;
-
-            var position = new THREE.Vector3();
-            position.subVectors( boundingBox.max, boundingBox.min );
-            position.multiplyScalar( 0.5 );
-            position.add( boundingBox.min );
-
-            position.applyMatrix4( mesh.matrixWorld );
-
-            alert(position.x + ',' + position.y + ',' + position.z);
-            console.log(position)
+            mesh.name = filename;
+            getAbsolutePosition(mesh);
           },
           (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -222,6 +212,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         geometry.translate(0,0,35)
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
+        getAbsolutePosition(mesh)
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -267,6 +258,8 @@ export default function Stlviewer({ file }: FileCardProps) {
             borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
             backgroundColor: { r: 169, g: 169, b: 169, a: 1.0 },
           });
+
+          // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
           tekstlabel.position.set(endpoint.x + 5, endpoint.y, endpoint.z); //Define sprite's anchor point
           scene.add(tekstlabel);
           //end code for text label
@@ -298,6 +291,7 @@ function init() {
   //creating scene
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xffffff)
+
   //light
   followLight = new THREE.DirectionalLight(0xffffff, 1.0);
   followLight.position.set(20, 100, 10);
@@ -359,6 +353,21 @@ function render() {
   //camera.lookAt(new THREE.Vector3(5, 0, -57.33));
 
   renderer.render(scene, camera);
+}
+
+function getAbsolutePosition(mesh){
+  mesh.geometry.computeBoundingBox();
+
+  var boundingBox = mesh.geometry.boundingBox;
+  var position = new THREE.Vector3();
+  var dictPositions = {}
+
+  position.subVectors( boundingBox.max, boundingBox.min );
+  position.multiplyScalar( 0.5 );
+  position.add( boundingBox.min );
+  position.applyMatrix4( mesh.matrixWorld );
+  console.log(position)
+  dictPositions[mesh.name] = position
 }
 
 function filter(id)

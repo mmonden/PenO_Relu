@@ -2,6 +2,7 @@ import { ICard, IFile } from "../types";
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Stlviewer, { addcolor, removecolor } from "./stlviewer";
+import DeleteModal from "./deleteModal";
 
 type AnnotationCardProps = {
     card: ICard;
@@ -17,6 +18,7 @@ export default function AnnotationCard({
     const [editing, setEdit] = useState(card.new);
     const [title, setTitle] = useState(card.title);
     const [text, setText] = useState(card.text);
+    const [isOpen, setIsOpen] = useState(false);
 
     const toggleEdit = () => {
         if (editing && (title != card.title || text != card.text)) {
@@ -110,9 +112,19 @@ export default function AnnotationCard({
                 <button className="m-2" onClick={toggleEdit}>
                     {editing ? <AiOutlineSave /> : <AiOutlineEdit />}
                 </button>
-                <button className="m-2" onClick={onDelete}>
-                    <AiOutlineDelete />
-                </button>
+                {isOpen ? (
+                    <DeleteModal
+                        open={isOpen}
+                        onClose={() => setIsOpen(false)}
+                        onDelete={onDelete}
+                    >
+                        Wil je de annotatie verwijderen?
+                    </DeleteModal>
+                ) : (
+                    <button onClick={() => setIsOpen(true)}>
+                        <AiOutlineDelete className="w-7 h-7" />
+                    </button>
+                )}
             </div>
         </div>
     );

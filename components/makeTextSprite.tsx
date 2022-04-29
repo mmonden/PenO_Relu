@@ -27,7 +27,7 @@ export function makeTextSprite(message, parameters) {
   
     // get size data (height depends only on font size)
     var metrics = context.measureText(message);
-    var textWidth = metrics.width;
+    var textWidth = (metrics.width);
   
     // background color
     context.fillStyle =
@@ -77,7 +77,11 @@ export function makeTextSprite(message, parameters) {
     var sprite = new THREE.Sprite(spriteMaterial);
   
     //dimensions sprite
-    sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
+    var width = spriteMaterial.map.image.width;
+    var height = spriteMaterial.map.image.height;
+
+    //Hier mss toch die vorige zetten? --> minder pixels dan
+    sprite.scale.set( width/10, height/10, 1 );
     return sprite;
   }
   
