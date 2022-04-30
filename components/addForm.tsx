@@ -18,11 +18,11 @@ const genders = [
 ];
 
 export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
-  const [name, setName] = useState("");
-  const [gender_Patient, setGender] = useState("");
-  const [birthdate, setBirthDate] = useState("");
-  const [extraText, setExtraText] = useState("");
-  const [imageFile, setImageFile] = useState("");
+  const [name, setName] = useState<any>("");
+  const [gender_Patient, setGender] = useState<any>("");
+  const [birthdate, setBirthDate] = useState<any>("");
+  const [extraText, setExtraText] = useState<any>("");
+  const [imageFile, setImageFile] = useState<any>("");
 
   const onSubmit = () => {
     const new_patient: IPatient = {
