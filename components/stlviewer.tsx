@@ -302,8 +302,6 @@ function init() {
 
   light = new THREE.AmbientLight(0x404040);
   scene.add(light);
-  const axesHelper = new THREE.AxesHelper(5);
-  scene.add( axesHelper);
 
   //CAMERA
   camera = new THREE.PerspectiveCamera(
