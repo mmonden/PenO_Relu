@@ -36,7 +36,6 @@ export default function HomePage({
         patients.filter((patient) => patient._id == patientID)[0].file_ids
           .length != 0
       ) {
-        console.log(patientID);
         const loggedFiles = files.filter((file) =>
           patients
             .filter((patient) => patient._id == patientID)[0]
@@ -53,11 +52,8 @@ export default function HomePage({
 
   // Deze functie dan mee doorgeven?
   const changePatient = (patient) => {
-    console.log("file ids: ", patient.file_ids);
     const newLoggedFiles = getFilesFromPat(patient._id); //Manier nog om patientID te linken
-    console.log("new: ", newLoggedFiles);
     setLoggedFiles(newLoggedFiles);
-    console.log(loggedFiles);
     setSelectedPatient(patient);
   };
 

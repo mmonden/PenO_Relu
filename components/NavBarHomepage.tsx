@@ -32,7 +32,6 @@ export default function NavBarHome({
     patientsNames.push(patient.name);
   });
 
-  console.log(inputName);
   const handleClick = () => {
     const patient = patients.filter((patient) => patient.name == inputName[0]);
     changePatient(patient[0]);

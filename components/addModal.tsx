@@ -29,7 +29,6 @@ type AddModalProps = {
 
 export default function AddModal({ open }: AddModalProps) {
   if (!open) return null;
-  console.log(open);
   return (
     <Modal isOpen={open}>
       <Modal.Header>

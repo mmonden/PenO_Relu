@@ -20,7 +20,7 @@ type FileCardProps = {
   file: IFile;
 };
 
-let clock, camera, scene, controls, renderer, followLight, light, theline;
+let dictPositions, clock, camera, scene, controls, renderer, followLight, light, theline;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -173,7 +173,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         materials.push(materialTooth);
       }
     }
-
+    dictPositions = {};
     for (var x = 1; x < 5; x++) {
       for (var y = 1; y < 9; y++) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
@@ -194,7 +194,8 @@ export default function Stlviewer({ file }: FileCardProps) {
             );
             scene.add(mesh);
             mesh.name = filename;
-            getAbsolutePosition(mesh);
+            console.log(filename)
+            getAbsolutePosition(mesh, dictPositions);
           },
           (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -212,7 +213,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         geometry.translate(0,0,35)
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
-        getAbsolutePosition(mesh)
+        getAbsolutePosition(mesh, dictPositions)
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -355,18 +356,16 @@ function render() {
   renderer.render(scene, camera);
 }
 
-function getAbsolutePosition(mesh){
+function getAbsolutePosition(mesh, dictPositions){
   mesh.geometry.computeBoundingBox();
 
   var boundingBox = mesh.geometry.boundingBox;
   var position = new THREE.Vector3();
-  var dictPositions = {}
 
   position.subVectors( boundingBox.max, boundingBox.min );
   position.multiplyScalar( 0.5 );
   position.add( boundingBox.min );
   position.applyMatrix4( mesh.matrixWorld );
-  console.log(position)
   dictPositions[mesh.name] = position
 }
 
@@ -377,4 +376,4 @@ function filter(id)
   );
 }
 
-export {controls, scene, theline};
+export {controls, scene, theline, dictPositions};

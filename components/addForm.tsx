@@ -24,7 +24,6 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
   const [extraText, setExtraText] = useState("");
   const [imageFile, setImageFile] = useState("");
 
-  console.log(typeof imageFile);
   const onSubmit = () => {
     const new_patient: IPatient = {
       _id: uuidv4(),
