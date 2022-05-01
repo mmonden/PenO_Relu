@@ -2197,7 +2197,7 @@ export class CameraControls extends EventDispatcher {
 				this._targetEnd.lerp( cursor, lerpRatio );
 				this._target.copy( this._targetEnd );
 
-			} else if ( isOrthographicCamera( this._camera ) ) {
+			} else if ( isOrthographicCamera( this.camera ) ) {
 
 				const camera = this._camera;
 
