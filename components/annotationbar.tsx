@@ -13,12 +13,12 @@ type AnnotationBarProps = {
 };
 
 export default function AnnotationBar({ file }: AnnotationBarProps) {
-  const [swiped, setSwipe] = useState(false);
-  const [cards, setCards] = useState(file.cards);
+  const [swiped, setSwipe] = useState<boolean>(false);
+  const [cards, setCards] = useState<any>(file.cards);
 
   const deleteCard = (cardID: number) => {
     setCards(cards.filter((card) => card._id != cardID));
-    file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
+    file.card_ids = file.card_ids.filter((IDs) => Object(cardID) != IDs);
     file.time = new Date().toLocaleString();
     fetch("/api/update_file", {
       method: "POST",

@@ -5,6 +5,8 @@ import Tanden_4x from "./Tanden_4x";
 
 import Image from "next/image";
 
+import {controls, dictPositions} from "../../components/stlviewer";
+
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData";
 import {
 	MANDIBLE,
@@ -20,17 +22,43 @@ import {
 	RIGHT_MAXILLARY_SINUS
 } from '../../util/structuresCBCT';
 
+const onSwipe = (teeth_id) => {
+	if (dictPositions[teeth_id] == undefined){
+		alert("This tooth is not present");
+		return;
+	}
+
+	var posx = dictPositions[teeth_id].x;
+	var posy = dictPositions[teeth_id].y;
+	var posz = dictPositions[teeth_id].z;
+
+	const teethIDS = teeth_id.split("_");
+	
+	if (teethIDS[1] == "17"){
+		controls.setLookAt(-49, -0.6, 10.44, posx, posy, posz, true);
+	}
+	else if (teethIDS[1] == "27"){
+		controls.setLookAt(51, -0.6, 10.44, posx, posy, posz, true);
+	}
+	else if (Number(teethIDS[1]) > 28){
+		controls.setLookAt(2*posx, 2*posy, 0, posx, posy, posz, true);
+	}
+	else{
+		controls.setLookAt(2*posx, 2*posy, 10.44, posx, posy, posz, true);
+	};
+  };
+
 const Tanden = ( states ) => {
 	return (
 		<div className="justify-center items-center flex-col flex">
 			<div className="flex flex-row justify-center items-center text-xs">
-				<Tanden_1x states={states}/>
-				<Tanden_2x states={states}/>
+				<Tanden_1x states={states} onSwipe = {onSwipe}/>
+				<Tanden_2x states={states} onSwipe = {onSwipe}/>
 			</div>
 
 			<div className="flex flex-row place-content-center text-xs">
-				<Tanden_4x states={states}/>
-				<Tanden_3x states={states}/>
+				<Tanden_4x states={states} onSwipe = {onSwipe}/>
+				<Tanden_3x states={states} onSwipe = {onSwipe}/>
 			</div>
 
 			<div className="flex flex-row">

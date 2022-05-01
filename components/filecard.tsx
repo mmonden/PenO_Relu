@@ -64,7 +64,6 @@ export default function FileCard({
   };
 
   const toggleEdit = () => {
-    console.log("editing: ", editing);
     if (editing && title != file.title) {
       file.title = title;
 

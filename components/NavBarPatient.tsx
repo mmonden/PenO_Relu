@@ -46,7 +46,7 @@ export const Navigation = ({
             />
           </div>
           <Navbar.Brand
-            onClick={() => (document.location.href = "http://localhost:3000")}
+            onClick={() => (document.location.href = "http://relu-ano.vercel.app")}
           >
             <button>Home</button>
           </Navbar.Brand>
@@ -67,7 +67,7 @@ export const Navigation = ({
             <Nav className="flex right-0">
               <Nav.Link
                 onClick={() =>
-                  signOut({ callbackUrl: "http://localhost:3000" })
+                  signOut({ callbackUrl: "http://relu-ano.vercel.app" })
                 }
               >
                 Logout

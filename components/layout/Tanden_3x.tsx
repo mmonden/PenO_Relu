@@ -11,10 +11,19 @@ import {
 	TOOTH_38
 } from '../../util/structuresCBCT';
 
-const Tanden = ( states ) => {
+type TandenProps = {
+	states: any;
+	onSwipe: Function;
+  };
+
+const Tanden = ( {states, onSwipe} : TandenProps) => {
+	const Swipe = (teeth_id) => {
+		onSwipe(teeth_id);
+	  };
+
 	return (
 		<div className="pr-4 pt-2 pb-2">
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_31")}>
 				<div className="flex flex-col">
 					<p>31</p>
 					<svg
@@ -28,7 +37,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_32")}>
 				<div className="flex flex-col">
 					<p>32</p>
 					<svg
@@ -42,7 +51,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_33")}>
 				<div className="flex flex-col">
 					<p>33</p>
 					<svg
@@ -56,7 +65,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_34")}>
 				<div className="flex flex-col">
 					<p>34</p>
 					<svg
@@ -70,7 +79,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_35")}>
 				<div className="flex flex-col">
 					<p>35</p>
 					<svg
@@ -84,7 +93,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_36")}>
 				<div className="flex flex-col">
 					<p>36</p>
 					<svg
@@ -98,7 +107,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_37")}>
 				<div className="flex flex-col">
 					<p>37</p>
 					<svg
@@ -112,7 +121,7 @@ const Tanden = ( states ) => {
 				</div>
 			</button>
 
-			<button className="w-5">
+			<button className="w-5" onClick = {() => Swipe("Tooth_38")}>
 				<div className="flex flex-col">
 					<p>38</p>
 					<svg

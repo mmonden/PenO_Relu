@@ -1,5 +1,5 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
-import {controls, scene, theline} from "../../components/stlviewer";
+import {controls, scene, theline} from "../stlviewer";
 import * as THREE from "three";
 
 import {
@@ -13,20 +13,21 @@ import {
   TOOTH_18,
 } from "../../util/structuresCBCT";
 
-const onSwipe = () => {
-  controls.setLookAt(68.78, -19.13, 10.44, 32.56, -4.90, 0, true)
-  console.log(controls.getPosition())
-  // cameraControls.rotate( -90 * THREE.MathUtils.DEG2RAD, 0, true )
-  // controls.moveTo(100, 65 ,0, true)
-  // controls.rotateAzimuthTo( Math.PI / 2, true)
-  // controls.rotatePolarTo( Math.PI / 2, true)e
-  // console.log("Uitgevoerd")
+
+type TandenProps = {
+  states: any;
+  onSwipe: Function;
 };
 
-const Tanden = ( states ) => {
+const Tanden = ( {states, onSwipe} : TandenProps) => {
+
+  const Swipe = (teeth_id) => {
+    onSwipe(teeth_id);
+  };
+
   return (
     <div className="pl-4 pt-2 pb-2">
-      <button className="w-5" onClick = {onSwipe}>
+      <button className="w-5" onClick = {() => Swipe("Tooth_18")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -43,7 +44,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_17")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -60,7 +61,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_16")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -77,7 +78,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_15")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -94,7 +95,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_14")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -111,7 +112,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_13")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -128,7 +129,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_12")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -145,7 +146,7 @@ const Tanden = ( states ) => {
         </div>
       </button>
 
-      <button className="w-5">
+      <button className="w-5" onClick = {() => Swipe("Tooth_11")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
