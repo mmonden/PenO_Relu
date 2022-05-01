@@ -64,7 +64,7 @@ export default function NavBarHome({
           </Nav>
           <Nav className="flex right-0">
             <Nav.Link
-              onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
+              onClick={() => signOut({ callbackUrl: "http://relu-ano.vercel.app" })}
             >
               Logout
             </Nav.Link>
