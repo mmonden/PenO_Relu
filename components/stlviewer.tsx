@@ -163,8 +163,8 @@ export default function Stlviewer({ file }: FileCardProps) {
     const loader = new STLLoader();
 
     var materials = new Array();
-    for (var x = 1; x < 7; x++) {
-      for (var y = 1; y < 7; y++) {
+    for (var x = 1; x < 5; x++) {
+      for (var y = 0; y < 9; y++) {
         const materialTooth = new THREE.MeshPhongMaterial({
           color: 0xd3d3d3,
           opacity: 1.0,
@@ -185,12 +185,12 @@ export default function Stlviewer({ file }: FileCardProps) {
           function (geometry) {
             geometry.translate(0,0,35)
             let toothNr = parseInt(filename.split("_").pop());
-            let a = Math.floor(toothNr / 10);
-            let b = toothNr % 10;
+            //let a = Math.floor(toothNr / 10);
+            //let b = toothNr % 10;
 
             const mesh = new THREE.Mesh(
               geometry,
-              materials.pop()
+              materials[toothNr-10]
             );
             scene.add(mesh);
             mesh.name = filename;
