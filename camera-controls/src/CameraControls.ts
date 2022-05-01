@@ -2199,22 +2199,22 @@ export class CameraControls extends EventDispatcher {
 
 			} else if ( isOrthographicCamera( this.camera ) ) {
 
-				const camera = this._camera;
+				// const camera = this._camera;
 
-				const worldPosition = _v3A.set(
-					this._dollyControlCoord.x,
-					this._dollyControlCoord.y,
-					( camera.near + camera.far ) / ( camera.near - camera.far )
-				).unproject( camera );
+				// const worldPosition = _v3A.set(
+				// 	this._dollyControlCoord.x,
+				// 	this._dollyControlCoord.y,
+				// 	( camera.near + camera.far ) / ( camera.near - camera.far )
+				// ).unproject( camera );
 
-				const quaternion = _v3B.set( 0, 0, - 1 ).applyQuaternion( camera.quaternion );
+				// const quaternion = _v3B.set( 0, 0, - 1 ).applyQuaternion( camera.quaternion );
 
-				const divisor = quaternion.dot( camera.up );
-				const distance = approxZero( divisor ) ? - worldPosition.dot( camera.up ) : - worldPosition.dot( camera.up ) / divisor;
-				const cursor = _v3C.copy( worldPosition ).add( quaternion.multiplyScalar( distance ) );
+				// const divisor = quaternion.dot( camera.up );
+				// const distance = approxZero( divisor ) ? - worldPosition.dot( camera.up ) : - worldPosition.dot( camera.up ) / divisor;
+				// const cursor = _v3C.copy( worldPosition ).add( quaternion.multiplyScalar( distance ) );
 
-				this._targetEnd.lerp( cursor, 1 - camera.zoom / this._dollyControlAmount );
-				this._target.copy( this._targetEnd );
+				// this._targetEnd.lerp( cursor, 1 - camera.zoom / this._dollyControlAmount );
+				// this._target.copy( this._targetEnd );
 
 			}
 

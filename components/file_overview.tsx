@@ -65,7 +65,7 @@ export default function FileList({
         {files.map((file) => {
           return (
             <FileCard
-              key={file._id}
+              key={Object(file._id)}
               file={file}
               deleteFile={deleteFile}
               selectedPatient={selected_patient}
