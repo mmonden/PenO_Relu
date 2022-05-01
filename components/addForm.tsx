@@ -25,6 +25,7 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
   const [birthdate, setBirthDate] = useState<any>("");
   const [extraText, setExtraText] = useState<any>("");
   const [imageFile, setImageFile] = useState<any>("");
+  const [canSubmit, setCanSubmit] = useState<Boolean>(true);
 
   const onSubmit = () => {
     const new_patient: IPatient = {
