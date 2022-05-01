@@ -1997,11 +1997,11 @@ export class CameraControls extends EventDispatcher {
 	 */
 	getDistanceToFitBox( width: number, height: number, depth: number ): number {
 
-		if ( notSupportedInOrthographicCamera( this._camera, 'getDistanceToFitBox' ) ) return this._spherical.radius;
+		if ( notSupportedInOrthographicCamera( this.camera, 'getDistanceToFitBox' ) ) return this._spherical.radius;
 
 		const boundingRectAspect = width / height;
-		const fov = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		const aspect = this._camera.aspect;
+		const fov = this.camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		const aspect = this.camera.aspect;
 
 		const heightToFit = boundingRectAspect < aspect ? height : width / aspect;
 		return heightToFit * 0.5 / Math.tan( fov * 0.5 ) + depth * 0.5;
@@ -2016,12 +2016,12 @@ export class CameraControls extends EventDispatcher {
 	 */
 	getDistanceToFitSphere( radius: number ): number {
 
-		if ( notSupportedInOrthographicCamera( this._camera, 'getDistanceToFitSphere' ) ) return this._spherical.radius;
+		if ( notSupportedInOrthographicCamera( this.camera, 'getDistanceToFitSphere' ) ) return this._spherical.radius;
 
 		// https://stackoverflow.com/a/44849975
-		const vFOV = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this._camera.aspect ) * 2;
-		const fov = 1 < this._camera.aspect ? vFOV : hFOV;
+		const vFOV = this.camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this.camera.aspect ) * 2;
+		const fov = 1 < this.camera.aspect ? vFOV : hFOV;
 		return radius / ( Math.sin( fov * 0.5 ) );
 
 	}
@@ -2483,9 +2483,9 @@ export class CameraControls extends EventDispatcher {
 			this._nearPlaneCorners[ 2 ].set(   widthHalf,   heightHalf, 0 );
 			this._nearPlaneCorners[ 3 ].set( - widthHalf,   heightHalf, 0 );
 
-		} else if ( isOrthographicCamera( this._camera ) ) {
+		} else if ( isOrthographicCamera( this.camera ) ) {
 
-			const camera = this._camera;
+			const camera = this.camera;
 			const zoomInv = 1 / camera.zoom;
 			const left   = camera.left   * zoomInv;
 			const right  = camera.right  * zoomInv;
