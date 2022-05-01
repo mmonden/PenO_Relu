@@ -1999,12 +1999,13 @@ export class CameraControls extends EventDispatcher {
 
 		if ( notSupportedInOrthographicCamera( this.camera, 'getDistanceToFitBox' ) ) return this._spherical.radius;
 
-		const boundingRectAspect = width / height;
-		const fov = this.camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		const aspect = this.camera.aspect;
+		// const boundingRectAspect = width / height;
+		// const fov = this.camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		// const aspect = this.camera.aspect;
 
-		const heightToFit = boundingRectAspect < aspect ? height : width / aspect;
-		return heightToFit * 0.5 / Math.tan( fov * 0.5 ) + depth * 0.5;
+		// const heightToFit = boundingRectAspect < aspect ? height : width / aspect;
+		// return heightToFit * 0.5 / Math.tan( fov * 0.5 ) + depth * 0.5;
+		return 0;
 
 	}
 
@@ -2018,11 +2019,12 @@ export class CameraControls extends EventDispatcher {
 
 		if ( notSupportedInOrthographicCamera( this.camera, 'getDistanceToFitSphere' ) ) return this._spherical.radius;
 
-		// https://stackoverflow.com/a/44849975
-		const vFOV = this.camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this.camera.aspect ) * 2;
-		const fov = 1 < this.camera.aspect ? vFOV : hFOV;
-		return radius / ( Math.sin( fov * 0.5 ) );
+		// // https://stackoverflow.com/a/44849975
+		// const vFOV = this.camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		// const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this.camera.aspect ) * 2;
+		// const fov = 1 < this.camera.aspect ? vFOV : hFOV;
+		// return radius / ( Math.sin( fov * 0.5 ) );
+		return 0;
 
 	}
 
