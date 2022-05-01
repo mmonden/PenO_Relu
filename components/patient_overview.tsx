@@ -74,7 +74,7 @@ export default function PatientList({
         {patients.map((patient, index) => {
           return (
             <PatientCard
-              key={patient._id}
+              key={Object(patient._id)}
               patient={patient}
               deletePatient={deletePatient}
               changePatient={changePatient}
