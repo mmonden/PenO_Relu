@@ -5,6 +5,8 @@ import { Form, Button, ToggleButton } from "react-bootstrap";
 import { IPatient } from "../types";
 import { useState } from "react";
 import FileBase64 from "react-file-base64";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type AddFormProps = {
   setIsOpen: Function;
@@ -28,6 +30,7 @@ export const EditForm = ({
   const [birthdate, setBirthDate] = useState(patient.birth);
   const [extraText, setExtraText] = useState(patient.extraInfo);
   const [imageFile, setImageFile] = useState(patient.picture);
+  const [canSubmit, setCanSubmit] = useState(true);
 
   const onSubmit = () => {
     patient.name = name;
@@ -56,9 +59,23 @@ export const EditForm = ({
     setGender(name);
   };
 
+  const onFileUpload = (file) => {
+    const fileSize = file.length - (file.length / 8) * 2;
+    if (file.includes("image") && fileSize < 20000) {
+      setImageFile(file);
+      setCanSubmit(true);
+    } else {
+      toast.error("Selected file is not an image or the size is too large", {
+        className: "text-lg",
+      });
+      setCanSubmit(false);
+    }
+  };
+
   return (
     <div>
       <div>
+        <ToastContainer position="top-left" autoClose={8000} />
         <Form>
           <Form.Group>
             <Form.Label>Naam patiënt: </Form.Label>
@@ -112,12 +129,16 @@ export const EditForm = ({
             <Form.Label>Voeg een profielfoto toe: </Form.Label>
             <FileBase64
               multiple={false}
-              onDone={({ base64 }) => setImageFile(base64)}
+              onDone={({ base64 }) => onFileUpload(base64)}
             />
           </Form.Group>
           <Form.Group>
             <div className="relative space-x-4 pt-2">
-              <Button className="btn btn-dark" onClick={() => onClick()}>
+              <Button
+                className="btn btn-dark"
+                onClick={() => onClick()}
+                disabled={!canSubmit}
+              >
                 Edit
               </Button>
               <div className="absolute right-0 top-2">

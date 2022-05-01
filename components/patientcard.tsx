@@ -102,13 +102,14 @@ export default function PatientCard({
             )}
           </button>
           {isOpen ? (
-            <DeleteModal
-              open={isOpen}
-              onClose={() => setIsOpen(false)}
-              onDelete={onDelete}
-            >
-              Wil je deze patiënt verwijderen?
-            </DeleteModal>
+            <Modal isOpen={isOpen} style={customStyles}>
+              <DeleteModal
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                onDelete={onDelete}
+                string={"Wilt u deze patiënt verwijderen?"}
+              ></DeleteModal>
+            </Modal>
           ) : (
             <button onClick={() => setIsOpen(true)}>
               <AiOutlineDelete className="text-3xl" />

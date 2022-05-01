@@ -52,7 +52,7 @@ export const Navigation = ({
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="me-auto space-x-4">
               <NavDropdown title={selectedPatient.name} id="basic-nav-dropdown">
                 {files.map((file, index) => {
                   return (

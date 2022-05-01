@@ -33,6 +33,7 @@
     "react-icons": "^4.3.1",
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.2.2",
+    "react-toastify": "^8.2.0",
     "reactjs-popup": "^2.0.5",
     "three": "^0.137.5",
     "three-css2drender": "^1.0.0",

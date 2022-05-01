@@ -5,6 +5,8 @@ import { Form, Button, ToggleButton } from "react-bootstrap";
 import { IPatient } from "../types";
 import { v4 as uuidv4 } from "uuid";
 import FileBase64 from "react-file-base64";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type AddFormProps = {
   setIsOpen: Function;
@@ -23,8 +25,8 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
   const [birthdate, setBirthDate] = useState("");
   const [extraText, setExtraText] = useState("");
   const [imageFile, setImageFile] = useState("");
+  const [canSubmit, setCanSubmit] = useState(true);
 
-  console.log(typeof imageFile);
   const onSubmit = () => {
     const new_patient: IPatient = {
       _id: uuidv4(),
@@ -49,8 +51,22 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
     setGender(name);
   };
 
+  const onFileUpload = (file) => {
+    const fileSize = file.length - (file.length / 8) * 2;
+    if (file.includes("image") && fileSize < 20000) {
+      setImageFile(file);
+      setCanSubmit(true);
+    } else {
+      toast.error("Selected file is not an image or the size is too large", {
+        className: "text-lg",
+      });
+      setCanSubmit(false);
+    }
+  };
+
   return (
     <div>
+      <ToastContainer position="top-left" autoClose={8000} />
       <div>
         <Form>
           <Form.Group>
@@ -103,13 +119,18 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
           <Form.Group className="flex flex-col">
             <Form.Label>Voeg een profielfoto toe: </Form.Label>
             <FileBase64
+              type="file"
               multiple={false}
-              onDone={({ base64 }) => setImageFile(base64)}
+              onDone={({ base64 }) => onFileUpload(base64)}
             />
           </Form.Group>
           <Form.Group>
             <div className="relative space-x-4 pt-2">
-              <Button className="btn btn-dark" onClick={onClick}>
+              <Button
+                className="btn btn-dark"
+                onClick={onClick}
+                disabled={!canSubmit}
+              >
                 Add
               </Button>
               <div className="absolute right-0 top-2">
