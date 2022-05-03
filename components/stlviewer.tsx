@@ -28,15 +28,16 @@ function sleep(ms) {
 
 export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xffffff);
     }
   }
 }
-
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if ((file.selected) && (scene.children[j].id == file.selected.intersect) && (scene.children[j].material)){
+    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material)){
+      console.log(file.selected.intersect)
+      console.log(scene.children[j].id)
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -82,7 +83,8 @@ export async function raycasting({ file }: FileCardProps) {
             file.selected.position = intersects[i].point.clone();
             file.selected.endPosition = intersects[i].point.setLength(100);
             //@ts-ignore
-            file.selected.intersect = intersects[i].object.id;
+            file.selected.intersect = intersects[i].object.name;
+            console.log(file.selected.intersect)
             addcolor(file);
             changed = true;
           }
@@ -162,15 +164,16 @@ export default function Stlviewer({ file }: FileCardProps) {
     //STL file loading
     const loader = new STLLoader();
 
-    var materials = new Array();
+    var materials = {};
     for (var x = 1; x < 5; x++) {
-      for (var y = 0; y < 9; y++) {
+      for (var y = 1; y < 9; y++) {
+        let toothname = "Tooth_".concat(x.toString()).concat(y.toString());
         const materialTooth = new THREE.MeshPhongMaterial({
           color: 0xd3d3d3,
           opacity: 1.0,
           transparent: true,
         });
-        materials.push(materialTooth);
+        materials[toothname] = materialTooth;
       }
     }
     dictPositions = {};
@@ -190,7 +193,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 
             const mesh = new THREE.Mesh(
               geometry,
-              materials[toothNr-10]
+              materials[filename]
             );
             scene.add(mesh);
             mesh.name = filename;
