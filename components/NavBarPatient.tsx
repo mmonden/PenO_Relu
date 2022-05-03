@@ -62,7 +62,7 @@ export const Navigation = ({
                   );
                 })}
               </NavDropdown>
-              <button onClick={() => resetSTL()}>Reset</button>
+              <button onClick={() => resetSTL()}>ClearView</button>
             </Nav>
             <Nav className="flex right-0">
               <Nav.Link
