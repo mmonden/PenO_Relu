@@ -1,7 +1,7 @@
 import { ICard, IFile } from "../types";
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import Stlviewer, { addcolor, removecolor } from "./stlviewer";
+import Stlviewer, { addcolor, onDblClick, removecolor } from "./stlviewer";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
 
@@ -53,6 +53,7 @@ export default function AnnotationCard({
         "Content-Type": "application/json",
       },
     });
+    if(editing){onDblClick(file);}
     setEdit(editing ? false : true);
   };
 
