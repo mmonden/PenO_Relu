@@ -40,7 +40,6 @@ export interface ICard {
   new?: boolean;
   position?: THREE.Vector3; // start position line
   endPosition?: THREE.Vector3; // end position text
-  linePosition?: THREE.Vector3; // end pos line
   intersect?: string; //for coloring
 }
 
