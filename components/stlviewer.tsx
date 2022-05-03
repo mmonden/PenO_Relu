@@ -28,16 +28,14 @@ function sleep(ms) {
 
 export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material && (scene.children[j].material.type == 'MeshPhongMaterial')){
       scene.children[j].material.color.set(0xffffff);
-    }
+      }
   }
 }
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material)){
-      console.log(file.selected.intersect)
-      console.log(scene.children[j].id)
+    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material) && (scene.children[j].material.type == 'MeshPhongMaterial')){
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -84,7 +82,6 @@ export async function raycasting({ file }: FileCardProps) {
             file.selected.endPosition = intersects[i].point.setLength(100);
             //@ts-ignore
             file.selected.intersect = intersects[i].object.name;
-            console.log(file.selected.intersect)
             addcolor(file);
             changed = true;
           }
@@ -197,7 +194,6 @@ export default function Stlviewer({ file }: FileCardProps) {
             );
             scene.add(mesh);
             mesh.name = filename;
-            console.log(filename)
             getAbsolutePosition(mesh, dictPositions);
           },
           (xhr) => {
@@ -242,7 +238,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         var endpoint = file.selected.endPosition; //to be calculated
 
         //start of code for drawing theline
-        const material = new THREE.LineBasicMaterial({
+        const linematerial = new THREE.LineBasicMaterial({
           color: new THREE.Color(0x000000),
           linewidth: 1,
         });
@@ -252,7 +248,7 @@ export default function Stlviewer({ file }: FileCardProps) {
           points.push(startingpoint);
           points.push(endpoint);
           const geometry = new THREE.BufferGeometry().setFromPoints(points);
-          theline = new THREE.Line(geometry, material);
+          theline = new THREE.Line(geometry, linematerial);
           scene.add(theline);
           //end of code for drawing theline
 
