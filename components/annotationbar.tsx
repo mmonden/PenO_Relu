@@ -10,15 +10,9 @@ import { raycasting, removecolor } from "./stlviewer";
 
 type AnnotationBarProps = {
   file: IFile;
-  goodClick: Boolean;
-  setGoodClick: Function;
 };
 
-export default function AnnotationBar({
-  file,
-  goodClick,
-  setGoodClick,
-}: AnnotationBarProps) {
+export default function AnnotationBar({ file }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState<boolean>(false);
   const [cards, setCards] = useState<any>(file.cards);
 
@@ -93,8 +87,6 @@ export default function AnnotationBar({
                   card={card}
                   deleteCard={deleteCard}
                   file={file}
-                  goodClick={goodClick}
-                  setGoodClick={setGoodClick}
                 />
               );
             })}

@@ -18,8 +18,6 @@ CameraControls.install({ THREE: THREE });
 
 type FileCardProps = {
   file: IFile;
-  goodClick: Boolean;
-  setGoodClick: Function;
 };
 
 let dictPositions,
@@ -99,8 +97,7 @@ export async function raycasting({ file }: FileCardProps) {
           if (intersects[i].object instanceof THREE.Mesh && !changed) {
             //@ts-ignore
             file.selected.position = intersects[i].point.clone();
-            file.selected.endPosition = intersects[i].point.clone().setLength(100);
-            file.selected.linePosition = intersects[i].point.setLength(90);
+            file.selected.endPosition = intersects[i].point.setLength(100);
             //@ts-ignore
             file.selected.intersect = intersects[i].object.name;
             addcolor(file);
@@ -145,15 +142,11 @@ export async function raycasting({ file }: FileCardProps) {
   });
 }
 
-export default function Stlviewer({
-  file,
-  goodClick,
-  setGoodClick,
-}: FileCardProps) {
+export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
   useEffect(() => {
-    init();
+    Init();
 
     //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
@@ -243,7 +236,6 @@ export default function Stlviewer({
     );
 
     document.addEventListener("dblclick", function (event) {
-      //console.log(goodClick);
       if (file.selected) {
         var title = file.selected.title;
         scene.children = scene.children.filter(
@@ -256,7 +248,7 @@ export default function Stlviewer({
         //variabeles for determining the postion of the text label and corresponding line
         var startingpoint = file.selected.position; //get startingpoint out of selected card
         var endpoint = file.selected.endPosition; //to be calculated
-        var linepos = file.selected.linePosition;
+
         //start of code for drawing theline
         const linematerial = new THREE.LineBasicMaterial({
           color: new THREE.Color(0x000000),
@@ -266,7 +258,7 @@ export default function Stlviewer({
         const points = [];
         if (startingpoint && endpoint) {
           points.push(startingpoint);
-          points.push(linepos);
+          points.push(endpoint);
           const geometry = new THREE.BufferGeometry().setFromPoints(points);
           theline = new THREE.Line(geometry, linematerial);
           scene.add(theline);
@@ -307,7 +299,7 @@ export default function Stlviewer({
   return <div ref={threeContainerRef} />;
 }
 
-function init() {
+function Init() {
   //creating scene
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xffffff);

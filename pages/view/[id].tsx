@@ -21,7 +21,6 @@ import { Sprite } from "three";
 import { useState } from "react";
 
 export default function Home({ file, files, patients }) {
-  const [goodClick, setGoodClick] = useState(false);
   const resetSTL = () => {
     if (file.selected) {
       removecolor(file);
@@ -44,11 +43,7 @@ export default function Home({ file, files, patients }) {
 
   return (
     <div className="flex relative w-screen h-screen">
-      <Stlviewer
-        file={file}
-        goodClick={goodClick}
-        setGoodClick={setGoodClick}
-      />
+      <Stlviewer file={file} />
       <div className="absolute w-full">
         <Navigation
           files_input={files}
@@ -58,11 +53,7 @@ export default function Home({ file, files, patients }) {
         />
       </div>
       <div className="absolute top-12">
-        <AnnotationBar
-          file={file}
-          goodClick={goodClick}
-          setGoodClick={setGoodClick}
-        />
+        <AnnotationBar file={file} />
       </div>
       <div
         className="absolute right-0 top-12"
