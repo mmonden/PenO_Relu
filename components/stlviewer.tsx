@@ -252,11 +252,7 @@ export default function Stlviewer({ file }: FileCardProps) {
           //end of code for drawing theline
 
           //start code for textlabel
-          var tekstlabel = makeTextSprite(title, {
-            fontsize: 50,
-            borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-            backgroundColor: { r: 169, g: 169, b: 169, a: 1.0 },
-          });
+          var tekstlabel = makeTextSprite(title, {}, false, 1);
 
           // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
           tekstlabel.position.set(endpoint.x, endpoint.y, endpoint.z); //Define sprite's anchor point
@@ -266,6 +262,7 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     });
 
+    
     // loader.load(
     //   "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
     //   function (geometry) {
@@ -298,7 +295,7 @@ function init() {
   followLight.castShadow = true;
   scene.add(followLight);
 
-  light = new THREE.AmbientLight(0x404040);
+  light = new THREE.AmbientLight(0x404040, 0.6);
   scene.add(light);
 
   //CAMERA
