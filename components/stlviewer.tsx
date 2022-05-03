@@ -300,7 +300,7 @@ function init() {
   followLight.castShadow = true;
   scene.add(followLight);
 
-  light = new THREE.AmbientLight(0x404040);
+  light = new THREE.AmbientLight(0x404040, 0.6);
   scene.add(light);
 
   //CAMERA
