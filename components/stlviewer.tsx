@@ -79,7 +79,8 @@ export async function raycasting({ file }: FileCardProps) {
           if (intersects[i].object instanceof THREE.Mesh && !changed) {
             //@ts-ignore
             file.selected.position = intersects[i].point.clone();
-            file.selected.endPosition = intersects[i].point.setLength(100);
+            file.selected.endPosition = intersects[i].point.clone().setLength(100);
+            file.selected.linePosition = intersects[i].point.setLength(90);
             //@ts-ignore
             file.selected.intersect = intersects[i].object.name;
             addcolor(file);
@@ -235,8 +236,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 
         //variabeles for determining the postion of the text label and corresponding line
         var startingpoint = file.selected.position; //get startingpoint out of selected card
-        var endpoint = file.selected.endPosition; //to be calculated
-
+        var endpoint = file.selected.linePosition; //to be calculated
         //start of code for drawing theline
         const linematerial = new THREE.LineBasicMaterial({
           color: new THREE.Color(0x000000),
