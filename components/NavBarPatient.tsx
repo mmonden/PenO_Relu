@@ -46,7 +46,7 @@ export const Navigation = ({
             />
           </div>
           <Navbar.Brand
-            onClick={() => (document.location.href = "http://relu-ano.vercel.app")}
+            onClick={() => (document.location.href = "http://localhost:3000/")}
           >
             <button>Home</button>
           </Navbar.Brand>

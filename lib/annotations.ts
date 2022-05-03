@@ -42,13 +42,15 @@ export async function deleteFile(file: IFile) {
   const { db } = await connectToDatabase();
 
   const result = await db.collection("files").deleteOne({ _id: file._id });
-  var all_annotations = file.cards;
+  var all_annotations = file.card_ids;
+  console.log("all anno: ", all_annotations);
   var del_annotations: any[] = [];
-  for (var annotation of all_annotations) {
+  for (var annotation_id of all_annotations) {
     del_annotations.push(
-      await db.collection("annotations").deleteOne({ _id: annotation._id })
+      await db.collection("annotations").deleteOne({ _id: annotation_id })
     );
   }
+  console.log("all deleted anno: ", del_annotations);
   return result;
 }
 
@@ -84,9 +86,26 @@ export async function deleteAnnotation(annotation: ICard) {
 
 export async function deletePatient(patient: IPatient) {
   const { db } = await connectToDatabase();
+  var all_file_ids = patient.file_ids;
+  console.log("all file_ids: ", all_file_ids);
+  for (var file_id of all_file_ids) {
+    var all_deleted_files: any[] = [];
+    var file = await db.collection("files").findOne({ _id: file_id });
+    var all_annotations_ids = file.card_ids;
+    console.log("all annotation_ids: ", all_annotations_ids);
+    var all_deleted_annotations: any[] = [];
+    for (var annotation_id of all_annotations_ids) {
+      console.log(all_annotations_ids);
+      all_deleted_annotations.push(await db.collection("annotations").deleteOne({ _id: annotation_id }));
+    }
+    all_deleted_files.push(await db.collection("files").deleteOne({ _id: file_id }))
+  }
+  console.log("del anno: ", all_deleted_annotations);
+  console.log("del files: ", all_deleted_files);
   const result = await db
     .collection("patients")
     .deleteOne({ _id: patient._id });
+  return result;
 }
 
 export async function updatePatient(patient: IPatient) {
