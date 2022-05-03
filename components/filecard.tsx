@@ -55,7 +55,7 @@ export default function FileCard({
     );
     fetch("/api/update_patient", {
       method: "POST",
-      body: JSON.stringify({ patient: selectedPatient }),
+      body: JSON.stringify({ new_patient: selectedPatient }),
       headers: {
         "Content-Type": "application/json",
       },

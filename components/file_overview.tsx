@@ -43,7 +43,7 @@ export default function FileList({
     setFiles([...files, new_file]);
     fetch("/api/update_patient", {
       method: "POST",
-      body: JSON.stringify({ patient: selected_patient }),
+      body: JSON.stringify({ new_patient: selected_patient }),
       headers: {
         "Content-Type": "application/json",
       },
