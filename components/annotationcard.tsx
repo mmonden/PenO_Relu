@@ -82,7 +82,7 @@ export default function AnnotationCard({
 
   const onAnnotation = () => {
     if (!editing) {
-      setGoodClick(true);
+      //setGoodClick(true);
       removecolor(file);
       file.selected = card;
       addcolor(file);
@@ -97,8 +97,8 @@ export default function AnnotationCard({
   };
 
   return (
-    <div className="flex items-center">
-      <form className="w-80 text-gray-700 px-3" onSubmit={toggleEdit} onClick={onAnnotation}>
+    <div className="flex items-center" onClick={onAnnotation}>
+      <form className="w-80 text-gray-700 px-3" onSubmit={toggleEdit}>
         <div className="text-2xl mb-2">
           {editing ? (
             <input
