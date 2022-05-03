@@ -11,7 +11,7 @@ export default function Login() {
 		const res = await signIn("credentials", {
 			redirect: false,
 			email: event.target.email.value,
-			password: event.target.email.value,
+			password: event.target.password.value,
 			callbackUrl: "/"
 		});
 		if (res.status === 401) {

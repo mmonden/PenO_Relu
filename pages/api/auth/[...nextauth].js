@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import { verifyUser } from "../../../lib/users"
 
 
@@ -15,7 +14,7 @@ export default NextAuth({
       },
       async authorize(credentials, req) {
         const {authenticated, user} = await verifyUser(credentials);
-        if (user) {
+        if (authenticated) {
           return user
         } else {
           return null

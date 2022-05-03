@@ -20,7 +20,7 @@ export async function verifyUser(credentials) {
         console.log('Not authenticated')
         return {
             authenticated: false,
-            user: user
+            user: undefined
         }
     } else {
         console.log('Authenticated')
