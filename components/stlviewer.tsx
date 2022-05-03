@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState} from "react";
+import { useRef, useEffect, useState } from "react";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -12,30 +12,50 @@ import { text } from "stream/consumers";
 import { Sprite } from "three";
 import { makeTextSprite } from "./makeTextSprite";
 // import { SpriteText2D, textAlign } from 'three-text2d'
-import CameraControls from '../camera-controls';
+import CameraControls from "../camera-controls";
 
-CameraControls.install( { THREE: THREE } );
+CameraControls.install({ THREE: THREE });
 
 type FileCardProps = {
   file: IFile;
+  goodClick: Boolean;
+  setGoodClick: Function;
 };
 
-let dictPositions, clock, camera, scene, controls, renderer, followLight, light, theline;
+let dictPositions,
+  clock,
+  camera,
+  scene,
+  controls,
+  renderer,
+  followLight,
+  light,
+  theline;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
 }
 
-export function removecolor(file){
+export function removecolor(file) {
   for (var j = 0; j < scene.children.length; j++) {
-    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material && (scene.children[j].material.type == 'MeshPhongMaterial')){
+    if (
+      file.selected &&
+      scene.children[j].name == file.selected.intersect &&
+      scene.children[j].material &&
+      scene.children[j].material.type == "MeshPhongMaterial"
+    ) {
       scene.children[j].material.color.set(0xffffff);
-      }
+    }
   }
 }
-export function addcolor(file){
+export function addcolor(file) {
   for (var j = 0; j < scene.children.length; j++) {
-    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material) && (scene.children[j].material.type == 'MeshPhongMaterial')){
+    if (
+      file.selected &&
+      scene.children[j].name == file.selected.intersect &&
+      scene.children[j].material &&
+      scene.children[j].material.type == "MeshPhongMaterial"
+    ) {
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -124,9 +144,11 @@ export async function raycasting({ file }: FileCardProps) {
   });
 }
 
-
-
-export default function Stlviewer({ file }: FileCardProps) {
+export default function Stlviewer({
+  file,
+  goodClick,
+  setGoodClick,
+}: FileCardProps) {
   const threeContainerRef = useRef(null);
 
   useEffect(() => {
@@ -183,15 +205,12 @@ export default function Stlviewer({ file }: FileCardProps) {
             filename +
             ".stl",
           function (geometry) {
-            geometry.translate(0,0,35)
+            geometry.translate(0, 0, 35);
             let toothNr = parseInt(filename.split("_").pop());
             //let a = Math.floor(toothNr / 10);
             //let b = toothNr % 10;
 
-            const mesh = new THREE.Mesh(
-              geometry,
-              materials[filename]
-            );
+            const mesh = new THREE.Mesh(geometry, materials[filename]);
             scene.add(mesh);
             mesh.name = filename;
             getAbsolutePosition(mesh, dictPositions);
@@ -209,10 +228,10 @@ export default function Stlviewer({ file }: FileCardProps) {
     loader.load(
       "https://annosend.blob.core.windows.net/stl-files/Mandible.stl",
       function (geometry) {
-        geometry.translate(0,0,35)
+        geometry.translate(0, 0, 35);
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
-        getAbsolutePosition(mesh, dictPositions)
+        getAbsolutePosition(mesh, dictPositions);
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -222,8 +241,8 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     );
 
-
     document.addEventListener("dblclick", function (event) {
+      //console.log(goodClick);
       if (file.selected) {
         var title = file.selected.title;
         scene.children = scene.children.filter(
@@ -284,13 +303,13 @@ export default function Stlviewer({ file }: FileCardProps) {
     anim();
   });
 
-  return<div ref={threeContainerRef}/>;
+  return <div ref={threeContainerRef} />;
 }
 
 function init() {
   //creating scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff)
+  scene.background = new THREE.Color(0xffffff);
 
   //light
   followLight = new THREE.DirectionalLight(0xffffff, 1.0);
@@ -314,7 +333,7 @@ function init() {
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
-  camera.up.set( 0, 0, 1 )
+  camera.up.set(0, 0, 1);
 
   //RENDERER
   renderer = new THREE.WebGLRenderer();
@@ -323,27 +342,23 @@ function init() {
 
   //CONTROLS + CLOCK
   clock = new THREE.Clock();
-  controls = new CameraControls( camera, renderer.domElement );
+  controls = new CameraControls(camera, renderer.domElement);
   controls.mouseButtons.left = CameraControls.ACTION.TRUCK;
   controls.mouseButtons.left = CameraControls.ACTION.TOUCH_ROTATE;
 }
 
-function anim () {
+function anim() {
+  const delta = clock.getDelta();
+  const hasControlsUpdated = controls.update(delta);
 
-	const delta = clock.getDelta();
-	const hasControlsUpdated = controls.update( delta );
+  requestAnimationFrame(anim);
 
-	requestAnimationFrame( anim );
+  if (hasControlsUpdated) {
+    renderer.render(scene, camera);
+  }
 
-	if ( hasControlsUpdated ) {
-
-		renderer.render( scene, camera );
-
-	}
-
-  render()
-
-};
+  render();
+}
 
 function render() {
   followLight.position.copy(camera.position);
@@ -353,24 +368,21 @@ function render() {
   renderer.render(scene, camera);
 }
 
-function getAbsolutePosition(mesh, dictPositions){
+function getAbsolutePosition(mesh, dictPositions) {
   mesh.geometry.computeBoundingBox();
 
   var boundingBox = mesh.geometry.boundingBox;
   var position = new THREE.Vector3();
 
-  position.subVectors( boundingBox.max, boundingBox.min );
-  position.multiplyScalar( 0.5 );
-  position.add( boundingBox.min );
-  position.applyMatrix4( mesh.matrixWorld );
-  dictPositions[mesh.name] = position
+  position.subVectors(boundingBox.max, boundingBox.min);
+  position.multiplyScalar(0.5);
+  position.add(boundingBox.min);
+  position.applyMatrix4(mesh.matrixWorld);
+  dictPositions[mesh.name] = position;
 }
 
-function filter(id)
-{
-  scene.children = scene.children.filter(
-    (child) => !(child.id == id)
-  );
+function filter(id) {
+  scene.children = scene.children.filter((child) => !(child.id == id));
 }
 
-export {controls, scene, theline, dictPositions};
+export { controls, scene, theline, dictPositions };

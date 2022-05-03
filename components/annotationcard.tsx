@@ -20,12 +20,16 @@ type AnnotationCardProps = {
   card: ICard;
   deleteCard: Function;
   file: IFile;
+  goodClick: Boolean;
+  setGoodClick: Function;
 };
 
 export default function AnnotationCard({
   card,
   deleteCard,
   file,
+  goodClick,
+  setGoodClick,
 }: AnnotationCardProps) {
   const [editing, setEdit] = useState(card.new);
   const [title, setTitle] = useState(card.title);
@@ -78,6 +82,7 @@ export default function AnnotationCard({
 
   const onAnnotation = () => {
     if (!editing) {
+      setGoodClick(true);
       removecolor(file);
       file.selected = card;
       addcolor(file);
