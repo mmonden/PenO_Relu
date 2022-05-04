@@ -6,12 +6,30 @@ import SelectInput from "@mui/material/Select/SelectInput";
 import { Container, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IFile, ICard, IPatient } from "../types";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { Button, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { AiOutlineClose, AiOutlineQuestionCircle } from "react-icons/ai";
+import YoutubePopUp from "./youtubePopUp";
+import Modal from "react-modal";
 
 type FileListProps = {
   files_input: IFile[];
   patients_input: IPatient[];
   file: IFile;
   resetSTL: Function;
+};
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
 };
 
 export const Navigation = ({
@@ -28,6 +46,13 @@ export const Navigation = ({
       selectedPatient.file_ids.includes(fileFromPatient._id)
     )
   );
+
+  const [youtubeClick, setYoutubeClick] = useState(false);
+
+  let patientsNames = [];
+  patients_input.map((patient) => {
+    patientsNames.push(patient.name);
+  });
 
   return (
     <div className="min-w-screen">
@@ -65,6 +90,12 @@ export const Navigation = ({
               <button onClick={() => resetSTL()}>ClearView</button>
             </Nav>
             <Nav className="flex right-0">
+              <div className="flex items-center">
+                <AiOutlineQuestionCircle
+                  size={28}
+                  onClick={() => setYoutubeClick(true)}
+                />
+              </div>
               <Nav.Link
                 onClick={() =>
                   signOut({ callbackUrl: "http://relu-ano.vercel.app" })
@@ -76,6 +107,14 @@ export const Navigation = ({
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Modal isOpen={youtubeClick} style={customStyles}>
+        <div className="relative">
+          <div className="absolute -right-4 -top-4">
+            <AiOutlineClose onClick={() => setYoutubeClick(false)} />
+          </div>
+          <div>{youtubeClick ? <YoutubePopUp timeStamp={"22"} /> : false}</div>
+        </div>
+      </Modal>
     </div>
   );
 };

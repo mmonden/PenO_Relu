@@ -53,7 +53,9 @@ export default function AnnotationCard({
         "Content-Type": "application/json",
       },
     });
-    if(editing){onDblClick(file);}
+    if (editing) {
+      onDblClick(file);
+    }
     setEdit(editing ? false : true);
   };
 
@@ -125,7 +127,7 @@ export default function AnnotationCard({
           )}
         </div>
       </form>
-      <div className="text-gray-700 text-2xl">
+      <div className="text-gray-700 text-2xl flex items-center flex-col">
         <button className="m-2" onClick={toggleEdit}>
           {editing ? <AiOutlineSave /> : <AiOutlineEdit />}
         </button>

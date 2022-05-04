@@ -15,11 +15,26 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 import { IFile, ICard, IPatient } from "../types";
+import { AiOutlineQuestionCircle, AiOutlineClose } from "react-icons/ai";
+import YoutubePopUp from "./youtubePopUp";
+import Modal from "react-modal";
 
 type NavBarHomeProps = {
   patients: IPatient[];
   changePatient: Function;
+};
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
 };
 
 export default function NavBarHome({
@@ -27,6 +42,7 @@ export default function NavBarHome({
   changePatient,
 }: NavBarHomeProps) {
   const [inputName, setInputName] = useState([]);
+  const [youtubeClick, setYoutubeClick] = useState(false);
   let patientsNames = [];
   patients.map((patient) => {
     patientsNames.push(patient.name);
@@ -63,14 +79,30 @@ export default function NavBarHome({
             </Form>
           </Nav>
           <Nav className="flex right-0">
+            <div className="flex items-center">
+              <AiOutlineQuestionCircle
+                size={28}
+                onClick={() => setYoutubeClick(true)}
+              />
+            </div>
             <Nav.Link
-              onClick={() => signOut({ callbackUrl: "http://relu-ano.vercel.app" })}
+              onClick={() =>
+                signOut({ callbackUrl: "http://relu-ano.vercel.app" })
+              }
             >
               Logout
             </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
+      <Modal isOpen={youtubeClick} style={customStyles}>
+        <div className="relative">
+          <div className="absolute -right-4 -top-4">
+            <AiOutlineClose onClick={() => setYoutubeClick(false)} />
+          </div>
+          <div>{youtubeClick ? <YoutubePopUp timeStamp={"0"} /> : false}</div>
+        </div>
+      </Modal>
     </div>
   );
 }
