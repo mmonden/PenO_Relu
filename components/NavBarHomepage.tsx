@@ -55,16 +55,17 @@ export default function NavBarHome({
   return (
     <div>
       <Navbar className="bg-gray-200 h-12 flex space-x-4" expand="lg">
-        <div className="pl-4"></div>
-        <Image
-          src={require("./images/relu-logo-small.png")}
-          className=""
-          alt="Logo"
-          width={120}
-          height={50}
-        />
-        <Container className="container-fluid">
-          <Nav className="flex right-0">
+        <Container className="container-fluid min-w-full">
+          <div className="pl-2 pr-4 pt-2">
+            <Image
+              src={require("./images/relu-logo-small.png")}
+              className=""
+              alt="Logo"
+              width={120}
+              height={50}
+            />
+          </div>
+          <Nav className="me-auto space-x-4">
             <Form className="d-flex">
               <Typeahead
                 id="basic-typeahead-single"
