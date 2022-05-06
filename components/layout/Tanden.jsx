@@ -34,21 +34,29 @@ const onSwipe = (teeth_id) => {
 
 	const teethIDS = teeth_id.split("_");
 	
-	if (teethIDS[1] == "17"){
+	if (teethIDS[1] == "17")
+	{
 		controls.setLookAt(-49, -0.6, 10.44, posx, posy, posz, true);
 	}
-	else if (teethIDS[1] == "27"){
+	else if (teethIDS[1] == "27")
+	{
 		controls.setLookAt(51, -0.6, 10.44, posx, posy, posz, true);
 	}
-	else if (Number(teethIDS[1]) > 28){
+	else if (Number(teethIDS[1]) > 28)
+	{
 		controls.setLookAt(2*posx, 2*posy, 0, posx, posy, posz, true);
 	}
-	else{
+	else
+	{
 		controls.setLookAt(2*posx, 2*posy, 10.44, posx, posy, posz, true);
 	};
   };
 
 const Tanden = ( states ) => {
+	const Swipe = (teeth_id) => {
+		onSwipe(teeth_id);
+	};
+
 	return (
 		<div className="justify-center items-center flex-col flex">
 			<div className="flex flex-row justify-center items-center text-xs">
@@ -62,12 +70,12 @@ const Tanden = ( states ) => {
 			</div>
 
 			<div className="flex flex-row">
-				<button onClick = {() => Swipe("Tooth_18")}> <h2>R</h2> </button>
+				<button onClick = {() => Swipe("Tooth_17")}> <h2>R</h2> </button>
 
 				<div className="items-center place-content-center">
 					<Image src={require("../textures/relugebit.png")} height={150} width={150} />
 				</div>
-				<button onClick = {() => Swipe("Tooth_28")}> <h2>L</h2> </button>
+				<button onClick = {() => Swipe("Tooth_27")}> <h2>L</h2> </button>
 			</div>
 
 			<div className="flex place-content-center border rounded-full border-2 w-fit text-xs">
