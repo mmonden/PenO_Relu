@@ -23,7 +23,7 @@ import {
 } from '../../util/structuresCBCT';
 
 const onSwipe = (teeth_id) => {
-	if (dictPositions[teeth_id] == undefined){
+	if (dictPositions[teeth_id] == undefined) {
 		alert("This tooth is not present");
 		return;
 	}
@@ -42,14 +42,6 @@ const onSwipe = (teeth_id) => {
 	{
 		controls.setLookAt(51, -0.6, 10.44, posx, posy, posz, true);
 	}
-	else if (teethIDS[1] == "R")
-	{
-		controls.setLookAt(-129, -0.6, 10.44, posx, posy, posz, true);
-	}
-	else if (teethIDS[1] == "L")
-	{
-		controls.setLookAt(131, -0.6, 10.44, posx, posy, posz, true);
-	}
 	else if (Number(teethIDS[1]) > 28)
 	{
 		controls.setLookAt(2*posx, 2*posy, 0, posx, posy, posz, true);
@@ -60,7 +52,24 @@ const onSwipe = (teeth_id) => {
 	};
   };
 
+  const sideView = (side) => {
+	  console.log(side)
+	  if (side == "R")
+	  {
+		  controls.setLookAt(-129, -0.6, 10.44, 0, 0, 0, true);
+		}
+		else 
+		{
+		controls.setLookAt(131, -0.6, 10.44, 0, 0, 0, true)
+	}
+}
+
 const Tanden = ( states ) => {
+	
+	const View = (side) => {
+		sideView(side);
+	};
+
 	const Swipe = (teeth_id) => {
 		onSwipe(teeth_id);
 	};
@@ -78,12 +87,12 @@ const Tanden = ( states ) => {
 			</div>
 
 			<div className="flex flex-row">
-				<button onClick = {() => Swipe("Tooth_R")}> <h2>R</h2> </button>
+				<button onClick = {() => View("R")}> <h2>R</h2> </button>
 
 				<div className="items-center place-content-center">
 					<Image src={require("../textures/relugebit.png")} height={150} width={150} />
 				</div>
-				<button onClick = {() => Swipe("Tooth_L")}> <h2>L</h2> </button>
+				<button onClick = {() => View("L")}> <h2>L</h2> </button>
 			</div>
 
 			<div className="flex place-content-center border rounded-full border-2 w-fit text-xs">
