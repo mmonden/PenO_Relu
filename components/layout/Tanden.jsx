@@ -42,6 +42,14 @@ const onSwipe = (teeth_id) => {
 	{
 		controls.setLookAt(51, -0.6, 10.44, posx, posy, posz, true);
 	}
+	else if (teethIDS[1] == "R")
+	{
+		controls.setLookAt(-129, -0.6, 10.44, posx, posy, posz, true);
+	}
+	else if (teethIDS[1] == "L")
+	{
+		controls.setLookAt(131, -0.6, 10.44, posx, posy, posz, true);
+	}
 	else if (Number(teethIDS[1]) > 28)
 	{
 		controls.setLookAt(2*posx, 2*posy, 0, posx, posy, posz, true);
@@ -70,12 +78,12 @@ const Tanden = ( states ) => {
 			</div>
 
 			<div className="flex flex-row">
-				<button onClick = {() => Swipe("Tooth_17")}> <h2>R</h2> </button>
+				<button onClick = {() => Swipe("Tooth_R")}> <h2>R</h2> </button>
 
 				<div className="items-center place-content-center">
 					<Image src={require("../textures/relugebit.png")} height={150} width={150} />
 				</div>
-				<button onClick = {() => Swipe("Tooth_27")}> <h2>L</h2> </button>
+				<button onClick = {() => Swipe("Tooth_L")}> <h2>L</h2> </button>
 			</div>
 
 			<div className="flex place-content-center border rounded-full border-2 w-fit text-xs">
