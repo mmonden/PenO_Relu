@@ -62,12 +62,12 @@ const Tanden = ( states ) => {
 			</div>
 
 			<div className="flex flex-row">
-				<h2>R</h2>
+				<button onClick = {() => Swipe("Tooth_18")}> <h2>R</h2> </button>
 
 				<div className="items-center place-content-center">
 					<Image src={require("../textures/relugebit.png")} height={150} width={150} />
 				</div>
-				<h2>L</h2>
+				<button onClick = {() => Swipe("Tooth_28")}> <h2>L</h2> </button>
 			</div>
 
 			<div className="flex place-content-center border rounded-full border-2 w-fit text-xs">
