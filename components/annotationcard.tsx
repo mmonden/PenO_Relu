@@ -53,10 +53,12 @@ export default function AnnotationCard({
     );
     if (theline) {
       scene.remove(theline);
-      const object = scene.getObjectByProperty("name", "sphere");
-      object.geometry.dispose();
-      object.material.dispose();
-      scene.remove(object);
+      if (scene.getObjectByProperty("name", "sphere") != undefined) {
+        const object = scene.getObjectByProperty("name", "sphere");
+        object.geometry.dispose();
+        object.material.dispose();
+        scene.remove(object);
+      }
     }
   };
 

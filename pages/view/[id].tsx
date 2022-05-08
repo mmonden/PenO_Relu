@@ -33,6 +33,12 @@ export default function Home({ file, files, patients }) {
     );
     if (theline) {
       scene.remove(theline);
+      if (scene.getObjectByProperty("name", "sphere") != undefined) {
+        const object = scene.getObjectByProperty("name", "sphere");
+        object.geometry.dispose();
+        object.material.dispose();
+        scene.remove(object);
+      }
     }
     controls.reset(true);
   };

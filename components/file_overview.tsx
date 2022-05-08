@@ -56,9 +56,13 @@ export default function FileList({
       <div className="relative flex justify-center items-center text-6xl border-b-2">
         Scans
         <div className="absolute flex right-0">
-          <button onClick={newFile}>
-            <MdAdd className="text-3xl" />
-          </button>
+          {files.length > 0 ? (
+            <button onClick={newFile}>
+              <MdAdd className="text-3xl" />
+            </button>
+          ) : (
+            true
+          )}
         </div>
       </div>
       <div className="divide-y-2">
