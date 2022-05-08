@@ -33,6 +33,18 @@ const onSwipe = (teeth_id) => {
   }
 };
 
+const sideView = (side) => {
+  console.log(side)
+  if (side == "R")
+  {
+    controls.setLookAt(-129, -0.6, 10.44, 0, 0, 0, true);
+  }
+  else 
+  {
+  controls.setLookAt(131, -0.6, 10.44, 0, 0, 0, true)
+}
+}
+
 type TandenProps = {
   setSkullSelect: Function;
   states: Object;
@@ -61,19 +73,15 @@ const Tanden = ({
         <Tanden_3x states={states} onSwipe={onSwipe} />
       </div>
 
-      <div className="flex flex-row">
-        <h2>R</h2>
+			<div className="flex flex-row">
+				<button onClick = {() => sideView("R")}> <h2>R</h2> </button>
 
-        <div className="items-center place-content-center">
-          <Image
-            src={require("../textures/relugebit.png")}
-            height={150}
-            width={150}
-            alt="logo"
-          />
-        </div>
-        <h2>L</h2>
-      </div>
+				<div className="items-center place-content-center">
+					<Image src={require("../textures/relugebit.png")} height={150} width={150} />
+				</div>
+				<button onClick = {() => sideView("L")}> <h2>L</h2> </button>
+			</div>
+
 
       {!skullLoaded ? (
         <div className="space-x-2 flex flex-row items-center">
