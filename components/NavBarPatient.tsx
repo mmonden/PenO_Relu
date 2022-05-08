@@ -71,7 +71,7 @@ export const Navigation = ({
             />
           </div>
           <Navbar.Brand
-            onClick={() => (document.location.href = "http://localhost:3000/")}
+            onClick={() => (document.location.href = "http://annosend.vercel.app/")}
           >
             <button>Home</button>
           </Navbar.Brand>
