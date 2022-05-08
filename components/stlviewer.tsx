@@ -37,6 +37,7 @@ let dictPositions,
   light,
   skull = [],
   first = [],
+  sphere,
   theline;
 
 function sleep(ms) {
@@ -68,7 +69,7 @@ export function addcolor(file) {
   }
 }
 
-export function onDblClick(file) {
+export function onDblClick(file: IFile) {
   if (file.selected) {
     var title = file.selected.title;
     scene.children = scene.children.filter(
@@ -76,6 +77,12 @@ export function onDblClick(file) {
     );
     if (theline) {
       scene.remove(theline);
+      if (scene.getObjectByProperty("name", "sphere") != undefined) {
+        const object = scene.getObjectByProperty("name", "sphere");
+        object.geometry.dispose();
+        object.material.dispose();
+        scene.remove(object);
+      }
     }
 
     //variabeles for determining the postion of the text label and corresponding line
@@ -99,6 +106,12 @@ export function onDblClick(file) {
       //start code for textlabel
       var tekstlabel = makeTextSprite(title, {}, false, 1);
 
+      const geo = new THREE.SphereGeometry(0.5, 32, 16);
+      const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+      const sphere = new THREE.Mesh(geo, material);
+      sphere.position.set(startingpoint.x, startingpoint.y, startingpoint.z);
+      sphere.name = "sphere";
+      scene.add(sphere);
       // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
       tekstlabel.position.set(endpoint.x, endpoint.y, endpoint.z); //Define sprite's anchor point
       scene.add(tekstlabel);
@@ -243,58 +256,6 @@ type FileCardProps = {
   file: IFile;
   setSkullLoaded: Function;
 };
-
-type DoubleClickProps = {
-  file: IFile;
-  setSkullLoaded: Function;
-  annoClick: boolean;
-};
-const DoubleClick = React.memo(function DoubleClick({
-  file,
-  annoClick,
-}: DoubleClickProps) {
-  // document.addEventListener("dblclick", function (event) {
-  //   if (annoClick) {
-  //     if (file.selected) {
-  //       var title = file.selected.title;
-  //       scene.children = scene.children.filter(
-  //         (child) => !(child instanceof Sprite)
-  //       );
-  //       if (theline) {
-  //         scene.remove(theline);
-  //       }
-
-  //       //variabeles for determining the postion of the text label and corresponding line
-  //       var startingpoint = file.selected.position; //get startingpoint out of selected card
-  //       var endpoint = file.selected.endPosition; //to be calculated
-  //       //start of code for drawing theline
-  //       const linematerial = new THREE.LineBasicMaterial({
-  //         color: new THREE.Color(0x000000),
-  //         linewidth: 1,
-  //       });
-
-  //       const points = [];
-  //       if (startingpoint && endpoint) {
-  //         points.push(startingpoint);
-  //         points.push(endpoint);
-  //         const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  //         theline = new THREE.Line(geometry, linematerial);
-  //         scene.add(theline);
-  //         //end of code for drawing theline
-
-  //         //start code for textlabel
-  //         var tekstlabel = makeTextSprite(title, {}, false, 1);
-
-  //         // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
-  //         tekstlabel.position.set(endpoint.x, endpoint.y, endpoint.z); //Define sprite's anchor point
-  //         scene.add(tekstlabel);
-  //         //end code for text label
-  //       }
-  //     }
-  //   }
-  // });
-  return <div></div>;
-});
 
 const Stlviewer = React.memo(function Stlviewer({
   file,
@@ -466,5 +427,5 @@ export {
   loader,
   Stlviewer,
   Skull,
-  DoubleClick,
+  sphere,
 };

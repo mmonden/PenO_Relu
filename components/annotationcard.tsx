@@ -1,7 +1,7 @@
 import { ICard, IFile } from "../types";
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { addcolor, onDblClick, removecolor } from "./stlviewer";
+import { addcolor, onDblClick, removecolor, sphere } from "./stlviewer";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
 import {
@@ -53,6 +53,10 @@ export default function AnnotationCard({
     );
     if (theline) {
       scene.remove(theline);
+      const object = scene.getObjectByProperty("name", "sphere");
+      object.geometry.dispose();
+      object.material.dispose();
+      scene.remove(object);
     }
   };
 

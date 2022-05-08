@@ -6,7 +6,7 @@ import { AiOutlineRightCircle, AiOutlineLeftCircle } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import { calculateObjectSize } from "bson";
 import { time } from "console";
-import { raycasting, removecolor } from "./stlviewer";
+import { raycasting, removecolor, sphere } from "./stlviewer";
 import {
   controls,
   scene,
@@ -54,6 +54,12 @@ export default function AnnotationBar({
     );
     if (theline) {
       scene.remove(theline);
+      if (scene.getObjectByProperty("name", "sphere") != undefined) {
+        const object = scene.getObjectByProperty("name", "sphere");
+        object.geometry.dispose();
+        object.material.dispose();
+        scene.remove(object);
+      }
     }
   };
 
