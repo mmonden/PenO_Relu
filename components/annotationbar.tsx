@@ -7,12 +7,27 @@ import { v4 as uuidv4 } from "uuid";
 import { calculateObjectSize } from "bson";
 import { time } from "console";
 import { raycasting, removecolor } from "./stlviewer";
+import {
+  controls,
+  scene,
+  theline,
+  loader,
+  Skull,
+  Stlviewer,
+} from "./stlviewer";
+import { Sprite } from "three";
 
 type AnnotationBarProps = {
   file: IFile;
+  setAnnoClick: Function;
+  annoClick: boolean;
 };
 
-export default function AnnotationBar({ file }: AnnotationBarProps) {
+export default function AnnotationBar({
+  file,
+  setAnnoClick,
+  annoClick,
+}: AnnotationBarProps) {
   const [swiped, setSwipe] = useState<boolean>(false);
   const [cards, setCards] = useState<any>(file.cards);
 
@@ -29,6 +44,19 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     });
   };
 
+  const deleteAnnoCard = () => {
+    if (file.selected) {
+      removecolor(file);
+    }
+    file.selected = null;
+    scene.children = scene.children.filter(
+      (child) => !(child instanceof Sprite)
+    );
+    if (theline) {
+      scene.remove(theline);
+    }
+  };
+
   const newCard = () => {
     const new_card: ICard = {
       _id: uuidv4(),
@@ -36,9 +64,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       text: "",
       new: true,
     };
-    if (file.selected) {
-      removecolor(file);
-    }
+    deleteAnnoCard();
     file.selected = new_card;
 
     //call raycaster function
@@ -87,6 +113,8 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
                   card={card}
                   deleteCard={deleteCard}
                   file={file}
+                  setAnnoClick={setAnnoClick}
+                  annoClick={annoClick}
                 />
               );
             })}

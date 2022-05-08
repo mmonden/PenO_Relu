@@ -1,9 +1,18 @@
 import { ICard, IFile } from "../types";
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import Stlviewer, { addcolor, onDblClick, removecolor } from "./stlviewer";
+import { addcolor, onDblClick, removecolor } from "./stlviewer";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
+import {
+  controls,
+  scene,
+  theline,
+  loader,
+  Skull,
+  Stlviewer,
+} from "./stlviewer";
+import { Sprite } from "three";
 
 const customStyles = {
   content: {
@@ -20,6 +29,8 @@ type AnnotationCardProps = {
   card: ICard;
   deleteCard: Function;
   file: IFile;
+  setAnnoClick: Function;
+  annoClick: boolean;
 };
 
 export default function AnnotationCard({
@@ -31,6 +42,19 @@ export default function AnnotationCard({
   const [title, setTitle] = useState(card.title);
   const [text, setText] = useState(card.text);
   const [isOpen, setIsOpen] = useState(false);
+
+  const deleteAnnoCard = () => {
+    if (file.selected) {
+      removecolor(file);
+    }
+    file.selected = null;
+    scene.children = scene.children.filter(
+      (child) => !(child instanceof Sprite)
+    );
+    if (theline) {
+      scene.remove(theline);
+    }
+  };
 
   const toggleEdit = () => {
     if (editing && (title != card.title || text != card.text)) {
@@ -61,6 +85,7 @@ export default function AnnotationCard({
 
   const onDelete = () => {
     deleteCard(card._id);
+    deleteAnnoCard();
 
     fetch("/api/delete_anno", {
       method: "POST",
@@ -101,7 +126,7 @@ export default function AnnotationCard({
         onSubmit={toggleEdit}
         onClick={() => onAnnotation()}
       >
-        <div className="text-2xl mb-2">
+        <div className="text-2xl mb-2" onClick={() => onDblClick(file)}>
           {editing ? (
             <input
               className="border-2"

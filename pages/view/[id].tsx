@@ -1,26 +1,28 @@
 import AnnotationBar from "../../components/annotationbar";
-import {
-  getAnnotations,
-  writeAnnotation,
-  getFile,
-  getPatients,
-} from "../../lib/annotations";
+import { getAnnotations, getFile, getPatients } from "../../lib/annotations";
 import { GetServerSideProps } from "next";
 import PopUp from "../../components/PopUp";
 import Sidebar from "../../components/layout/Sidebar";
-import Stlviewer from "../../components/stlviewer";
-import { controls, scene, theline } from "../../components/stlviewer";
+import {
+  controls,
+  scene,
+  theline,
+  loader,
+  Skull,
+  Stlviewer,
+  onDblClick,
+} from "../../components/stlviewer";
 import { removecolor } from "../../components/stlviewer";
-import { useRouter } from "next/router";
 import { Navigation } from "../../components/NavBarPatient";
 import { getSession } from "next-auth/react";
-import { IFile } from "../../types";
 import { getFiles } from "../../lib/annotations";
-import { ObjectID } from "mongodb";
-import { Sprite } from "three";
+import THREE, { Sprite } from "three";
 import { useState } from "react";
 
 export default function Home({ file, files, patients }) {
+  const [skullSelect, setSkullSelect] = useState(false);
+  const [skullLoaded, setSkullLoaded] = useState(false);
+  const [annoClick, setAnnoClick] = useState(false);
   const resetSTL = () => {
     if (file.selected) {
       removecolor(file);
@@ -34,16 +36,14 @@ export default function Home({ file, files, patients }) {
     }
     controls.reset(true);
   };
-
   const onSwipe = () => {
     controls.moveTo(50, 50, 100, true);
-    console.log("Uitgevoerd");
   };
-  var states_dict = { TOOTH_11: onSwipe };
 
+  var states_dict = { TOOTH_11: onSwipe };
   return (
     <div className="flex relative w-screen h-screen">
-      <Stlviewer file={file} />
+      <Stlviewer file={file} setSkullLoaded={setSkullLoaded} />
       <div className="absolute w-full">
         <Navigation
           files_input={files}
@@ -52,14 +52,24 @@ export default function Home({ file, files, patients }) {
           resetSTL={resetSTL}
         />
       </div>
+      ({skullSelect ? <Skull select={true} /> : <Skull select={false} />})
       <div className="absolute top-12">
-        <AnnotationBar file={file} />
+        <AnnotationBar
+          file={file}
+          setAnnoClick={setAnnoClick}
+          annoClick={annoClick}
+        />
       </div>
       <div
         className="absolute right-0 top-12"
         style={{ height: "calc(100vh - 48px)" }}
       >
-        <Sidebar states={states_dict} />
+        <Sidebar
+          states={states_dict}
+          setSkullSelect={setSkullSelect}
+          skullSelect={skullSelect}
+          skullLoaded={skullLoaded}
+        />
         <div className="absolute right-0 bottom-0 flex flex-row">
           <PopUp file={file} />
         </div>

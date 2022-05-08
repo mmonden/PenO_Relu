@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { MeshLine, MeshLineMaterial } from "three.meshline";
-import { AxesHelper, InstancedInterleavedBuffer } from "three";
+import { AxesHelper, InstancedInterleavedBuffer, XRHandJoint } from "three";
 
 import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
@@ -13,12 +13,19 @@ import { Sprite } from "three";
 import { makeTextSprite } from "./makeTextSprite";
 // import { SpriteText2D, textAlign } from 'three-text2d'
 import CameraControls from "../camera-controls";
+import React from "react";
+import { Loader } from "react-bootstrap-typeahead";
 
 CameraControls.install({ THREE: THREE });
 
-type FileCardProps = {
-  file: IFile;
-};
+const loader = new STLLoader();
+
+// Mandible material
+const materialMandible = new THREE.MeshPhongMaterial({
+  color: 0xd3d3d3,
+  opacity: 1.0,
+  transparent: true,
+});
 
 let dictPositions,
   clock,
@@ -28,6 +35,8 @@ let dictPositions,
   renderer,
   followLight,
   light,
+  skull = [],
+  first = [],
   theline;
 
 function sleep(ms) {
@@ -98,7 +107,11 @@ export function onDblClick(file) {
   }
 }
 
-export async function raycasting({ file }: FileCardProps) {
+type raycastingProps = {
+  file: IFile;
+};
+
+export async function raycasting({ file }: raycastingProps) {
   let changed = new Boolean();
   changed = false;
 
@@ -181,11 +194,118 @@ export async function raycasting({ file }: FileCardProps) {
   });
 }
 
-export default function Stlviewer({ file }: FileCardProps) {
-  const threeContainerRef = useRef(null);
+type skullProps = {
+  select: boolean;
+};
 
+export function LoadSkull(setSkullLoaded) {
+  loader.load(
+    "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
+    function (geometry) {
+      geometry.translate(0, 0, 35);
+      const skullMesh = new THREE.Mesh(geometry, materialMandible);
+      skullMesh.name = "SkullMesh";
+      skull.push(skullMesh);
+      first.push(1);
+      setSkullLoaded(true);
+    },
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+
+const Skull = React.memo(function Skull({ select }: skullProps) {
+  if (select) {
+    scene.add(skull[0]);
+  } else {
+    if (first.length == 0) {
+    } else {
+      if (
+        scene != undefined &&
+        scene.getObjectByProperty("name", "SkullMesh") != undefined
+      ) {
+        const object = scene.getObjectByProperty("name", "SkullMesh");
+        object.geometry.dispose();
+        object.material.dispose();
+        scene.remove(object);
+        renderer.renderLists.dispose();
+      }
+    }
+  }
+  return <div></div>;
+});
+
+type FileCardProps = {
+  file: IFile;
+  setSkullLoaded: Function;
+};
+
+type DoubleClickProps = {
+  file: IFile;
+  setSkullLoaded: Function;
+  annoClick: boolean;
+};
+const DoubleClick = React.memo(function DoubleClick({
+  file,
+  annoClick,
+}: DoubleClickProps) {
+  // document.addEventListener("dblclick", function (event) {
+  //   if (annoClick) {
+  //     if (file.selected) {
+  //       var title = file.selected.title;
+  //       scene.children = scene.children.filter(
+  //         (child) => !(child instanceof Sprite)
+  //       );
+  //       if (theline) {
+  //         scene.remove(theline);
+  //       }
+
+  //       //variabeles for determining the postion of the text label and corresponding line
+  //       var startingpoint = file.selected.position; //get startingpoint out of selected card
+  //       var endpoint = file.selected.endPosition; //to be calculated
+  //       //start of code for drawing theline
+  //       const linematerial = new THREE.LineBasicMaterial({
+  //         color: new THREE.Color(0x000000),
+  //         linewidth: 1,
+  //       });
+
+  //       const points = [];
+  //       if (startingpoint && endpoint) {
+  //         points.push(startingpoint);
+  //         points.push(endpoint);
+  //         const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  //         theline = new THREE.Line(geometry, linematerial);
+  //         scene.add(theline);
+  //         //end of code for drawing theline
+
+  //         //start code for textlabel
+  //         var tekstlabel = makeTextSprite(title, {}, false, 1);
+
+  //         // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
+  //         tekstlabel.position.set(endpoint.x, endpoint.y, endpoint.z); //Define sprite's anchor point
+  //         scene.add(tekstlabel);
+  //         //end code for text label
+  //       }
+  //     }
+  //   }
+  // });
+  return <div></div>;
+});
+
+const Stlviewer = React.memo(function Stlviewer({
+  file,
+  setSkullLoaded,
+}: FileCardProps) {
+  LoadSkull(setSkullLoaded);
+  const threeContainerRef = useRef(null);
+  //STL file loading
   useEffect(() => {
     Init();
+    THREE.Cache.enabled = true;
 
     //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
@@ -198,23 +318,6 @@ export default function Stlviewer({ file }: FileCardProps) {
       renderer.setSize(window.innerWidth, window.innerHeight);
       render();
     }
-
-    // Skull material
-    const materialSkull = new THREE.MeshPhongMaterial({
-      color: 0xd3d3d3,
-      opacity: 1.0,
-      transparent: true,
-    });
-
-    // Mandible material
-    const materialMandible = new THREE.MeshPhongMaterial({
-      color: 0xd3d3d3,
-      opacity: 1.0,
-      transparent: true,
-    });
-
-    //STL file loading
-    const loader = new STLLoader();
 
     var materials = {};
     for (var x = 1; x < 5; x++) {
@@ -230,9 +333,8 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
     dictPositions = {};
     for (var x = 1; x < 5; x++) {
-      for (var y = 1; y < 9; y++) {
+      for (var y = 1; y < 8; y++) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
-
         loader.load(
           "https://annosend.blob.core.windows.net/stl-files/" +
             filename +
@@ -251,9 +353,7 @@ export default function Stlviewer({ file }: FileCardProps) {
           (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
           },
-          (error) => {
-            console.log(error);
-          }
+          (error) => {}
         );
       }
     }
@@ -274,64 +374,10 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     );
 
-    document.addEventListener("dblclick", function (event) {
-      if (file.selected) {
-        var title = file.selected.title;
-        scene.children = scene.children.filter(
-          (child) => !(child instanceof Sprite)
-        );
-        if (theline) {
-          scene.remove(theline);
-        }
-
-        //variabeles for determining the postion of the text label and corresponding line
-        var startingpoint = file.selected.position; //get startingpoint out of selected card
-        var endpoint = file.selected.endPosition; //to be calculated
-        //start of code for drawing theline
-        const linematerial = new THREE.LineBasicMaterial({
-          color: new THREE.Color(0x000000),
-          linewidth: 1,
-        });
-
-        const points = [];
-        if (startingpoint && endpoint) {
-          points.push(startingpoint);
-          points.push(endpoint);
-          const geometry = new THREE.BufferGeometry().setFromPoints(points);
-          theline = new THREE.Line(geometry, linematerial);
-          scene.add(theline);
-          //end of code for drawing theline
-
-          //start code for textlabel
-          var tekstlabel = makeTextSprite(title, {}, false, 1);
-
-          // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
-          tekstlabel.position.set(endpoint.x, endpoint.y, endpoint.z); //Define sprite's anchor point
-          scene.add(tekstlabel);
-          //end code for text label
-        }
-      }
-    });
-
-    // loader.load(
-    //   "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
-    //   function (geometry) {
-    //     const mesh = new THREE.Mesh(geometry, materialSkull);
-    //     scene.add(mesh);
-    //   },
-    //   (xhr) => {
-    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
-
     anim();
   });
-
   return <div ref={threeContainerRef} />;
-}
+});
 
 function Init() {
   //creating scene
@@ -412,4 +458,13 @@ function filter(id) {
   scene.children = scene.children.filter((child) => !(child.id == id));
 }
 
-export { controls, scene, theline, dictPositions };
+export {
+  controls,
+  scene,
+  theline,
+  dictPositions,
+  loader,
+  Stlviewer,
+  Skull,
+  DoubleClick,
+};
