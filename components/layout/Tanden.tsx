@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { controls, dictPositions } from "../stlviewer";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { IFile } from "../../types";
 
 const onSwipe = (teeth_id) => {
   if (dictPositions[teeth_id] == undefined) {
@@ -38,6 +39,7 @@ type TandenProps = {
   states: Object;
   skullSelect: boolean;
   skullLoaded: boolean;
+  file: IFile;
 };
 
 const Tanden = ({
@@ -45,6 +47,7 @@ const Tanden = ({
   setSkullSelect,
   skullSelect,
   skullLoaded,
+  file,
 }: TandenProps) => {
   // const handleClick = useCallback(() => {
   //   setSkullSelect(!skullSelect);
@@ -52,13 +55,13 @@ const Tanden = ({
   return (
     <div className="justify-center items-center flex-col flex">
       <div className="flex flex-row justify-center items-center text-xs">
-        <Tanden_1x states={states} onSwipe={onSwipe} />
-        <Tanden_2x states={states} onSwipe={onSwipe} />
+        <Tanden_1x states={states} onSwipe={onSwipe} file={file} />
+        <Tanden_2x states={states} onSwipe={onSwipe} file={file} />
       </div>
 
       <div className="flex flex-row place-content-center text-xs">
-        <Tanden_4x states={states} onSwipe={onSwipe} />
-        <Tanden_3x states={states} onSwipe={onSwipe} />
+        <Tanden_4x states={states} onSwipe={onSwipe} file={file} />
+        <Tanden_3x states={states} onSwipe={onSwipe} file={file} />
       </div>
 
       <div className="flex flex-row">

@@ -10,13 +10,15 @@ import {
 	TOOTH_27,
 	TOOTH_28
 } from '../../util/structuresCBCT';
+import { IFile } from "../../types/index.js";
 
 type TandenProps = {
 	states: any;
 	onSwipe: Function;
+	file: IFile;
   };
 
-const Tanden = ( {states, onSwipe} : TandenProps) => {
+const Tanden = ( {states, onSwipe, file} : TandenProps) => {
 
 	const Swipe = (teeth_id) => {
 		onSwipe(teeth_id);

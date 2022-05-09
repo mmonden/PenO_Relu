@@ -1,5 +1,5 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
-import {controls, scene, theline} from "../stlviewer";
+import { controls, scene, theline } from "../stlviewer";
 import * as THREE from "three";
 
 import {
@@ -12,22 +12,23 @@ import {
   TOOTH_17,
   TOOTH_18,
 } from "../../util/structuresCBCT";
-
+import { IFile } from "../../types/index.js";
 
 type TandenProps = {
   states: any;
   onSwipe: Function;
+  file: IFile;
 };
 
-const Tanden = ( {states, onSwipe} : TandenProps) => {
-
+const Tanden = ({ states, onSwipe, file }: TandenProps) => {
   const Swipe = (teeth_id) => {
     onSwipe(teeth_id);
   };
 
+  console.log(file);
   return (
     <div className="pl-4 pt-2 pb-2">
-      <button className="w-5" onClick = {() => Swipe("Tooth_18")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_18")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -44,7 +45,7 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_17")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_17")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -61,7 +62,7 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_16")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_16")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -78,13 +79,14 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_15")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_15")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_15].viewbox}
             stroke="currentColor"
+            color={file.selected.intersect == "Tooth_15" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -95,7 +97,7 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_14")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_14")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -112,7 +114,7 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_13")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_13")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -129,7 +131,7 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_12")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_12")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -146,7 +148,7 @@ const Tanden = ( {states, onSwipe} : TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick = {() => Swipe("Tooth_11")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_11")}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"

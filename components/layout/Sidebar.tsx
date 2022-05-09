@@ -2,12 +2,14 @@ import Back from "./Back";
 import Anatomy from "./Anatomy";
 import Display from "./Display";
 import { useState } from "react";
+import { IFile } from "../../types";
 
 type SidebarProps = {
   setSkullSelect: Function;
   states: Object;
   skullSelect: boolean;
   skullLoaded: boolean;
+  file: IFile;
 };
 
 const Sidebar = ({
@@ -15,6 +17,7 @@ const Sidebar = ({
   setSkullSelect,
   skullSelect,
   skullLoaded,
+  file,
 }: SidebarProps) => {
   const [swiped, setSwipe] = useState(false);
 
@@ -22,6 +25,7 @@ const Sidebar = ({
     setSwipe(!swiped);
   };
 
+  console.log(file.selected);
   return (
     <div className="flex items-center">
       {!swiped ? (
@@ -43,6 +47,7 @@ const Sidebar = ({
                 setSkullSelect={setSkullSelect}
                 skullSelect={skullSelect}
                 skullLoaded={skullLoaded}
+                file={file}
               />
             </div>
             <div className="bg-gray-100 h-full">

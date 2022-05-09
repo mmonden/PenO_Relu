@@ -46,6 +46,7 @@ export default function Home({ file, files, patients }) {
     controls.moveTo(50, 50, 100, true);
   };
 
+  console.log(file);
   var states_dict = { TOOTH_11: onSwipe };
   return (
     <div className="flex relative w-screen h-screen">
@@ -75,6 +76,7 @@ export default function Home({ file, files, patients }) {
           setSkullSelect={setSkullSelect}
           skullSelect={skullSelect}
           skullLoaded={skullLoaded}
+          file={file}
         />
         <div className="absolute right-0 bottom-0 flex flex-row">
           <PopUp file={file} />

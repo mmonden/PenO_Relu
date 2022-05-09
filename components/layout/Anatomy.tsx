@@ -1,11 +1,13 @@
 import Tanden from "./Tanden";
 import { useState } from "react";
+import { IFile } from "../../types";
 
 type AnatomyProps = {
   setSkullSelect: Function;
   states: Object;
   skullSelect: boolean;
   skullLoaded: boolean;
+  file: IFile;
 };
 
 const Anatomy = ({
@@ -13,6 +15,7 @@ const Anatomy = ({
   setSkullSelect,
   skullSelect,
   skullLoaded,
+  file,
 }: AnatomyProps) => {
   return (
     <div className="flex flex-col">
@@ -30,6 +33,7 @@ const Anatomy = ({
         setSkullSelect={setSkullSelect}
         skullSelect={skullSelect}
         skullLoaded={skullLoaded}
+        file={file}
       />
     </div>
   );
