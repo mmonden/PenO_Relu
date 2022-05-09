@@ -10,6 +10,7 @@ type SidebarProps = {
   skullSelect: boolean;
   skullLoaded: boolean;
   file: IFile;
+  selectedTooth: String;
 };
 
 const Sidebar = ({
@@ -18,6 +19,7 @@ const Sidebar = ({
   skullSelect,
   skullLoaded,
   file,
+  selectedTooth,
 }: SidebarProps) => {
   const [swiped, setSwipe] = useState(false);
 
@@ -25,7 +27,6 @@ const Sidebar = ({
     setSwipe(!swiped);
   };
 
-  console.log(file.selected);
   return (
     <div className="flex items-center">
       {!swiped ? (
@@ -48,6 +49,7 @@ const Sidebar = ({
                 skullSelect={skullSelect}
                 skullLoaded={skullLoaded}
                 file={file}
+                selectedTooth={selectedTooth}
               />
             </div>
             <div className="bg-gray-100 h-full">

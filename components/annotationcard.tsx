@@ -31,12 +31,14 @@ type AnnotationCardProps = {
   file: IFile;
   setAnnoClick: Function;
   annoClick: boolean;
+  setSelectedTooth: Function;
 };
 
 export default function AnnotationCard({
   card,
   deleteCard,
   file,
+  setSelectedTooth,
 }: AnnotationCardProps) {
   const [editing, setEdit] = useState(card.new);
   const [title, setTitle] = useState(card.title);
@@ -114,6 +116,7 @@ export default function AnnotationCard({
     if (!editing) {
       removecolor(file);
       file.selected = card;
+      setSelectedTooth(file.selected.intersect);
       addcolor(file);
       fetch("/api/update_file", {
         method: "POST",

@@ -16,9 +16,10 @@ type TandenProps = {
   states: any;
   onSwipe: Function;
   file: IFile;
+  selectedTooth: String;
 };
 
-const Tanden = ({ states, onSwipe, file }: TandenProps) => {
+const Tanden = ({ states, onSwipe, file, selectedTooth }: TandenProps) => {
   const Swipe = (teeth_id) => {
     onSwipe(teeth_id);
   };
@@ -32,6 +33,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_48].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_48" ? 2 : 1}
+            color={selectedTooth == "Tooth_48" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -49,6 +52,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_47].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_47" ? 2 : 1}
+            color={selectedTooth == "Tooth_47" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -66,6 +71,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_46].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_46" ? 2 : 1}
+            color={selectedTooth == "Tooth_46" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -83,6 +90,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_45].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_45" ? 2 : 1}
+            color={selectedTooth == "Tooth_45" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -100,6 +109,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_44].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_44" ? 2 : 1}
+            color={selectedTooth == "Tooth_44" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -117,6 +128,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_43].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_43" ? 2 : 1}
+            color={selectedTooth == "Tooth_43" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -134,6 +147,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_42].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_42" ? 2 : 1}
+            color={selectedTooth == "Tooth_42" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"
@@ -151,6 +166,8 @@ const Tanden = ({ states, onSwipe, file }: TandenProps) => {
             fill="none"
             viewBox={SVG_STRING_PER_STRUCTURE[TOOTH_41].viewbox}
             stroke="currentColor"
+            strokeWidth={selectedTooth == "Tooth_41" ? 2 : 1}
+            color={selectedTooth == "Tooth_41" ? "red" : "black"}
           >
             <path
               className="h-10 w-4"

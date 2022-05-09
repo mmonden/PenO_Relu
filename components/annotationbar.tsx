@@ -21,12 +21,14 @@ type AnnotationBarProps = {
   file: IFile;
   setAnnoClick: Function;
   annoClick: boolean;
+  setSelectedTooth: Function;
 };
 
 export default function AnnotationBar({
   file,
   setAnnoClick,
   annoClick,
+  setSelectedTooth,
 }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState<boolean>(false);
   const [cards, setCards] = useState<any>(file.cards);
@@ -121,6 +123,7 @@ export default function AnnotationBar({
                   file={file}
                   setAnnoClick={setAnnoClick}
                   annoClick={annoClick}
+                  setSelectedTooth={setSelectedTooth}
                 />
               );
             })}

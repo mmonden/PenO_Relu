@@ -7,10 +7,8 @@ import {
   controls,
   scene,
   theline,
-  loader,
   Skull,
   Stlviewer,
-  onDblClick,
 } from "../../components/stlviewer";
 import { removecolor } from "../../components/stlviewer";
 import { Navigation } from "../../components/NavBarPatient";
@@ -23,6 +21,7 @@ export default function Home({ file, files, patients }) {
   const [skullSelect, setSkullSelect] = useState(false);
   const [skullLoaded, setSkullLoaded] = useState(false);
   const [annoClick, setAnnoClick] = useState(false);
+  const [selectedTooth, setSelectedTooth] = useState("");
   const resetSTL = () => {
     if (file.selected) {
       removecolor(file);
@@ -46,7 +45,6 @@ export default function Home({ file, files, patients }) {
     controls.moveTo(50, 50, 100, true);
   };
 
-  console.log(file);
   var states_dict = { TOOTH_11: onSwipe };
   return (
     <div className="flex relative w-screen h-screen">
@@ -65,6 +63,7 @@ export default function Home({ file, files, patients }) {
           file={file}
           setAnnoClick={setAnnoClick}
           annoClick={annoClick}
+          setSelectedTooth={setSelectedTooth}
         />
       </div>
       <div
@@ -77,6 +76,7 @@ export default function Home({ file, files, patients }) {
           skullSelect={skullSelect}
           skullLoaded={skullLoaded}
           file={file}
+          selectedTooth={selectedTooth}
         />
         <div className="absolute right-0 bottom-0 flex flex-row">
           <PopUp file={file} />

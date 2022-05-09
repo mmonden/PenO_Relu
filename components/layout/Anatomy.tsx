@@ -8,6 +8,7 @@ type AnatomyProps = {
   skullSelect: boolean;
   skullLoaded: boolean;
   file: IFile;
+  selectedTooth: String;
 };
 
 const Anatomy = ({
@@ -16,6 +17,7 @@ const Anatomy = ({
   skullSelect,
   skullLoaded,
   file,
+  selectedTooth,
 }: AnatomyProps) => {
   return (
     <div className="flex flex-col">
@@ -34,6 +36,7 @@ const Anatomy = ({
         skullSelect={skullSelect}
         skullLoaded={skullLoaded}
         file={file}
+        selectedTooth={selectedTooth}
       />
     </div>
   );

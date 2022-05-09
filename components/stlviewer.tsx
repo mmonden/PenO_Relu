@@ -223,7 +223,7 @@ export function LoadSkull(setSkullLoaded) {
       setSkullLoaded(true);
     },
     (xhr) => {
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      //Òconsole.log((xhr.loaded / xhr.total) * 100 + "% loaded");
     },
     (error) => {
       console.log(error);
