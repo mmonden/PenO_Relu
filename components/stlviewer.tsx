@@ -39,6 +39,7 @@ let dictPositions,
   first = [],
   sphere,
   theline;
+  renderer;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -428,4 +429,5 @@ export {
   Stlviewer,
   Skull,
   sphere,
+  renderer
 };

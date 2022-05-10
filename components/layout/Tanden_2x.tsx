@@ -1,4 +1,6 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
+import { dictPositions } from "../stlviewer";
+import { useState } from "react";
 
 import {
   TOOTH_21,
@@ -17,12 +19,15 @@ type TandenProps = {
   onSwipe: Function;
   file: IFile;
   selectedTooth: String;
+  onWisdom: Function;
 };
 
-const Tanden = ({ states, onSwipe, file, selectedTooth }: TandenProps) => {
+const Tanden = ({ states, onSwipe, file, selectedTooth, onWisdom}: TandenProps) => {
   const Swipe = (teeth_id) => {
     onSwipe(teeth_id);
   };
+
+  const [wisDom, setWisdom] = useState<boolean>(true);
 
   return (
     <div className="pr-4 pt-2 pb-2">
@@ -159,7 +164,7 @@ const Tanden = ({ states, onSwipe, file, selectedTooth }: TandenProps) => {
         </div>
       </button>
 
-      <button className="w-5" onClick={() => Swipe("Tooth_28")}>
+      <button className="w-5" onClick={() => Swipe("Tooth_28")} disabled={wisDom}>
         <div className="flex flex-col">
           <svg
             className="h-12 w-5"
@@ -168,6 +173,7 @@ const Tanden = ({ states, onSwipe, file, selectedTooth }: TandenProps) => {
             stroke="currentColor"
             strokeWidth={selectedTooth == "Tooth_28" ? 2 : 1}
             color={selectedTooth == "Tooth_28" ? "red" : "black"}
+            strokeDasharray = { wisDom ? "2.2" : "0"}
           >
             <path
               className="h-10 w-4"

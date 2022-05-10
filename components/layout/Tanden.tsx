@@ -11,6 +11,19 @@ import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IFile } from "../../types";
 
+const onWisdom = (teeth_id) => {
+  if (dictPositions != undefined){
+
+    if (dictPositions[teeth_id] == undefined) {
+      return false
+    }
+  
+    return true
+
+  }
+}
+
+
 const onSwipe = (teeth_id) => {
   if (dictPositions[teeth_id] == undefined) {
     alert("This tooth is not present");
@@ -68,12 +81,14 @@ const Tanden = ({
           onSwipe={onSwipe}
           file={file}
           selectedTooth={selectedTooth}
+          onWisdom={onWisdom}
         />
         <Tanden_2x
           states={states}
           onSwipe={onSwipe}
           file={file}
           selectedTooth={selectedTooth}
+          onWisdom={onWisdom}
         />
       </div>
 
@@ -83,12 +98,14 @@ const Tanden = ({
           onSwipe={onSwipe}
           file={file}
           selectedTooth={selectedTooth}
+          onWisdom={onWisdom}
         />
         <Tanden_3x
           states={states}
           onSwipe={onSwipe}
           file={file}
           selectedTooth={selectedTooth}
+          onWisdom={onWisdom}
         />
       </div>
 
