@@ -339,27 +339,27 @@ const Stlviewer = React.memo(function Stlviewer({
 
     anim();
 
-    if (document != undefined) {
-      document.addEventListener("dblclick", function (event) {
-        //integrate raycasting to differentiate between on teeth and on empty space
-        let foundtooth = false;
-        const mouse = new THREE.Vector2();
-        var raycaster = new THREE.Raycaster();
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        raycaster.setFromCamera(mouse, camera);
-        var intersects = raycaster.intersectObjects(scene.children);
-        for (var i = 0; i < intersects.length; i++) {
-          if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
-            console.log("change camera", intersects[i].object.name); //Rob
-            foundtooth = true;
-          }
-        }
-        if (!foundtooth) {
-          controls.reset(true);
-        }
-      });
-    }
+    // if (document != undefined) {
+    //   document.addEventListener("dblclick", function (event) {
+    //     //integrate raycasting to differentiate between on teeth and on empty space
+    //     let foundtooth = false;
+    //     const mouse = new THREE.Vector2();
+    //     var raycaster = new THREE.Raycaster();
+    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    //     raycaster.setFromCamera(mouse, camera);
+    //     var intersects = raycaster.intersectObjects(scene.children);
+    //     for (var i = 0; i < intersects.length; i++) {
+    //       if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
+    //         console.log("change camera", intersects[i].object.name); //Rob
+    //         foundtooth = true;
+    //       }
+    //     }
+    //     if (!foundtooth) {
+    //       controls.reset(true);
+    //     }
+    //   });
+    // }
   });
   return <div ref={threeContainerRef} />;
 });
