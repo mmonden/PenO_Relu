@@ -70,6 +70,7 @@ export function addcolor(file) {
 }
 
 export function onDblClick(file: IFile) {
+  console.log("here");
   if (file.selected) {
     var title = file.selected.title;
     scene.children = scene.children.filter(
@@ -262,6 +263,7 @@ const Stlviewer = React.memo(function Stlviewer({
   setSkullLoaded,
 }: FileCardProps) {
   LoadSkull(setSkullLoaded);
+
   const threeContainerRef = useRef(null);
   //STL file loading
   useEffect(() => {
@@ -336,6 +338,12 @@ const Stlviewer = React.memo(function Stlviewer({
     );
 
     anim();
+
+    if (document != undefined) {
+      document.addEventListener("dblclick", function (event) {
+        controls.reset(true);
+      });
+    }
   });
   return <div ref={threeContainerRef} />;
 });

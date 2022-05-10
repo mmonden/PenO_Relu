@@ -136,7 +136,7 @@ export default function AnnotationCard({
         onSubmit={toggleEdit}
         onClick={() => onAnnotation()}
       >
-        <div className="text-2xl mb-2" onClick={() => onDblClick(file)}>
+        <div className="text-2xl mb-2">
           {editing ? (
             <input
               className="border-2"
