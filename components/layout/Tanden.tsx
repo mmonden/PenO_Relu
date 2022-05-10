@@ -51,8 +51,10 @@ const sideView = (side) => {
   console.log(side);
   if (side == "R") {
     controls.setLookAt(-129, -0.6, 10.44, 0, 0, 0, true);
-  } else {
+  } else if (side == "L") {
     controls.setLookAt(131, -0.6, 10.44, 0, 0, 0, true);
+  } else {
+    controls.reset(true);
   }
 };
 
@@ -73,6 +75,14 @@ const Tanden = ({
   file,
   selectedTooth,
 }: TandenProps) => {
+  const handleClick = () => {
+    setSkullSelect(!skullSelect);
+    if (!skullSelect) {
+      controls.setLookAt(0, -200, 50, 0, 100, 50, true);
+    } else {
+      controls.setLookAt(0, -128, 0, 0, 0, 0, true);
+    }
+  };
   return (
     <div className="justify-center items-center flex-col flex">
       <div className="flex flex-row justify-center items-center text-xs">
@@ -116,11 +126,14 @@ const Tanden = ({
         </button>
 
         <div className="items-center place-content-center">
-          <Image
-            src={require("../textures/relugebit.png")}
-            height={150}
-            width={150}
-          />
+          <button onClick={() => sideView("C")}>
+            <Image
+              src={require("../textures/relugebit.png")}
+              height={150}
+              width={150}
+              alt="logo"
+            />
+          </button>
         </div>
         <button onClick={() => sideView("L")}>
           {" "}
@@ -140,7 +153,7 @@ const Tanden = ({
             id="topping"
             name="topping"
             value="skullChecked"
-            onClick={() => setSkullSelect(!skullSelect)}
+            onClick={() => handleClick()}
           />
           <div>SHOW SKULL</div>{" "}
         </div>

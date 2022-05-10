@@ -9,13 +9,14 @@ import {
   theline,
   Skull,
   Stlviewer,
+  camera,
 } from "../../components/stlviewer";
 import { removecolor } from "../../components/stlviewer";
 import { Navigation } from "../../components/NavBarPatient";
 import { getSession } from "next-auth/react";
 import { getFiles } from "../../lib/annotations";
 import THREE, { Sprite } from "three";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home({ file, files, patients }) {
   const [skullSelect, setSkullSelect] = useState(false);
@@ -39,11 +40,31 @@ export default function Home({ file, files, patients }) {
         scene.remove(object);
       }
     }
-    controls.reset(true);
+    if (skullSelect) {
+      controls.setLookAt(0, -200, 50, 0, 100, 50, true);
+    } else {
+      controls.reset(true);
+    }
+    setSelectedTooth("");
   };
+
   const onSwipe = () => {
     controls.moveTo(50, 50, 100, true);
   };
+
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.src =
+      "https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   var states_dict = { TOOTH_11: onSwipe };
   return (
@@ -57,7 +78,7 @@ export default function Home({ file, files, patients }) {
           resetSTL={resetSTL}
         />
       </div>
-      ({skullSelect ? <Skull select={true} /> : <Skull select={false} />})
+      {skullSelect ? <Skull select={true} /> : <Skull select={false} />}
       <div className="absolute top-12">
         <AnnotationBar
           file={file}

@@ -18,3 +18,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+button:hover {
+  color: rgb(110, 110, 110);
+}
+
+svg:hover {
+  color: rgb(110, 110, 110);
+  stroke-width: 2;
+}

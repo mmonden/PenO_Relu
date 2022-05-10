@@ -2,6 +2,7 @@ import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
 import { useState } from "react";
 import { dictPositions } from "../stlviewer";
 import * as THREE from "three";
+import { controls, scene, theline } from "../stlviewer";
 
 import {
   TOOTH_11,

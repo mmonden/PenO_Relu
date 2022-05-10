@@ -263,6 +263,7 @@ const Stlviewer = React.memo(function Stlviewer({
   setSkullLoaded,
 }: FileCardProps) {
   LoadSkull(setSkullLoaded);
+
   const threeContainerRef = useRef(null);
   //STL file loading
   useEffect(() => {
@@ -337,6 +338,28 @@ const Stlviewer = React.memo(function Stlviewer({
     );
 
     anim();
+
+    if (document != undefined) {
+      document.addEventListener("dblclick", function (event) {
+        //integrate raycasting to differentiate between on teeth and on empty space
+        let foundtooth = false;
+        const mouse = new THREE.Vector2();
+        var raycaster = new THREE.Raycaster();
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        var intersects = raycaster.intersectObjects(scene.children);
+        for (var i = 0; i < intersects.length; i++) {
+          if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
+            console.log("change camera", intersects[i].object.name); //Rob
+            foundtooth = true;
+          }
+        }
+        if (!foundtooth) {
+          controls.reset(true);
+        }
+      });
+    }
   });
   return <div ref={threeContainerRef} />;
 });
@@ -353,7 +376,7 @@ function Init() {
   followLight.castShadow = true;
   scene.add(followLight);
 
-  light = new THREE.AmbientLight(0x404040, 0.5);
+  light = new THREE.AmbientLight(0x404040, 0.25);
   scene.add(light);
 
   //CAMERA
@@ -364,7 +387,7 @@ function Init() {
     1000 //distance from camera objects stops appearing
   );
 
-  camera.position.set(0, -128, 0); // Set position like this
+  camera.position.set(0, -128, 0);
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
@@ -429,5 +452,6 @@ export {
   Stlviewer,
   Skull,
   sphere,
-  renderer
+  camera,
+  renderer,
 };
