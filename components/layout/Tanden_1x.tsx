@@ -1,6 +1,5 @@
 import { SVG_STRING_PER_STRUCTURE } from "../textures/AnatomySvgData.js";
 import { controls, scene, theline } from "../stlviewer";
-import * as THREE from "three";
 
 import {
   TOOTH_11,

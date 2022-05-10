@@ -62,19 +62,16 @@ export const Navigation = ({
       >
         <Container className="container-fluid min-w-full">
           <div className="pl-2 pr-4 pt-2">
-            <Image
-              src={require("./images/relu-logo-small.png")}
-              className=""
-              alt="Logo"
-              width={120}
-              height={50}
-            />
+            <button onClick={() => (document.location.href = "http://localhost:3000/")}>
+              <Image
+                src={require("./images/relu-logo-small.png")}
+                className=""
+                alt="Logo"
+                width={120}
+                height={50}
+              />
+            </button>
           </div>
-          <Navbar.Brand
-            onClick={() => (document.location.href = "http://localhost:3000/")}
-          >
-            <button>Home</button>
-          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto space-x-4">
