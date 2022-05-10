@@ -22,35 +22,42 @@ export default function Login() {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <div>
-        <img src="/relu.png" className="min-w-[100%] p-2" />
+        <img src="/relu.png" className="min-w-[100%] p-2" alt="logo" />
         <div className="border border-black p-5 rounded-md">
-          <form onSubmit={handleLogin} className="flex flex-col items-center">
-            <label>
-              Email:
+          <form
+            onSubmit={handleLogin}
+            className="flex flex-col left-0 space-y-2"
+          >
+            <div className="flex flex-row">
               <input
                 id="email"
                 name="email"
                 type="text"
-                className="m-3 border-b-2"
+                className="border-b-2 flex right-0"
+                placeholder="Email"
+                required
               />
-            </label>
-            <label>
-              Password:
+            </div>
+            <div className="flex flex-row">
               <input
                 id="password"
                 name="password"
                 type="password"
-                className="m-3 border-b-2"
+                className="border-b-2"
+                placeholder="Password"
+                required
               />
-            </label>
+            </div>
             {error ? (
               <div className="text-red-600">Wrong email or password!</div>
             ) : null}
-            <input
-              type="submit"
-              value="Login"
-              className="border border-black p-2 m-2 w-20 rounded-full"
-            />
+            <div className="min-w-full flex justify-center">
+              <input
+                type="submit"
+                value="Login"
+                className="border border-black p-2 m-2 w-20 rounded-full flex justify-center"
+              />
+            </div>
           </form>
         </div>
       </div>
