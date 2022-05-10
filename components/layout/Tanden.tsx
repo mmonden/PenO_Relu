@@ -62,6 +62,14 @@ const Tanden = ({
   file,
   selectedTooth,
 }: TandenProps) => {
+  const handleClick = () => {
+    setSkullSelect(!skullSelect);
+    if (!skullSelect) {
+      controls.setLookAt(0, -200, 50, 0, 100, 50, true);
+    } else {
+      controls.setLookAt(0, -128, 0, 0, 0, 0, true);
+    }
+  };
   return (
     <div className="justify-center items-center flex-col flex">
       <div className="flex flex-row justify-center items-center text-xs">
@@ -128,7 +136,7 @@ const Tanden = ({
             id="topping"
             name="topping"
             value="skullChecked"
-            onClick={() => setSkullSelect(!skullSelect)}
+            onClick={() => handleClick()}
           />
           <div>SHOW SKULL</div>{" "}
         </div>

@@ -25,6 +25,7 @@ const Tanden = ({ states, onSwipe, file, selectedTooth }: TandenProps) => {
   const Swipe = (teeth_id) => {
     onSwipe(teeth_id);
   };
+
   return (
     <div className="pl-4 pt-2 pb-2">
       <button className="w-5" onClick={() => Swipe("Tooth_18")}>
