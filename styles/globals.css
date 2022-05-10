@@ -20,11 +20,10 @@ a {
 }
 
 button:hover {
-  color: gray;
-  font-weight: 900;
+  color: rgb(110, 110, 110);
 }
 
 svg:hover {
-  color: gray;
+  color: rgb(110, 110, 110);
   stroke-width: 2;
 }

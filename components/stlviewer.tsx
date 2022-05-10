@@ -39,6 +39,7 @@ let dictPositions,
   first = [],
   sphere,
   theline;
+  renderer;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -338,27 +339,27 @@ const Stlviewer = React.memo(function Stlviewer({
 
     anim();
 
-    if (document != undefined) {
-      document.addEventListener("dblclick", function (event) {
-        //integrate raycasting to differentiate between on teeth and on empty space
-        let foundtooth = false;
-        const mouse = new THREE.Vector2();
-        var raycaster = new THREE.Raycaster();
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        raycaster.setFromCamera(mouse, camera);
-        var intersects = raycaster.intersectObjects(scene.children);
-        for (var i = 0; i < intersects.length; i++) {
-          if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
-            console.log('change camera', intersects[i].object.name)  //Rob
-            foundtooth = true;
-          }
-        }
-        if (!foundtooth){
-          controls.reset(true);
-        }
-      });
-    }
+    // if (document != undefined) {
+    //   document.addEventListener("dblclick", function (event) {
+    //     //integrate raycasting to differentiate between on teeth and on empty space
+    //     let foundtooth = false;
+    //     const mouse = new THREE.Vector2();
+    //     var raycaster = new THREE.Raycaster();
+    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    //     raycaster.setFromCamera(mouse, camera);
+    //     var intersects = raycaster.intersectObjects(scene.children);
+    //     for (var i = 0; i < intersects.length; i++) {
+    //       if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
+    //         console.log("change camera", intersects[i].object.name); //Rob
+    //         foundtooth = true;
+    //       }
+    //     }
+    //     if (!foundtooth) {
+    //       controls.reset(true);
+    //     }
+    //   });
+    // }
   });
   return <div ref={threeContainerRef} />;
 });
@@ -386,7 +387,7 @@ function Init() {
     1000 //distance from camera objects stops appearing
   );
 
-  camera.position.set(0, -128, 0); // Set position like this
+  camera.position.set(0, -128, 0);
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();
