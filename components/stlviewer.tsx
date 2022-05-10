@@ -428,4 +428,6 @@ export {
   Stlviewer,
   Skull,
   sphere,
+  camera,
+  renderer,
 };

@@ -117,6 +117,7 @@ export default function AnnotationCard({
       removecolor(file);
       file.selected = card;
       setSelectedTooth(file.selected.intersect);
+      onDblClick(file);
       addcolor(file);
       fetch("/api/update_file", {
         method: "POST",
