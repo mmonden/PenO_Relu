@@ -106,7 +106,7 @@ export default function AnnotationBar({
           }}
         >
           <div id="header_annobar" className="flex justify-center items-center">
-            <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4">
+            <div className="flex justify-center text-5xl my-4 border-b-2 border-black h-fit pb-4">
               Annotaties
             </div>
             <button onClick={newCard}>
