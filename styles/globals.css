@@ -18,3 +18,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+button:hover {
+  color: gray;
+  font-weight: 900;
+}
+
+svg:hover {
+  color: gray;
+  stroke-width: 2;
+}
