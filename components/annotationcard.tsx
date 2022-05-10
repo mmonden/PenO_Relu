@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { addcolor, onDblClick, removecolor, sphere } from "./stlviewer";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   controls,
   scene,
@@ -44,6 +46,7 @@ export default function AnnotationCard({
   const [title, setTitle] = useState(card.title);
   const [text, setText] = useState(card.text);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenToothSelected, setIsOpenToothSelected] = useState(false);
 
   const deleteAnnoCard = () => {
     if (file.selected) {
@@ -65,30 +68,37 @@ export default function AnnotationCard({
   };
 
   const toggleEdit = () => {
-    if (editing && (title != card.title || text != card.text)) {
-      card.title = title;
-      card.text = text;
+    if (editing && typeof card.position == 'undefined') {
+      toast.error("Selecteer eerst een tand en sla dan opnieuw op.", {
+        className: "text-lg",
+      });
+    }
+    else {
+      if (editing && (title != card.title || text != card.text)) {
+        card.title = title;
+        card.text = text;
 
-      fetch("/api/write_anno", {
+        fetch("/api/write_anno", {
+          method: "POST",
+          body: JSON.stringify({ card }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+      file.time = new Date().toLocaleString();
+      fetch("/api/update_file", {
         method: "POST",
-        body: JSON.stringify({ card }),
+        body: JSON.stringify({ file }),
         headers: {
           "Content-Type": "application/json",
         },
       });
+      if (editing) {
+        onDblClick(file);
+      }
+      setEdit(editing ? false : true);
     }
-    file.time = new Date().toLocaleString();
-    fetch("/api/update_file", {
-      method: "POST",
-      body: JSON.stringify({ file }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (editing) {
-      onDblClick(file);
-    }
-    setEdit(editing ? false : true);
   };
 
   const onDelete = () => {
@@ -163,8 +173,14 @@ export default function AnnotationCard({
         </div>
       </form>
       <div className="text-gray-700 text-2xl flex items-center flex-col">
+        <ToastContainer position="top-left" autoClose={8000} />
         <button className="m-2" onClick={toggleEdit}>
-          {editing ? <AiOutlineSave /> : <AiOutlineEdit />}
+          {(editing && typeof card.position == 'undefined') ?
+            <AiOutlineSave />
+            :
+            ((editing && typeof card.position != 'undefined') ?
+              <AiOutlineSave /> : <AiOutlineEdit />)
+          }
         </button>
         {isOpen ? (
           <Modal isOpen={isOpen} style={customStyles}>
