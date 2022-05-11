@@ -74,7 +74,7 @@ export default function PatientCard({
   return (
     <div className="relative text-gray-700 text-2xl">
       <div className="">
-        <div className="flex items-center space-x-2 w-full">
+        <div className="flex items-center space-x-2">
           <button onClick={setPatient}>
             <a>
               <div className="flex items-center">

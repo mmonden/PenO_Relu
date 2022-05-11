@@ -24,7 +24,7 @@ export default function HomePage({
   patients_input,
   files_input,
 }: HomePageProps) {
-  const [selectedPatient, setSelectedPatient] = useState(patients_input[0]);
+  const [selectedPatient, setSelectedPatient] = useState(null);
   const [files, setFiles] = useState(files_input);
   const [patients, setPatients] = useState(patients_input);
 
@@ -97,7 +97,7 @@ export default function HomePage({
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
       <div
-        className="absolute left-10 top-16 w-1/3 overflow-y-auto"
+        className="absolute left-10 top-16 overflow-y-auto"
         style={{ height: "calc(100vh - 64px)" }}
       >
         <PatientList
@@ -115,6 +115,7 @@ export default function HomePage({
           addFile={undefined}
           updateFile={undefined}
           deleteFilecard={undefined}
+          loggedFiles={loggedFiles}
         />
       </div>
       <div className="absolute right-10 bottom-10 w-7/12 h-1/2 overflow-y-auto">
