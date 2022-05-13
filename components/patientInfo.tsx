@@ -60,7 +60,7 @@ export default function PatientInfo({ selected_patient }: FileListProps) {
           </div>
         </div>
       ) : (
-        <div></div>
+        <div className="h-5/6 min-w-full"></div>
       )}
     </div>
   );

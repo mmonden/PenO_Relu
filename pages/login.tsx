@@ -26,7 +26,7 @@ export default function Login() {
         <div className="border border-black p-5 rounded-md">
           <form
             onSubmit={handleLogin}
-            className="flex flex-col left-0 space-y-2"
+            className="flex flex-col items-center space-y-2"
           >
             <div className="flex flex-row">
               <input
