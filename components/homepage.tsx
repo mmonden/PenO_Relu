@@ -92,39 +92,41 @@ export default function HomePage({
   };
 
   return (
-    <div className="min-w-screen min-h-screen flex relative overflow-hidden">
-      <div className="w-full absolute top-0">
+    <div className="flex flex-col overflow-hidden space-y-1 h-screen">
+      <div className="w-full">
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
-      <div
-        className="absolute left-10 top-16 w-1/3 overflow-y-auto"
-        style={{ height: "calc(100vh - 64px)" }}
-      >
-        <PatientList
-          patients_input={patients}
-          changePatient={changePatient}
-          addPatient={addPatient}
-          updatePatient={updatePatient}
-          deletePatientCard={deletePatient}
-        />
-      </div>
-      <div className="absolute right-10 top-16 w-7/12 h-2/6 bg-gray-200">
-        <PatientInfo
-          selected_patient={selectedPatient}
-          files_input={[]}
-          addFile={undefined}
-          updateFile={undefined}
-          deleteFilecard={undefined}
-        />
-      </div>
-      <div className="absolute right-10 bottom-10 w-7/12 h-1/2 overflow-y-auto">
-        <FileList
-          files_input={loggedFiles}
-          selected_patient={selectedPatient}
-          addFile={addFile}
-          updateFile={updateFile}
-          deleteFilecard={deleteFile}
-        />
+
+      <div className="flex flex-row space-x-5 px-2">
+        <div className="">
+          <PatientList
+            patients_input={patients}
+            changePatient={changePatient}
+            addPatient={addPatient}
+            updatePatient={updatePatient}
+            deletePatientCard={deletePatient}
+          />
+        </div>
+
+        <div className="flex flex-col w-full">
+          <div className="bg-gray-200">
+            <PatientInfo
+              selected_patient={selectedPatient}
+              files_input={[]}
+              addFile={undefined}
+              updateFile={undefined}
+              deleteFilecard={undefined}
+            />
+          </div>
+
+          <FileList
+            files_input={loggedFiles}
+            selected_patient={selectedPatient}
+            addFile={addFile}
+            updateFile={updateFile}
+            deleteFilecard={deleteFile}
+          />
+        </div>
       </div>
     </div>
   );

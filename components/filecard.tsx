@@ -90,10 +90,10 @@ export default function FileCard({
           href={editing ? "javascript: void(0)" : `/view/${file._id}`}
           style={{ textDecoration: "none", color: "black" }}
         >
-          <a>
             <div className="flex items-center">
               <AiFillFile className="text-5xl" />
-              <div className="w-80 p-4 text-gray-700">
+
+              <div className="p-4 text-gray-700">
                 <div className="text-3xl flex left-0">
                   {editing ? (
                     <input
@@ -108,7 +108,6 @@ export default function FileCard({
                 </div>
               </div>
             </div>
-          </a>
         </a>
       </div>
       <div className="absolute flex right-0 min-h-full top-0 space-x-2">
@@ -130,7 +129,7 @@ export default function FileCard({
           </Modal>
         ) : (
           <button onClick={() => setIsOpen(true)}>
-            <AiOutlineDelete className="w-7 h-7" />
+            <AiOutlineDelete className="text-3xl" />
           </button>
         )}
       </div>

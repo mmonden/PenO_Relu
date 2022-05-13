@@ -21,9 +21,14 @@ a {
 
 button:hover {
   color: rgb(110, 110, 110);
+  border-color: currentColor;
 }
 
 svg:hover {
   color: rgb(110, 110, 110);
   stroke-width: 2;
+}
+
+p1 {
+  font-size: xx-large;
 }

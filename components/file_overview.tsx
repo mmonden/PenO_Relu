@@ -53,18 +53,18 @@ export default function FileList({
 
   return (
     <div className="">
-      <div className="relative flex justify-center items-center text-6xl border-b-2">
-        Scans
-        <div className="absolute flex right-0">
-          {files.length > 0 ? (
-            <button onClick={newFile}>
-              <MdAdd className="text-3xl" />
-            </button>
-          ) : (
-            true
-          )}
-        </div>
+      <div className="flex relative justify-center border-b-2">
+        <p1>Scans</p1>
+
+        {files.length > 0 ? (
+          <button onClick={newFile}>
+            <MdAdd className="text-3xl absolute bottom-2 right-8" style={{"strokeWidth": "0"}}/>
+          </button>
+        ) : (
+          true
+        )}
       </div>
+
       <div className="divide-y-2">
         {files.map((file) => {
           return (

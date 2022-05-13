@@ -73,7 +73,6 @@ export default function PatientCard({
 
   return (
     <div className="relative text-gray-700 text-2xl">
-      <div className="">
         <div className="flex items-center space-x-2 w-full">
           <button onClick={setPatient}>
             <a>
@@ -85,7 +84,7 @@ export default function PatientCard({
               </div>
             </a>
           </button>
-          <button>
+          <button >
             {editOpen ? (
               <Modal isOpen={editOpen} style={customStyles}>
                 <EditForm
@@ -116,7 +115,6 @@ export default function PatientCard({
             </button>
           )}
         </div>
-      </div>
     </div>
   );
 }

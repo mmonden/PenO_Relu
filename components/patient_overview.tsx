@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import { AddForm } from "./addForm";
+import { rgbToHex } from "@mui/material";
 
 type PatientListProps = {
   patients_input: IPatient[];
@@ -55,21 +56,22 @@ export default function PatientList({
   };
 
   return (
-    <div className="">
-      <div className="relative flex justify-center items-center text-6xl border-b-2">
-        Patiënten
-        <div className="absolute flex right-0">
+    <div className="relative">
+      <div className="flex justify-center items-center">
+        <p1>Patiënten</p1>
+        <div className="absolute right-0">
           {isOpen ? (
             <Modal isOpen={isOpen} style={customStyles}>
               <AddForm setIsOpen={setIsOpen} newPatient={newPatient} />
             </Modal>
           ) : (
             <button onClick={() => setIsOpen(true)}>
-              <MdAdd className="text-3xl" />
+              <MdAdd className="text-3xl" style={{"strokeWidth": "0"}} />
             </button>
           )}
         </div>
       </div>
+
       <div className="divide-y-2">
         {patients.map((patient, index) => {
           return (

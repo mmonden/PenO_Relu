@@ -19,11 +19,11 @@ export default function PatientInfo({ selected_patient }: FileListProps) {
   const [image, setImage] = useState(false);
 
   return (
-    <div className="relative min-h-full min-w-full ">
-      <div className="absolute min-w-full h-1/6 flex justify-center text-3xl border-b-2 border-black">
+    <div className="">
+      <div className="flex justify-center text-3xl">
         Profiel
       </div>
-      <div className="absolute flex flex-row h-5/6 min-w-full bottom-0 space-x-10 overflow-y-auto">
+      <div className="flex flex-row h-5/6 min-w-full bottom-0 space-x-10">
         <div className="flex items-center pl-4">
           {typeof selected_patient.picture != "undefined" &&
           selected_patient.picture != "" ? (
