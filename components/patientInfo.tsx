@@ -19,47 +19,46 @@ type FileListProps = {
 export default function PatientInfo({ selected_patient }: FileListProps) {
   return (
     <div className="">
-      <div className="flex justify-center text-3xl">
-        Profiel
-      </div>
-      <div className="flex flex-row h-5/6 min-w-full bottom-0 space-x-10">
-        <div className="flex items-center pl-4">
-          {typeof selected_patient.picture != "undefined" &&
-          selected_patient.picture != "" ? (
-            <Image
-              src={selected_patient.picture}
-              alt="Photo"
-              width={140}
-              height={180}
-            />
-          ) : (
-            <Image
-              src={require("./images/Default.png")}
-              alt="Photo"
-              width={140}
-              height={180}
-            />
-          )}
+      <div className="flex justify-center text-3xl">Profiel</div>
+      {selected_patient != undefined ? (
+        <div className="flex flex-row h-5/6 min-w-full bottom-0 space-x-10">
+          <div className="flex items-center pl-4">
+            {typeof selected_patient.picture != "undefined" &&
+            selected_patient.picture != "" ? (
+              <Image
+                src={selected_patient.picture}
+                alt="Photo"
+                width={140}
+                height={180}
+              />
+            ) : (
+              <Image
+                src={require("./images/Default.png")}
+                alt="Photo"
+                width={140}
+                height={180}
+              />
+            )}
+          </div>
+          <div className="flex flex-column justify-center">
+            <p>
+              <span className="font-bold">Naam: </span>
+              <span>{selected_patient.name} </span>
+            </p>
+            <p>
+              <span className="font-bold">Geslacht: </span>
+              <span>{selected_patient.sex}</span>
+            </p>
+            <p>
+              <span className="font-bold">Geboorte: </span>
+              <span>{selected_patient.birth} </span>
+            </p>
+            <p>
+              <span className="font-bold">Extra info: </span>
+              <span> {selected_patient.extraInfo} </span>
+            </p>
+          </div>
         </div>
-        <div className="flex flex-column justify-center">
-          <p>
-            <span className="font-bold">Naam: </span>
-            <span>{selected_patient.name} </span>
-          </p>
-          <p>
-            <span className="font-bold">Geslacht: </span>
-            <span>{selected_patient.sex}</span>
-          </p>
-          <p>
-            <span className="font-bold">Geboorte: </span>
-            <span>{selected_patient.birth} </span>
-          </p>
-          <p>
-            <span className="font-bold">Extra info: </span>
-            <span> {selected_patient.extraInfo} </span>
-          </p>
-        </div>
-      </div>
       ) : (
         <div></div>
       )}
