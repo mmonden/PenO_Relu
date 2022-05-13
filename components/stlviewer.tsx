@@ -476,6 +476,32 @@ function filter(id) {
   scene.children = scene.children.filter((child) => !(child.id == id));
 }
 
+// Instantiate a exporter
+// const exporter = new GLTFExporter();
+
+// function exportSTL(){
+//   exporter.parse(
+//     scene,
+//     // called when the gltf has been generated
+//     function ( gltf ) {
+  
+//       console.log( gltf );
+//       downloadJSON( gltf );
+  
+//     },
+//     // called when there is an error in the generation
+//     function ( error ) {
+  
+//       console.log( 'An error happened' );
+  
+//     },
+//     options
+//   );
+  
+
+// }
+// Parse the input and generate the glTF output
+
 export {
   controls,
   scene,
