@@ -39,6 +39,7 @@ let dictPositions,
   first = [],
   sphere,
   theline;
+  renderer;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -221,6 +222,7 @@ export function LoadSkull(setSkullLoaded) {
       skull.push(skullMesh);
       first.push(1);
       setSkullLoaded(true);
+      getAbsolutePosition(skullMesh, dictPositions);
     },
     (xhr) => {
       //Òconsole.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -326,6 +328,7 @@ const Stlviewer = React.memo(function Stlviewer({
         geometry.translate(0, 0, 35);
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
+        mesh.name = "Mandible";
         getAbsolutePosition(mesh, dictPositions);
       },
       (xhr) => {
@@ -350,12 +353,43 @@ const Stlviewer = React.memo(function Stlviewer({
         var intersects = raycaster.intersectObjects(scene.children);
         for (var i = 0; i < intersects.length; i++) {
           if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
-            console.log('change camera', intersects[i].object.name)  //Rob
+            console.log("change camera", intersects[i].object.name); //Rob
+
+            var teeth_id = intersects[i].object.name
+
+            if (dictPositions[teeth_id] == undefined) {
+              alert("This object is not present");
+              return;
+            }
+          
+            var posx = dictPositions[teeth_id].x;
+            var posy = dictPositions[teeth_id].y;
+            var posz = dictPositions[teeth_id].z;
+
+            console.log(teeth_id)
+
+            if (teeth_id == "SkullMesh"){
+              controls.setLookAt(0, -160, 50, posx, posy, posz, true);
+              return
+            }else if(teeth_id == "Mandible"){
+              controls.setLookAt(0, -95, -15, posx, posy, posz, true);
+              return
+            }
+          
+            const teethIDS = teeth_id.split("_");
+          
+            if (teethIDS[1] == "17") {
+              controls.setLookAt(-49, -0.6, 10.44, posx, posy, posz, true);
+            } else if (teethIDS[1] == "27") {
+              controls.setLookAt(51, -0.6, 10.44, posx, posy, posz, true);
+            } else if (Number(teethIDS[1]) > 28) {
+              controls.setLookAt(2 * posx, 2 * posy, 0, posx, posy, posz, true);
+            } else {
+              controls.setLookAt(2 * posx, 2 * posy, 10.44, posx, posy, posz, true);
+            }
+            
             foundtooth = true;
           }
-        }
-        if (!foundtooth){
-          controls.reset(true);
         }
       });
     }
@@ -386,7 +420,7 @@ function Init() {
     1000 //distance from camera objects stops appearing
   );
 
-  camera.position.set(0, -128, 0); // Set position like this
+  camera.position.set(0, -128, 0);
   //camera.rotation.set(0, 100, 0);
   requestAnimationFrame(render);
   camera.updateProjectionMatrix();

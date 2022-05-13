@@ -13,11 +13,10 @@ type FileListProps = {
   addFile: Function;
   updateFile: Function;
   deleteFilecard: Function;
+  loggedFiles: IFile[];
 };
 
 export default function PatientInfo({ selected_patient }: FileListProps) {
-  const [image, setImage] = useState(false);
-
   return (
     <div className="">
       <div className="flex justify-center text-3xl">
@@ -61,6 +60,9 @@ export default function PatientInfo({ selected_patient }: FileListProps) {
           </p>
         </div>
       </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

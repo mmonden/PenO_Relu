@@ -5,7 +5,11 @@ import { useSession } from "next-auth/react";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import { AddForm } from "./addForm";
+<<<<<<< HEAD
 import { rgbToHex } from "@mui/material";
+=======
+import { GrAdd } from "react-icons/gr";
+>>>>>>> 7439296c079633f29b6ad20198b237759bbd8d18
 
 type PatientListProps = {
   patients_input: IPatient[];

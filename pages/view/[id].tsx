@@ -9,6 +9,7 @@ import {
   theline,
   Skull,
   Stlviewer,
+  camera,
 } from "../../components/stlviewer";
 import { removecolor } from "../../components/stlviewer";
 import { Navigation } from "../../components/NavBarPatient";
@@ -39,9 +40,14 @@ export default function Home({ file, files, patients }) {
         scene.remove(object);
       }
     }
-    controls.reset(true);
+    if (skullSelect) {
+      controls.setLookAt(0, -200, 50, 0, 100, 50, true);
+    } else {
+      controls.reset(true);
+    }
     setSelectedTooth("");
   };
+
   const onSwipe = () => {
     controls.moveTo(50, 50, 100, true);
   };

@@ -13,6 +13,17 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { AiOutlineClose, AiOutlineQuestionCircle } from "react-icons/ai";
 import YoutubePopUp from "./youtubePopUp";
 import Modal from "react-modal";
+import { ARButton } from "./ARbutton"
+import { renderer } from "./stlviewer";
+// import '@google/model-viewer'
+// import {
+//   ARImage,
+//   ModelViewer,
+//   ARButton,
+//   ARCarousel,
+//   ARLink,
+// } from '@real2u/react-ar-components'
+
 
 type FileListProps = {
   files_input: IFile[];
@@ -20,6 +31,8 @@ type FileListProps = {
   file: IFile;
   resetSTL: Function;
 };
+
+// const buttonAR = ARButton.createButton(renderer)
 
 const customStyles = {
   content: {

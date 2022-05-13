@@ -24,7 +24,7 @@ export default function HomePage({
   patients_input,
   files_input,
 }: HomePageProps) {
-  const [selectedPatient, setSelectedPatient] = useState(patients_input[0]);
+  const [selectedPatient, setSelectedPatient] = useState(null);
   const [files, setFiles] = useState(files_input);
   const [patients, setPatients] = useState(patients_input);
 
