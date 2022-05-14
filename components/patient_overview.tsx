@@ -74,7 +74,7 @@ export default function PatientList({
           )}
         </div>
       </div>
-      <div className="divide-y-2">
+      <div className="divide-y-2 h-screen overflow-y-auto overflow-x-auto ">
         {sortedPatients.map((patient, index) => {
           return (
             <PatientCard

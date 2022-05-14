@@ -140,37 +140,39 @@ export default function AnnotationCard({
 
   return (
     <div className="flex items-center">
-      <form
-        className="w-80 text-gray-700 px-3"
-        onSubmit={toggleEdit}
-        onClick={() => onAnnotation()}
-      >
-        <div className="text-2xl mb-2">
-          {editing ? (
-            <input
-              className="border-2"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && toggleEdit()}
-            />
-          ) : (
-            <div className="large">{title}</div>
-          )}
-        </div>
-        <div>
-          {editing ? (
-            <textarea
-              className="w-full border-2"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && toggleEdit()}
-            />
-          ) : (
-            <div className="small">{text}</div>
-          )}
-        </div>
-      </form>
+      <div className="overflow-x-auto">
+        <form
+          className="w-80 text-gray-700 px-3"
+          onSubmit={toggleEdit}
+          onClick={() => onAnnotation()}
+        >
+          <div className="text-2xl mb-2">
+            {editing ? (
+              <input
+                className="border-2"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && toggleEdit()}
+              />
+            ) : (
+              <div className="large">{title}</div>
+            )}
+          </div>
+          <div>
+            {editing ? (
+              <textarea
+                className="w-full border-2"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && toggleEdit()}
+              />
+            ) : (
+              <div className="small">{text}</div>
+            )}
+          </div>
+        </form>
+      </div>
       <div className="text-gray-700 text-xl flex items-center flex-col">
         <ToastContainer position="top-left" autoClose={8000} />
         <button className="m-2" onClick={toggleEdit}>

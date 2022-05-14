@@ -57,13 +57,13 @@ export default function NavBarHome({
     <div>
       <Navbar className="bg-gray-200 h-12 flex space-x-4" expand="lg">
         <Container className="container-fluid min-w-full">
-          <div className="pl-2 pr-4 pt-2">
+          <div className="pl-1 pr-4 pt-1">
             <Image
               src={require("./images/relu-logo-small.png")}
               className=""
               alt="Logo"
-              width={70}
-              height={44}
+              width={95}
+              height={45}
             />
           </div>
           <Nav className="me-auto space-x-4">

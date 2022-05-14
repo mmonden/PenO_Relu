@@ -102,7 +102,6 @@ export default function AnnotationBar({
           style={{
             height: "calc(100vh - 48px)",
             overflow: "scroll",
-            width: "380px",
           }}
         >
           <div className="relative min-w-full">

@@ -22,7 +22,7 @@ export default function Login() {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <div>
-        <img src="/relu.png" className="min-w-[100%] p-1 scale-75" alt="logo" />
+        <img src="/relu.png" width={400} height={180} alt="logo" />
         <div className="border border-black p-5 rounded-md">
           <form
             onSubmit={handleLogin}

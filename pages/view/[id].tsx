@@ -79,7 +79,7 @@ export default function Home({ file, files, patients }) {
         />
       </div>
       {skullSelect ? <Skull select={true} /> : <Skull select={false} />}
-      <div className="absolute top-12">
+      <div className="absolute top-12" style={{ width: "40%" }}>
         <AnnotationBar
           file={file}
           setAnnoClick={setAnnoClick}

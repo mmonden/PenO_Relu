@@ -88,7 +88,10 @@ export default function FileCard({
 
   return (
     <div className="relative text-gray-700 text-2xl">
-      <div className="flex items-center space-x-2">
+      <div
+        className="flex items-center space-x-2 overflow-x-auto"
+        style={{ width: "90%" }}
+      >
         <a
           href={editing ? "#" : `/view/${file._id}`}
           style={{ textDecoration: "none", color: "black" }}

@@ -92,7 +92,7 @@ export default function HomePage({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden space-y-1 h-screen">
+    <div className="flex flex-col space-y-1 overflow-clip h-screen">
       <div className="w-full">
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
@@ -108,7 +108,7 @@ export default function HomePage({
           />
         </div>
 
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full overflow-y-auto overflow-x-auto max-h-screen">
           <div className="bg-gray-200">
             <PatientInfo
               selected_patient={selectedPatient}

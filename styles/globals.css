@@ -44,3 +44,7 @@ svg:hover {
 .small {
   font-size: small;
 }
+
+.scroll {
+  overflow: scroll;
+}
