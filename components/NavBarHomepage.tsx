@@ -61,8 +61,8 @@ export default function NavBarHome({
               src={require("./images/relu-logo-small.png")}
               className=""
               alt="Logo"
-              width={120}
-              height={50}
+              width={70}
+              height={44}
             />
           </div>
           <Nav className="me-auto space-x-4">
