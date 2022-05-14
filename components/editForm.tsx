@@ -113,7 +113,6 @@ export const EditForm = ({
               value={birthdate}
               onChange={(event) => setBirthDate(event.target.value)}
               required
-              defaultValue={patient.birth}
             />
           </Form.Group>
           <Form.Group>

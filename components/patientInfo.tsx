@@ -13,15 +13,16 @@ type FileListProps = {
   addFile: Function;
   updateFile: Function;
   deleteFilecard: Function;
-  loggedFiles: IFile[];
 };
 
 export default function PatientInfo({ selected_patient }: FileListProps) {
   return (
     <div className="">
-      <div className="flex justify-center text-3xl">Profiel</div>
+      <div className="flex justify-center border-b-2 border-gray-400">
+        <div className="xxlarge">Profiel</div>
+      </div>
       {selected_patient != undefined ? (
-        <div className="flex flex-row h-5/6 min-w-full bottom-0 space-x-10">
+        <div className="flex flex-row h-5/6 min-w-full bottom-0 space-x-10 pt-2 pb-2">
           <div className="flex items-center pl-4">
             {typeof selected_patient.picture != "undefined" &&
             selected_patient.picture != "" ? (

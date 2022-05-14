@@ -68,12 +68,11 @@ export default function AnnotationCard({
   };
 
   const toggleEdit = () => {
-    if (editing && typeof card.position == 'undefined') {
+    if (editing && typeof card.position == "undefined") {
       toast.error("Selecteer eerst een tand en sla dan opnieuw op.", {
         className: "text-lg",
       });
-    }
-    else {
+    } else {
       if (editing && (title != card.title || text != card.text)) {
         card.title = title;
         card.text = text;
@@ -156,7 +155,7 @@ export default function AnnotationCard({
               onKeyDown={(e) => e.key === "Enter" && toggleEdit()}
             />
           ) : (
-            title
+            <div className="large">{title}</div>
           )}
         </div>
         <div>
@@ -168,22 +167,23 @@ export default function AnnotationCard({
               onKeyDown={(e) => e.key === "Enter" && toggleEdit()}
             />
           ) : (
-            text
+            <div className="small">{text}</div>
           )}
         </div>
       </form>
-      <div className="text-gray-700 text-2xl flex items-center flex-col">
+      <div className="text-gray-700 text-xl flex items-center flex-col">
         <ToastContainer position="top-left" autoClose={8000} />
         <button className="m-2" onClick={toggleEdit}>
-          {(editing && typeof card.position == 'undefined') ?
+          {editing && typeof card.position == "undefined" ? (
             <AiOutlineSave />
-            :
-            ((editing && typeof card.position != 'undefined') ?
-              <AiOutlineSave /> : <AiOutlineEdit />)
-          }
+          ) : editing && typeof card.position != "undefined" ? (
+            <AiOutlineSave />
+          ) : (
+            <AiOutlineEdit />
+          )}
         </button>
         {isOpen ? (
-          <Modal isOpen={isOpen} style={customStyles}>
+          <Modal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
             <DeleteModal
               open={isOpen}
               onClose={() => setIsOpen(false)}
@@ -193,7 +193,7 @@ export default function AnnotationCard({
           </Modal>
         ) : (
           <button onClick={() => setIsOpen(true)}>
-            <AiOutlineDelete className="w-7 h-7" />
+            <AiOutlineDelete className="text-xl" />
           </button>
         )}
       </div>

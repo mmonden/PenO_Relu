@@ -105,13 +105,15 @@ export default function AnnotationBar({
             width: "380px",
           }}
         >
-          <div id="header_annobar" className="flex justify-center items-center">
-            <div className="flex justify-center text-5xl my-4 border-b-2 border-black h-fit pb-4">
-              Annotaties
+          <div className="relative min-w-full">
+            <div className="flex pl-4 border-b-2 border-gray-400">
+              <div className="xxlarge">Annotaties</div>
+              <div className="absolute right-0 top-4">
+                <button onClick={newCard}>
+                  <GrAdd className="text-xl mx-4 text-gray-700" />
+                </button>
+              </div>
             </div>
-            <button onClick={newCard}>
-              <GrAdd className="text-3xl mx-4 text-gray-700" />
-            </button>
           </div>
           <div className="divide-y-2 ">
             {cards.map((card, index) => {

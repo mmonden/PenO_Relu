@@ -98,7 +98,7 @@ export default function HomePage({
       </div>
 
       <div className="flex flex-row space-x-5 px-2">
-        <div className="">
+        <div className="h-fit">
           <PatientList
             patients_input={patients}
             changePatient={changePatient}

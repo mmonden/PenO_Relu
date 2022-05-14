@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
+import { Form } from "react-bootstrap";
 
 const customStyles = {
   content: {
@@ -40,6 +41,7 @@ export default function FileCard({
   const [editing, setEdit] = useState(file.new);
   const [title, setTitle] = useState(file.title);
   const [isOpen, setIsOpen] = useState(false);
+  const [scanDate, setScanDate] = useState(file.scanDate);
 
   const onDelete = () => {
     deleteFile(file._id);
@@ -64,8 +66,9 @@ export default function FileCard({
   };
 
   const toggleEdit = () => {
-    if (editing && title != file.title) {
+    if (editing && (title != file.title || scanDate != file.scanDate)) {
       file.title = title;
+      file.scanDate = scanDate;
 
       fetch("/api/update_file", {
         method: "POST",
@@ -87,39 +90,57 @@ export default function FileCard({
     <div className="relative text-gray-700 text-2xl">
       <div className="flex items-center space-x-2">
         <a
-          href={editing ? "javascript: void(0)" : `/view/${file._id}`}
+          href={editing ? "#" : `/view/${file._id}`}
           style={{ textDecoration: "none", color: "black" }}
         >
-            <div className="flex items-center">
-              <AiFillFile className="text-5xl" />
+          <div className="flex items-center">
+            <AiFillFile className="text-3xl" />
 
-              <div className="p-4 text-gray-700">
-                <div className="text-3xl flex left-0">
-                  {editing ? (
+            <div className="pl-2 pt-2 pb-2 text-gray-700">
+              <div className="flex left-0">
+                {editing ? (
+                  <div className="flex flex-row space-x-2">
                     <input
                       className="border-2"
                       type="text"
                       value={title}
+                      placeholder="Onderwerp"
                       onChange={(e) => setTitle(e.target.value)}
                     />
-                  ) : (
-                    title
-                  )}
-                </div>
+                    <Form.Group>
+                      <Form.Control
+                        type="date"
+                        value={scanDate}
+                        onChange={(event) => setScanDate(event.target.value)}
+                        required
+                      />
+                    </Form.Group>
+                  </div>
+                ) : (
+                  <div className="space-x-4 flex flex-row bottom-0">
+                    <div className="xlarge">{title}</div>
+                    {scanDate == undefined ? (
+                      true
+                    ) : (
+                      <div className="text-gray-500 large">{scanDate}</div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
+          </div>
         </a>
       </div>
       <div className="absolute flex right-0 min-h-full top-0 space-x-2">
         <button onClick={toggleEdit}>
           {editing ? (
-            <AiOutlineSave className="text-3xl" />
+            <AiOutlineSave className="text-2xl" />
           ) : (
-            <AiOutlineEdit className="text-3xl" />
+            <AiOutlineEdit className="text-2xl" />
           )}
         </button>
         {isOpen ? (
-          <Modal isOpen={isOpen} style={customStyles}>
+          <Modal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
             <DeleteModal
               open={isOpen}
               onClose={() => setIsOpen(false)}
@@ -129,7 +150,7 @@ export default function FileCard({
           </Modal>
         ) : (
           <button onClick={() => setIsOpen(true)}>
-            <AiOutlineDelete className="text-3xl" />
+            <AiOutlineDelete className="text-2xl" />
           </button>
         )}
       </div>

@@ -6,6 +6,7 @@ import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import { AddForm } from "./addForm";
 import { rgbToHex } from "@mui/material";
+import { height } from "@mui/system";
 
 type PatientListProps = {
   patients_input: IPatient[];
@@ -42,7 +43,6 @@ export default function PatientList({
   };
 
   const newPatient = (new_patient) => {
-    console.log(new_patient);
     fetch("/api/update_patient", {
       method: "POST",
       body: JSON.stringify({ new_patient }),
@@ -50,30 +50,32 @@ export default function PatientList({
         "Content-Type": "application/json",
       },
     });
-    console.log("saved");
     setPatient([...patients, new_patient]);
     addPatient(new_patient);
   };
 
+  const sortedPatients = []
+    .concat(patients)
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
+
   return (
     <div className="relative">
-      <div className="flex justify-center items-center">
-        <p1>Patiënten</p1>
-        <div className="absolute right-0">
+      <div className="flex justify-center items-center border-b-2">
+        <div className="xxlarge">Patiënten</div>
+        <div className="absolute right-0 flex justify-center">
           {isOpen ? (
-            <Modal isOpen={isOpen} style={customStyles}>
+            <Modal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
               <AddForm setIsOpen={setIsOpen} newPatient={newPatient} />
             </Modal>
           ) : (
             <button onClick={() => setIsOpen(true)}>
-              <MdAdd className="text-3xl" style={{"strokeWidth": "0"}} />
+              <MdAdd className="text-3xl" style={{ strokeWidth: "0" }} />
             </button>
           )}
         </div>
       </div>
-
       <div className="divide-y-2">
-        {patients.map((patient, index) => {
+        {sortedPatients.map((patient, index) => {
           return (
             <PatientCard
               key={Object(patient._id)}

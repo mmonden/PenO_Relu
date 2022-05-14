@@ -72,49 +72,51 @@ export default function PatientCard({
   };
 
   return (
-    <div className="relative text-gray-700 text-2xl">
-        <div className="flex items-center space-x-2 w-full">
-          <button onClick={setPatient}>
-            <a>
-              <div className="flex items-center">
-                <AiFillFolder className="text-5xl" />
-                <div className="w-80 p-4 text-gray-700">
-                  <div className="text-3xl flex left-0">{patient.name}</div>
+    <div className="relative text-gray-700">
+      <div className="flex items-center space-x-2 w-full">
+        <button onClick={setPatient}>
+          <a>
+            <div className="flex items-center">
+              <AiFillFolder className="text-3xl" />
+              <div className="w-80 pl-4 pt-2 pb-2 text-gray-700">
+                <div className="flex left-0">
+                  <div className="xlarge">{patient.name}</div>
                 </div>
               </div>
-            </a>
-          </button>
-          <button >
-            {editOpen ? (
-              <Modal isOpen={editOpen} style={customStyles}>
-                <EditForm
-                  setIsOpen={setEditOpen}
-                  updatePatient={updatePatient}
-                  patient={patient}
-                />
-              </Modal>
-            ) : (
-              <AiOutlineEdit
-                onClick={() => setEditOpen(true)}
-                className="text-3xl"
+            </div>
+          </a>
+        </button>
+        <button>
+          {editOpen ? (
+            <Modal isOpen={editOpen} style={customStyles} ariaHideApp={false}>
+              <EditForm
+                setIsOpen={setEditOpen}
+                updatePatient={updatePatient}
+                patient={patient}
               />
-            )}
-          </button>
-          {isOpen ? (
-            <Modal isOpen={isOpen} style={customStyles}>
-              <DeleteModal
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                onDelete={onDelete}
-                string={"Wilt u deze patiënt verwijderen?"}
-              ></DeleteModal>
             </Modal>
           ) : (
-            <button onClick={() => setIsOpen(true)}>
-              <AiOutlineDelete className="text-3xl" />
-            </button>
+            <AiOutlineEdit
+              onClick={() => setEditOpen(true)}
+              className="text-2xl"
+            />
           )}
-        </div>
+        </button>
+        {isOpen ? (
+          <Modal isOpen={isOpen} style={customStyles} ariaHideApp={false}>
+            <DeleteModal
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              onDelete={onDelete}
+              string={"Wilt u deze patiënt verwijderen?"}
+            ></DeleteModal>
+          </Modal>
+        ) : (
+          <button onClick={() => setIsOpen(true)}>
+            <AiOutlineDelete className="text-2xl" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }

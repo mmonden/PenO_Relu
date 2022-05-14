@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import SelectInput from "@mui/material/Select/SelectInput";
 import { Typeahead } from "react-bootstrap-typeahead";
 import {
   Button,
@@ -16,7 +15,7 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { IFile, ICard, IPatient } from "../types";
+import { IPatient } from "../types";
 import { AiOutlineQuestionCircle, AiOutlineClose } from "react-icons/ai";
 import YoutubePopUp from "./youtubePopUp";
 import Modal from "react-modal";
@@ -48,6 +47,8 @@ export default function NavBarHome({
     patientsNames.push(patient.name);
   });
 
+  const sortedNames = [].concat(patientsNames).sort((a, b) => (a > b ? 1 : -1));
+
   const handleClick = () => {
     const patient = patients.filter((patient) => patient.name == inputName[0]);
     changePatient(patient[0]);
@@ -70,7 +71,8 @@ export default function NavBarHome({
               <Typeahead
                 id="basic-typeahead-single"
                 labelKey="name"
-                options={patientsNames}
+                maxHeight="110px"
+                options={sortedNames}
                 onChange={(event) => setInputName(event)}
                 selected={inputName}
               />
@@ -96,7 +98,7 @@ export default function NavBarHome({
           </Nav>
         </Container>
       </Navbar>
-      <Modal isOpen={youtubeClick} style={customStyles}>
+      <Modal isOpen={youtubeClick} style={customStyles} ariaHideApp={false}>
         <div className="relative">
           <div className="absolute -right-4 -top-4">
             <AiOutlineClose onClick={() => setYoutubeClick(false)} />

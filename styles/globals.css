@@ -29,6 +29,18 @@ svg:hover {
   stroke-width: 2;
 }
 
-p1 {
+.xxlarge {
   font-size: xx-large;
+}
+
+.xlarge {
+  font-size: x-large;
+}
+
+.large {
+  font-size: large;
+}
+
+.small {
+  font-size: small;
 }

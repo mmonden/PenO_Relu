@@ -51,6 +51,7 @@ export interface IFile {
   card_ids: ObjectId[];
   cards?: ICard[];
   new?: boolean;
+  scanDate: string;
 }
 
 export interface IPatient {
