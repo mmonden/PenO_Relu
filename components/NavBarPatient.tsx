@@ -83,8 +83,8 @@ export const Navigation = ({
                 src={require("./images/relu-logo-small.png")}
                 className=""
                 alt="Logo"
-                width={120}
-                height={50}
+                width={70}
+                height={44}
               />
             </button>
           </div>
