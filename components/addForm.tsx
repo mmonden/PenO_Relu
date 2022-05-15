@@ -43,8 +43,14 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
   };
 
   const onClick = () => {
-    onSubmit();
-    setIsOpen(false);
+    if (name != "") {
+      onSubmit();
+      setIsOpen(false);
+    } else {
+      toast.error("De naam van een patient kan niet leeg zijn.", {
+        className: "text-lg",
+      });
+    }
   };
 
   const btnClicked = (name) => {
@@ -57,7 +63,7 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
       setImageFile(file);
       setCanSubmit(true);
     } else {
-      toast.error("Selected file is not an image or the size is too large", {
+      toast.error("Het geselecteerde bestand is te groot of is geen foto.", {
         className: "text-lg",
       });
       setCanSubmit(false);

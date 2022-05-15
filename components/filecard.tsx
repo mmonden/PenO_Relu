@@ -11,6 +11,8 @@ import { useState } from "react";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
 import { Form } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const customStyles = {
   content: {
@@ -66,21 +68,27 @@ export default function FileCard({
   };
 
   const toggleEdit = () => {
-    if (editing && (title != file.title || scanDate != file.scanDate)) {
-      file.title = title;
-      file.scanDate = scanDate;
-
-      fetch("/api/update_file", {
-        method: "POST",
-        body: JSON.stringify({ file }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    if (title == "") {
+      toast.error("De titel van een scan kan niet leeg zijn.", {
+        className: "text-lg",
       });
+    } else {
+      if (editing && (title != file.title || scanDate != file.scanDate)) {
+        file.title = title;
+        file.scanDate = scanDate;
+
+        fetch("/api/update_file", {
+          method: "POST",
+          body: JSON.stringify({ file }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+      setEdit(!editing);
+      file.new = !editing;
+      updateFile(file);
     }
-    setEdit(!editing);
-    file.new = !editing;
-    updateFile(file);
 
     //Hier moet dan nog die extra code komen voor de database (zie bij annatations)
     //Api voor gebruiken? --> zoek eens op --> niet helemaal zeker van
@@ -88,6 +96,7 @@ export default function FileCard({
 
   return (
     <div className="relative text-gray-700 text-2xl">
+      <ToastContainer position="top-left" autoClose={6000} />
       <div
         className="flex items-center space-x-2 overflow-x-auto"
         style={{ width: "90%" }}

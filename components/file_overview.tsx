@@ -5,6 +5,7 @@ import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid";
 import { signOut } from "next-auth/react";
 import { MdAdd } from "react-icons/md";
+import { title } from "process";
 
 type FileListProps = {
   files_input: IFile[];
@@ -62,7 +63,7 @@ export default function FileList({
         <div className="xxlarge">Scans</div>
 
         {selected_patient != null ? (
-          <button onClick={newFile}>
+          <button onClick={() => newFile()}>
             <MdAdd
               className="text-3xl absolute bottom-2 right-8"
               style={{ strokeWidth: "0" }}
