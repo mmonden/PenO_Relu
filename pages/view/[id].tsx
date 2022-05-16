@@ -79,7 +79,7 @@ export default function Home({ file, files, patients }) {
         />
       </div>
       {skullSelect ? <Skull select={true} /> : <Skull select={false} />}
-      <div className="absolute top-12" style={{ width: "40%" }}>
+      <div className="absolute top-12" style={{ width: "30%" }}>
         <AnnotationBar
           file={file}
           setAnnoClick={setAnnoClick}
@@ -89,7 +89,7 @@ export default function Home({ file, files, patients }) {
       </div>
       <div
         className="absolute right-0 top-12"
-        style={{ height: "calc(100vh - 48px)" }}
+        style={{ height: "calc(100vh - 48px)", width: "30%" }}
       >
         <Sidebar
           states={states_dict}

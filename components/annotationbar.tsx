@@ -98,10 +98,9 @@ export default function AnnotationBar({
     <div className="flex items-center">
       {!swiped ? (
         <div
-          className="border-black bg-gray-100 border flex flex-col items-center"
+          className="border-black bg-gray-100 border flex flex-col items-center overflow-y-auto overflow-x-auto"
           style={{
             height: "calc(100vh - 48px)",
-            overflow: "scroll",
           }}
         >
           <div className="relative min-w-full">

@@ -38,10 +38,7 @@ const Sidebar = ({
           <button onClick={() => onSwipe()}>
             <Back value={swiped} />
           </button>
-          <div
-            className="flex flex-col divide-y-2 divide-gray-300"
-            style={{ width: "370px", overflow: "scroll" }}
-          >
+          <div className="flex flex-col divide-y-2 divide-gray-300 overflow-y-auto overflow-x-auto">
             <div className="h-full bg-gray-100 pb-2">
               <Anatomy
                 states={states}

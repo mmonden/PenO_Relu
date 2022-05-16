@@ -98,7 +98,7 @@ export default function HomePage({
       </div>
 
       <div className="flex flex-row overflow-hidden space-x-5 px-2">
-        <div className="overflow-scroll" style={{ width: "30%" }}>
+        <div className="overflow-y-auto" style={{ width: "30%" }}>
           <PatientList
             patients_input={patients}
             changePatient={changePatient}

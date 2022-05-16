@@ -122,8 +122,8 @@ export default function FileCard({
                     <Form.Group>
                       <Form.Control
                         type="date"
-                        value={scanDate}
                         placeholder="Datum"
+                        value={scanDate}
                         onChange={(event) => setScanDate(event.target.value)}
                         required
                       />

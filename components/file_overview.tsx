@@ -55,7 +55,10 @@ export default function FileList({
 
   const sortedFiles = []
     .concat(files)
-    .sort((a, b) => (a.scanDate > b.scanDate ? -1 : 1));
+    .sort((a, b) => (a.scanDate > b.scanDate ? -1 : 1))
+    .sort((a) => (a.new == true ? -1 : 1));
+
+  console.log(sortedFiles);
 
   return (
     <div className="">
