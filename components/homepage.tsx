@@ -92,13 +92,13 @@ export default function HomePage({
   };
 
   return (
-    <div className="flex flex-col space-y-1 overflow-clip h-screen">
+    <div className="flex flex-col space-y-1 overflow-hidden h-screen">
       <div className="w-full">
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
 
-      <div className="flex flex-row space-x-5 px-2">
-        <div className="h-fit">
+      <div className="flex flex-row overflow-hidden space-x-5 px-2">
+        <div className="overflow-scroll">
           <PatientList
             patients_input={patients}
             changePatient={changePatient}
@@ -108,7 +108,7 @@ export default function HomePage({
           />
         </div>
 
-        <div className="flex flex-col w-full overflow-y-auto overflow-x-auto max-h-screen">
+        <div className="flex flex-col overflow-y-auto">
           <div className="bg-gray-200">
             <PatientInfo
               selected_patient={selectedPatient}

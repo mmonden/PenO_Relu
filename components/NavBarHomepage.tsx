@@ -81,7 +81,7 @@ export default function NavBarHome({
               </Button>
             </Form>
           </Nav>
-          <Nav className="flex right-0">
+          <Nav className="flex"> 
             <div className="flex items-center">
               <AiOutlineQuestionCircle
                 size={28}

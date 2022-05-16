@@ -59,7 +59,7 @@ export default function PatientList({
     .sort((a, b) => (a.name > b.name ? 1 : -1));
 
   return (
-    <div className="relative">
+    <div className="relative overflow-y-auto">
       <div className="flex justify-center items-center border-b-2">
         <div className="xxlarge">Patiënten</div>
         <div className="absolute right-0 flex justify-center">
@@ -74,19 +74,19 @@ export default function PatientList({
           )}
         </div>
       </div>
-      <div className="divide-y-2 h-screen overflow-y-auto overflow-x-auto ">
-        {sortedPatients.map((patient, index) => {
-          return (
-            <PatientCard
-              key={Object(patient._id)}
-              patient={patient}
-              deletePatient={deletePatient}
-              changePatient={changePatient}
-              updatePatient={updatePatient}
-              deletePatientCard={deletePatientCard}
-            />
-          );
-        })}
+      <div className="divide-y-2 overflow-hidden">
+          {sortedPatients.map((patient, index) => {
+            return (
+              <PatientCard
+                key={Object(patient._id)}
+                patient={patient}
+                deletePatient={deletePatient}
+                changePatient={changePatient}
+                updatePatient={updatePatient}
+                deletePatientCard={deletePatientCard}
+              />
+            );
+          })}
       </div>
     </div>
   );
