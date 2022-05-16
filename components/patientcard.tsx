@@ -72,13 +72,13 @@ export default function PatientCard({
   };
 
   return (
-    <div className="relative text-gray-700">
-      <div className="flex items-center space-x-2">
+    <div className="relative text-gray-700 flex flex-row">
+      <div className="items-center space-x-2">
         <button onClick={setPatient}>
           <a>
             <div className="flex items-center">
               <AiFillFolder className="text-2xl" />
-              <div className="w-80 pl-4 pt-2 pb-2 text-gray-700 overflow-x-auto">
+              <div className="pl-4 pt-2 pb-2 text-gray-700 overflow-x-auto">
                 <div className="flex left-0">
                   <div className="xlarge">{patient.name}</div>
                 </div>
@@ -86,6 +86,8 @@ export default function PatientCard({
             </div>
           </a>
         </button>
+      </div>
+      <div className="absolute flex right-0" style={{ height: "100%" }}>
         <button>
           {editOpen ? (
             <Modal isOpen={editOpen} style={customStyles} ariaHideApp={false}>

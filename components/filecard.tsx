@@ -123,6 +123,7 @@ export default function FileCard({
                       <Form.Control
                         type="date"
                         value={scanDate}
+                        placeholder="Datum"
                         onChange={(event) => setScanDate(event.target.value)}
                         required
                       />
