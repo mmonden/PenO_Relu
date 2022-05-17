@@ -3,6 +3,7 @@ import Anatomy from "./Anatomy";
 import Display from "./Display";
 import { useState } from "react";
 import { IFile } from "../../types";
+import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 
 type SidebarProps = {
   setSkullSelect: Function;
@@ -11,6 +12,8 @@ type SidebarProps = {
   skullLoaded: boolean;
   file: IFile;
   selectedTooth: String;
+  sideSwipe: boolean;
+  setSideSwipe: Function;
 };
 
 const Sidebar = ({
@@ -20,23 +23,23 @@ const Sidebar = ({
   skullLoaded,
   file,
   selectedTooth,
+  sideSwipe,
+  setSideSwipe,
 }: SidebarProps) => {
-  const [swiped, setSwipe] = useState(false);
-
   const onSwipe = () => {
-    setSwipe(!swiped);
+    setSideSwipe(!sideSwipe);
   };
 
   return (
-    <div className="flex items-center">
-      {!swiped ? (
+    <div className="flex justify-end">
+      {!sideSwipe ? (
         <div
           id="main sidebar"
           className="flex flex-row"
           style={{ height: "calc(100vh - 48px)" }}
         >
           <button onClick={() => onSwipe()}>
-            <Back value={swiped} />
+            <Back value={sideSwipe} />
           </button>
           <div className="flex flex-col divide-y-2 divide-gray-300 overflow-y-auto overflow-x-auto">
             <div className="h-full bg-gray-100 pb-2">
@@ -55,11 +58,13 @@ const Sidebar = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-row" style={{ height: "calc(100vh - 48px)" }}>
+        <div
+          className="flex items-center"
+          style={{ height: "calc(100vh - 48px)" }}
+        >
           <button onClick={onSwipe}>
-            <Back value={swiped} />
+            <Back value={sideSwipe} />
           </button>
-          <div className="w-1/10 divide-y-2 divide-gray-400"></div>
         </div>
       )}
     </div>

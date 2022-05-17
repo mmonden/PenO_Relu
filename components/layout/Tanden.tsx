@@ -12,17 +12,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IFile } from "../../types";
 
 const onWisdom = (teeth_id) => {
-  if (dictPositions != undefined){
-
+  if (dictPositions != undefined) {
     if (dictPositions[teeth_id] == undefined) {
-      return false
+      return false;
     }
-  
-    return true
 
+    return true;
   }
-}
-
+};
 
 const onSwipe = (teeth_id) => {
   if (dictPositions[teeth_id] == undefined) {
@@ -77,11 +74,11 @@ const Tanden = ({
 }: TandenProps) => {
   const handleClick = () => {
     setSkullSelect(!skullSelect);
-    if (!skullSelect) {
-      controls.setLookAt(0, -200, 50, 0, 100, 50, true);
-    } else {
-      controls.setLookAt(0, -128, 0, 0, 0, 0, true);
-    }
+    // if (!skullSelect) {
+    //   controls.setLookAt(0, -200, 50, 0, 100, 50, true);
+    // } else {
+    //   controls.setLookAt(0, -128, 0, 0, 0, 0, true);
+    // }
   };
   return (
     <div className="justify-center items-center flex-col flex">

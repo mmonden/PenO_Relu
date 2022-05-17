@@ -22,6 +22,8 @@ type AnnotationBarProps = {
   setAnnoClick: Function;
   annoClick: boolean;
   setSelectedTooth: Function;
+  annoSwiped: boolean;
+  SetAnnoSwiped: Function;
 };
 
 export default function AnnotationBar({
@@ -29,8 +31,9 @@ export default function AnnotationBar({
   setAnnoClick,
   annoClick,
   setSelectedTooth,
+  annoSwiped,
+  SetAnnoSwiped,
 }: AnnotationBarProps) {
-  const [swiped, setSwipe] = useState<boolean>(false);
   const [cards, setCards] = useState<any>(file.cards);
 
   const deleteCard = (cardID: number) => {
@@ -91,19 +94,20 @@ export default function AnnotationBar({
   };
 
   const onSwipe = () => {
-    setSwipe(!swiped);
+    SetAnnoSwiped(!annoSwiped);
   };
 
   return (
     <div className="flex items-center">
-      {!swiped ? (
+      {!annoSwiped ? (
         <div
           className="border-black bg-gray-100 border flex flex-col items-center overflow-y-auto overflow-x-auto"
           style={{
             height: "calc(100vh - 48px)",
+            width: "70%",
           }}
         >
-          <div className="relative min-w-full">
+          <div className="relative min-w-full" style={{ width: "100%" }}>
             <div className="flex pl-4 border-b-2 border-gray-400">
               <div className="xxlarge">Annotaties</div>
               <div className="absolute right-0 top-4">
@@ -113,7 +117,7 @@ export default function AnnotationBar({
               </div>
             </div>
           </div>
-          <div className="divide-y-2 ">
+          <div className="divide-y-2" style={{ width: "100%" }}>
             {cards.map((card, index) => {
               return (
                 <AnnotationCard
@@ -136,7 +140,7 @@ export default function AnnotationBar({
         ></div>
       )}
       <button className="flex items-center text-4xl" onClick={onSwipe}>
-        {!swiped ? <AiOutlineLeftCircle /> : <AiOutlineRightCircle />}
+        {!annoSwiped ? <AiOutlineLeftCircle /> : <AiOutlineRightCircle />}
       </button>
     </div>
   );

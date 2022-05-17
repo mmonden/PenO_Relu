@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { IFile } from "../types";
+import { IFile, IPatient } from "../types";
 import {
   ClipboardCopyIcon,
   MailOpenIcon,
@@ -12,13 +12,9 @@ import PopUpShare from "./popUpShare";
 
 type FileCardProps = {
   file: IFile;
+  patients: IPatient[];
 };
 
-function GetURL({ file }: FileCardProps) {
-  const id = file._id;
-  let url = "relu-ano.vercel.app/view/" + id.toString();
-  return url;
-}
 const customStyles = {
   content: {
     top: "50%",
@@ -30,13 +26,18 @@ const customStyles = {
   },
 };
 
-const PopUp = ({ file }: FileCardProps) => {
+const PopUp = ({ file, patients }: FileCardProps) => {
+  console.log(patients);
   const [showPopUp, setShowPopUp] = useState(false);
   return (
     <div id="Button Container">
       {showPopUp ? (
-        <Modal isOpen={showPopUp} style={customStyles}>
-          <PopUpShare file={file} setShowPopUp={setShowPopUp} />
+        <Modal isOpen={showPopUp} style={customStyles} ariaHideApp={false}>
+          <PopUpShare
+            file={file}
+            patients={patients}
+            setShowPopUp={setShowPopUp}
+          />
         </Modal>
       ) : (
         <button

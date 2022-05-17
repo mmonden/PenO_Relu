@@ -4,19 +4,28 @@ import {
   XCircleIcon,
   XIcon,
 } from "@heroicons/react/outline";
-import { IFile } from "../types";
+import { IFile, IPatient } from "../types";
 
 type PopUpShareTypes = {
   file: IFile;
   setShowPopUp: Function;
+  patients: IPatient[];
 };
 
-export default function PopUpShare({ file, setShowPopUp }: PopUpShareTypes) {
+export default function PopUpShare({
+  file,
+  setShowPopUp,
+  patients,
+}: PopUpShareTypes) {
   const GetURL = () => {
     const id = file._id;
     let url = "relu-ano.vercel.app/view/" + id.toString();
     return url;
   };
+  const selectedPatient = patients.filter((patient) =>
+    patient.file_ids.includes(file._id)
+  )[0];
+
   return (
     <div>
       <div>
@@ -30,8 +39,11 @@ export default function PopUpShare({ file, setShowPopUp }: PopUpShareTypes) {
             <button
               onClick={() =>
                 window.open(
-                  "mailto:? &subject=Relu 3D image with annotations &body=Beste collega, \r\n Hierbij de link van patient : " +
-                    GetURL()
+                  "mailto:? &subject=AnnoSend 3D scan met annotaties &body=Beste collega,\r Hierbij de link naar de scan met toegevoegde annotaties. \rPatiënt: " +
+                    selectedPatient.name +
+                    "\r\n\r\n Link: " +
+                    GetURL() +
+                    "\r\n Met collegiale groeten"
                 )
               }
             >

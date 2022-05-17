@@ -139,10 +139,10 @@ export default function AnnotationCard({
   };
 
   return (
-    <div className="flex items-center">
-      <div className="overflow-x-auto">
+    <div className="flex items-center min-w-full">
+      <div className="w-80 overflow-x-auto">
         <form
-          className="w-80 text-gray-700 px-3"
+          className="text-gray-700 px-3"
           onSubmit={toggleEdit}
           onClick={() => onAnnotation()}
         >
