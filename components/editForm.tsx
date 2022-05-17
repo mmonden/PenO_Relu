@@ -55,7 +55,7 @@ export const EditForm = ({
       onSubmit();
       setIsOpen(false);
     } else {
-      toast.error("De naam van een patient kan niet leeg zijn.", {
+      toast.error("De naam van een patiënt kan niet leeg zijn.", {
         className: "text-lg",
       });
     }
@@ -71,7 +71,7 @@ export const EditForm = ({
       setImageFile(file);
       setCanSubmit(true);
     } else {
-      toast.error("Selected file is not an image or the size is too large", {
+      toast.error("Het geselecteerde bestand is te groot of is geen foto.", {
         className: "text-lg",
       });
       setCanSubmit(false);
@@ -81,7 +81,7 @@ export const EditForm = ({
   return (
     <div>
       <div>
-        <ToastContainer position="top-left" autoClose={8000} />
+        {/* <ToastContainer position="top-left" autoClose={8000} /> */}
         <Form>
           <Form.Group>
             <Form.Label>Naam patiënt: </Form.Label>
@@ -89,7 +89,7 @@ export const EditForm = ({
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder={patient.name}
+              placeholder={"Naam"}
               required
             />
           </Form.Group>
@@ -115,7 +115,7 @@ export const EditForm = ({
             <Form.Label>Kies geboortedatum patiënt: </Form.Label>
             <Form.Control
               type="date"
-              placeholder={patient.birth}
+              placeholder={"Geboorte datum"}
               value={birthdate}
               onChange={(event) => setBirthDate(event.target.value)}
               required
@@ -125,7 +125,7 @@ export const EditForm = ({
             <Form.Label>Voeg extra informatie toe: </Form.Label>
             <Form.Control
               type="text"
-              placeholder={patient.extraInfo}
+              placeholder={"Extra info"}
               value={extraText}
               onChange={(event) => setExtraText(event.target.value)}
             />

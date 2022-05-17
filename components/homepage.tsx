@@ -1,14 +1,11 @@
 import PatientList from "./patient_overview";
 import FileList from "./file_overview";
 import { IFile, IPatient } from "../types";
-import { useState, useEffect } from "react";
-import { GrAdd } from "react-icons/gr";
-import { v4 as uuidv4 } from "uuid";
-import { useSession } from "next-auth/react";
-import { get } from "https";
+import { useState } from "react";
 import _ from "lodash";
 import NavBarHome from "./NavBarHomepage";
 import PatientInfo from "./patientInfo";
+import { ToastContainer } from "react-toastify";
 
 /*
 $ npm i -g npm
@@ -93,6 +90,7 @@ export default function HomePage({
 
   return (
     <div className="flex flex-col space-y-1 overflow-hidden h-screen min-w-screen">
+      <ToastContainer position="top-left" autoClose={8000} />
       <div className="w-full">
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>

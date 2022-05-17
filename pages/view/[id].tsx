@@ -84,7 +84,7 @@ export default function Home({ file, files, patients }) {
       {skullSelect ? <Skull select={true} /> : <Skull select={false} />}
       <div
         className="absolute top-12"
-        style={annoSwiped ? { width: "" } : { width: "35%" }}
+        style={annoSwiped ? { width: "" } : { width: "40%" }}
       >
         <AnnotationBar
           file={file}

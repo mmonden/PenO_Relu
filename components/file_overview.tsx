@@ -1,11 +1,8 @@
 import FileCard from "./filecard";
 import { IFile, IPatient } from "../types";
 import { useState, useEffect } from "react";
-import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid";
-import { signOut } from "next-auth/react";
 import { MdAdd } from "react-icons/md";
-import { title } from "process";
 
 type FileListProps = {
   files_input: IFile[];
@@ -57,8 +54,6 @@ export default function FileList({
     .concat(files)
     .sort((a, b) => (a.scanDate > b.scanDate ? -1 : 1))
     .sort((a) => (a.new == true ? -1 : 1));
-
-  console.log(sortedFiles);
 
   return (
     <div className="">

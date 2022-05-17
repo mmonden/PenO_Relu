@@ -27,7 +27,6 @@ const customStyles = {
 };
 
 const PopUp = ({ file, patients }: FileCardProps) => {
-  console.log(patients);
   const [showPopUp, setShowPopUp] = useState(false);
   return (
     <div id="Button Container">

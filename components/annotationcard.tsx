@@ -140,7 +140,7 @@ export default function AnnotationCard({
 
   return (
     <div className="flex items-center min-w-full">
-      <div className="w-80 overflow-x-auto">
+      <div className="overflow-x-auto" style={{ width: "100%" }}>
         <form
           className="text-gray-700 px-3"
           onSubmit={toggleEdit}

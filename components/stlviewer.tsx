@@ -19,7 +19,7 @@ import { Loader } from "react-bootstrap-typeahead";
 CameraControls.install({ THREE: THREE });
 
 const loader = new STLLoader();
-
+THREE.Cache.enabled = true;
 // Mandible material
 const materialMandible = new THREE.MeshPhongMaterial({
   color: 0xd3d3d3,
@@ -39,7 +39,7 @@ let dictPositions,
   first = [],
   sphere,
   theline;
-  renderer;
+renderer;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
@@ -234,6 +234,7 @@ export function LoadSkull(setSkullLoaded) {
 }
 
 const Skull = React.memo(function Skull({ select }: skullProps) {
+  THREE.Cache.enabled = true;
   if (select) {
     scene.add(skull[0]);
   } else {
@@ -355,29 +356,29 @@ const Stlviewer = React.memo(function Stlviewer({
           if (intersects[i].object instanceof THREE.Mesh && !foundtooth) {
             console.log("change camera", intersects[i].object.name); //Rob
 
-            var teeth_id = intersects[i].object.name
+            var teeth_id = intersects[i].object.name;
 
             if (dictPositions[teeth_id] == undefined) {
               alert("This object is not present");
               return;
             }
-          
+
             var posx = dictPositions[teeth_id].x;
             var posy = dictPositions[teeth_id].y;
             var posz = dictPositions[teeth_id].z;
 
-            console.log(teeth_id)
+            console.log(teeth_id);
 
-            if (teeth_id == "SkullMesh"){
+            if (teeth_id == "SkullMesh") {
               controls.setLookAt(0, -160, 50, posx, posy, posz, true);
-              return
-            }else if(teeth_id == "Mandible"){
+              return;
+            } else if (teeth_id == "Mandible") {
               controls.setLookAt(0, -95, -15, posx, posy, posz, true);
-              return
+              return;
             }
-          
+
             const teethIDS = teeth_id.split("_");
-          
+
             if (teethIDS[1] == "17") {
               controls.setLookAt(-49, -0.6, 10.44, posx, posy, posz, true);
             } else if (teethIDS[1] == "27") {
@@ -385,9 +386,17 @@ const Stlviewer = React.memo(function Stlviewer({
             } else if (Number(teethIDS[1]) > 28) {
               controls.setLookAt(2 * posx, 2 * posy, 0, posx, posy, posz, true);
             } else {
-              controls.setLookAt(2 * posx, 2 * posy, 10.44, posx, posy, posz, true);
+              controls.setLookAt(
+                2 * posx,
+                2 * posy,
+                10.44,
+                posx,
+                posy,
+                posz,
+                true
+              );
             }
-            
+
             foundtooth = true;
           }
         }
@@ -427,7 +436,7 @@ function Init() {
   camera.up.set(0, 0, 1);
 
   //RENDERER
-  renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -484,20 +493,19 @@ function filter(id) {
 //     scene,
 //     // called when the gltf has been generated
 //     function ( gltf ) {
-  
+
 //       console.log( gltf );
 //       downloadJSON( gltf );
-  
+
 //     },
 //     // called when there is an error in the generation
 //     function ( error ) {
-  
+
 //       console.log( 'An error happened' );
-  
+
 //     },
 //     options
 //   );
-  
 
 // }
 // Parse the input and generate the glTF output

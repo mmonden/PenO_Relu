@@ -47,7 +47,7 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
       onSubmit();
       setIsOpen(false);
     } else {
-      toast.error("De naam van een patient kan niet leeg zijn.", {
+      toast.error("De naam van een patiënt kan niet leeg zijn.", {
         className: "text-lg",
       });
     }
@@ -72,7 +72,7 @@ export const AddForm = ({ setIsOpen, newPatient }: AddFormProps) => {
 
   return (
     <div>
-      <ToastContainer position="top-left" autoClose={8000} />
+      {/* <ToastContainer position="top-left" autoClose={8000} /> */}
       <div>
         <Form>
           <Form.Group>
