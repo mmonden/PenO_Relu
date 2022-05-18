@@ -96,6 +96,7 @@ export default function AnnotationCard({
       if (editing) {
         onDblClick(file);
       }
+      setSelectedTooth(file.selected.intersect);
       setEdit(editing ? false : true);
     }
   };
@@ -103,7 +104,7 @@ export default function AnnotationCard({
   const onDelete = () => {
     deleteCard(card._id);
     deleteAnnoCard();
-
+    setSelectedTooth("");
     fetch("/api/delete_anno", {
       method: "POST",
       body: JSON.stringify({ card }),
@@ -174,7 +175,6 @@ export default function AnnotationCard({
         </form>
       </div>
       <div className="text-gray-700 text-xl flex items-center flex-col">
-        <ToastContainer position="top-left" autoClose={8000} />
         <button className="m-2" onClick={toggleEdit}>
           {editing && typeof card.position == "undefined" ? (
             <AiOutlineSave />

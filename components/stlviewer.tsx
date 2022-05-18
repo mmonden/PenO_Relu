@@ -222,7 +222,6 @@ export function LoadSkull(setSkullLoaded) {
       skull.push(skullMesh);
       first.push(1);
       setSkullLoaded(true);
-      getAbsolutePosition(skullMesh, dictPositions);
     },
     (xhr) => {
       //Òconsole.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -234,9 +233,10 @@ export function LoadSkull(setSkullLoaded) {
 }
 
 const Skull = React.memo(function Skull({ select }: skullProps) {
-  THREE.Cache.enabled = true;
   if (select) {
+    THREE.Cache.enabled = true;
     scene.add(skull[0]);
+    getAbsolutePosition(skull[0], dictPositions);
   } else {
     if (first.length == 0) {
     } else {

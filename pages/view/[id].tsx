@@ -17,6 +17,7 @@ import { getSession } from "next-auth/react";
 import { getFiles } from "../../lib/annotations";
 import THREE, { Sprite } from "three";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function Home({ file, files, patients }) {
   const [skullSelect, setSkullSelect] = useState(false);
@@ -72,6 +73,7 @@ export default function Home({ file, files, patients }) {
   var states_dict = { TOOTH_11: onSwipe };
   return (
     <div className="flex relative w-screen h-screen">
+      <ToastContainer position="top-left" autoClose={5000} />
       <Stlviewer file={file} setSkullLoaded={setSkullLoaded} />
       <div className="absolute w-full">
         <Navigation

@@ -90,7 +90,7 @@ export default function HomePage({
 
   return (
     <div className="flex flex-col space-y-1 overflow-hidden h-screen min-w-screen">
-      <ToastContainer position="top-left" autoClose={8000} />
+      <ToastContainer position="top-left" autoClose={5000} />
       <div className="w-full">
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>

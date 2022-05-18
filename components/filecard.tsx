@@ -96,7 +96,6 @@ export default function FileCard({
 
   return (
     <div className="relative text-gray-700 text-2xl">
-      <ToastContainer position="top-left" autoClose={6000} />
       <div
         className="flex items-center space-x-2 overflow-x-auto"
         style={{ width: "90%" }}

@@ -69,6 +69,7 @@ export default function AnnotationBar({
   };
 
   const newCard = () => {
+    setSelectedTooth("");
     const new_card: ICard = {
       _id: uuidv4(),
       title: "",
@@ -84,6 +85,7 @@ export default function AnnotationBar({
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
+    setSelectedTooth(file.selected.intersect);
     fetch("/api/update_file", {
       method: "POST",
       body: JSON.stringify({ file }),
