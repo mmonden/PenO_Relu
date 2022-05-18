@@ -24,6 +24,7 @@ type AnnotationBarProps = {
   setSelectedTooth: Function;
   annoSwiped: boolean;
   SetAnnoSwiped: Function;
+  selectedTooth: String;
 };
 
 export default function AnnotationBar({
@@ -33,6 +34,7 @@ export default function AnnotationBar({
   setSelectedTooth,
   annoSwiped,
   SetAnnoSwiped,
+  selectedTooth,
 }: AnnotationBarProps) {
   const [cards, setCards] = useState<any>(file.cards);
 
@@ -85,7 +87,6 @@ export default function AnnotationBar({
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
-    setSelectedTooth(file.selected.intersect);
     fetch("/api/update_file", {
       method: "POST",
       body: JSON.stringify({ file }),
@@ -130,6 +131,7 @@ export default function AnnotationBar({
                   setAnnoClick={setAnnoClick}
                   annoClick={annoClick}
                   setSelectedTooth={setSelectedTooth}
+                  selectedTooth={selectedTooth}
                 />
               );
             })}

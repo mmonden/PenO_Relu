@@ -95,6 +95,7 @@ export default function Home({ file, files, patients }) {
           setSelectedTooth={setSelectedTooth}
           annoSwiped={annoSwiped}
           SetAnnoSwiped={setAnnoSwiped}
+          selectedTooth={selectedTooth}
         />
       </div>
       <div

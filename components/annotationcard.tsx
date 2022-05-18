@@ -34,6 +34,7 @@ type AnnotationCardProps = {
   setAnnoClick: Function;
   annoClick: boolean;
   setSelectedTooth: Function;
+  selectedTooth: String;
 };
 
 export default function AnnotationCard({
@@ -41,6 +42,7 @@ export default function AnnotationCard({
   deleteCard,
   file,
   setSelectedTooth,
+  selectedTooth,
 }: AnnotationCardProps) {
   const [editing, setEdit] = useState(card.new);
   const [title, setTitle] = useState(card.title);
@@ -103,8 +105,12 @@ export default function AnnotationCard({
 
   const onDelete = () => {
     deleteCard(card._id);
-    deleteAnnoCard();
-    setSelectedTooth("");
+
+    if (card.intersect == selectedTooth) {
+      deleteAnnoCard();
+      setSelectedTooth("");
+    }
+
     fetch("/api/delete_anno", {
       method: "POST",
       body: JSON.stringify({ card }),
