@@ -14,6 +14,7 @@ type PatientListProps = {
   addPatient: Function;
   updatePatient: Function;
   deletePatientCard: Function;
+  setSelectedPatient: Function;
 };
 
 const customStyles = {
@@ -33,6 +34,7 @@ export default function PatientList({
   addPatient,
   updatePatient,
   deletePatientCard,
+  setSelectedPatient,
 }: PatientListProps) {
   const [patients, setPatient] = useState(patients_input);
   const [isOpen, setIsOpen] = useState(false);
@@ -75,18 +77,19 @@ export default function PatientList({
         </div>
       </div>
       <div className="divide-y-2 overflow-hidden">
-          {sortedPatients.map((patient, index) => {
-            return (
-              <PatientCard
-                key={Object(patient._id)}
-                patient={patient}
-                deletePatient={deletePatient}
-                changePatient={changePatient}
-                updatePatient={updatePatient}
-                deletePatientCard={deletePatientCard}
-              />
-            );
-          })}
+        {sortedPatients.map((patient, index) => {
+          return (
+            <PatientCard
+              key={Object(patient._id)}
+              patient={patient}
+              deletePatient={deletePatient}
+              changePatient={changePatient}
+              updatePatient={updatePatient}
+              deletePatientCard={deletePatientCard}
+              setSelectedPatient={setSelectedPatient}
+            />
+          );
+        })}
       </div>
     </div>
   );

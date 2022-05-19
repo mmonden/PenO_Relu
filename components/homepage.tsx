@@ -103,6 +103,7 @@ export default function HomePage({
             addPatient={addPatient}
             updatePatient={updatePatient}
             deletePatientCard={deletePatient}
+            setSelectedPatient={setSelectedPatient}
           />
         </div>
 

@@ -4,7 +4,7 @@ export default function YoutubePopUp({ timeStamp }) {
   return (
     <div>
       <iframe
-        src={"https://www.youtube.com/embed/iG1ywf5i4Zk?start=" + timeStamp}
+        src={" https://www.youtube.com/embed/b6KXW6WmDPs?start=" + timeStamp}
         frameBorder="0"
         allow="autoplay; encrypted-media"
         allowFullScreen

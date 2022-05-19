@@ -24,6 +24,7 @@ type PatientCardProps = {
   changePatient: Function;
   updatePatient: Function;
   deletePatientCard: Function;
+  setSelectedPatient: Function;
 };
 
 export default function PatientCard({
@@ -32,6 +33,7 @@ export default function PatientCard({
   changePatient,
   updatePatient,
   deletePatientCard,
+  setSelectedPatient,
 }: PatientCardProps) {
   const [editing, setEdit] = useState(patient.new);
   const [name, setName] = useState(patient.name);
@@ -48,6 +50,7 @@ export default function PatientCard({
       },
     });
     deletePatientCard(patient);
+    setSelectedPatient(null);
   };
 
   const setPatient = () => {
