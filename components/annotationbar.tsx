@@ -100,6 +100,8 @@ export default function AnnotationBar({
     SetAnnoSwiped(!annoSwiped);
   };
 
+  const sortedCards = [].concat(cards).sort((a) => (a.new == true ? -1 : 1));
+
   return (
     <div className="flex items-center">
       {!annoSwiped ? (
@@ -121,7 +123,7 @@ export default function AnnotationBar({
             </div>
           </div>
           <div className="divide-y-2" style={{ width: "100%" }}>
-            {cards.map((card, index) => {
+            {sortedCards.map((card, index) => {
               return (
                 <AnnotationCard
                   key={card._id}
