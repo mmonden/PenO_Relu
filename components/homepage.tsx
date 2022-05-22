@@ -1,11 +1,13 @@
 import PatientList from "./patient_overview";
 import FileList from "./file_overview";
 import { IFile, IPatient } from "../types";
-import { useState } from "react";
+import React, { useState } from "react";
 import _ from "lodash";
 import NavBarHome from "./NavBarHomepage";
 import PatientInfo from "./patientInfo";
 import { ToastContainer } from "react-toastify";
+import { ARCanvas, DefaultXRControllers } from "@react-three/xr";
+import { Button } from "react-bootstrap";
 
 /*
 $ npm i -g npm

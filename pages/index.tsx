@@ -13,7 +13,6 @@ export default function Overview({ patients, files }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-
   const session = await getSession(ctx);
 
   const patients: IPatient = await getPatients();

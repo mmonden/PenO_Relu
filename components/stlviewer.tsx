@@ -15,6 +15,7 @@ import { makeTextSprite } from "./makeTextSprite";
 import CameraControls from "../camera-controls";
 import React from "react";
 import { Loader } from "react-bootstrap-typeahead";
+import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
 
 CameraControls.install({ THREE: THREE });
 
@@ -460,7 +461,7 @@ function anim() {
   render();
 }
 
-function render() {
+export function render() {
   followLight.position.copy(camera.position);
 
   //camera.lookAt(new THREE.Vector3(5, 0, -57.33));
